@@ -27,9 +27,10 @@ export async function POST(request: Request) {
     if (!(file instanceof File) || !appKey || !(kind in buckets)) return Response.json({ error: "Datei, App und Dateityp werden benötigt." }, { status: 400 });
     if (file.size > 50 * 1024 * 1024) return Response.json({ error: "Die Datei ist größer als 50 MB." }, { status: 413 });
     const bucket = buckets[kind];
+    const storageContentType = kind === "document" && !["application/pdf", "application/json", "text/plain"].includes(file.type) ? "text/plain" : file.type || "application/octet-stream";
     const bytes = await file.arrayBuffer();
     const objectPath = `${appKey}/${Date.now()}-${safeFileName(file.name)}`;
-    await supabaseStorage(`object/${bucket}/${objectPath}`, { method: "POST", headers: { "Content-Type": file.type || "application/octet-stream", "x-upsert": "false" }, body: bytes });
+    await supabaseStorage(`object/${bucket}/${objectPath}`, { method: "POST", headers: { "Content-Type": storageContentType, "x-upsert": "false" }, body: bytes });
     const metadata = { app_key: appKey, title: title || file.name, storage_path: `${bucket}/${objectPath}`, mime_type: file.type || null, file_size_bytes: file.size, sha256: await sha256(bytes) };
     if (kind === "screenshot") {
       await supabaseRest("app_screenshots", { method: "POST", body: JSON.stringify({ ...metadata, is_real_capture: true, captured_on: new Date().toLocaleDateString("de-DE"), metadata: { uploaded_by: chatgpt.userId } }) });
