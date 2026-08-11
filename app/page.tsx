@@ -257,6 +257,15 @@ function testTargetFor(tool: Tool) {
   return localHrefFor(tool) ?? quickStartFor(tool);
 }
 
+function accessProfileFor(tool: Tool) {
+  if (isGoogleStudio(tool)) return "Google-Anmeldung; aktive Sitzung im Browser";
+  if (tool.source === "GitHub") return "GitHub-Zugang je Repository; keine Zugangsdaten im Katalog gespeichert";
+  if (tool.url?.startsWith("https://")) return "Direktlink; Anmeldung nur falls die Ziel-App sie verlangt";
+  if (localHrefFor(tool)) return "Lokal auf diesem Rechner; keine Zugangsdaten im Katalog gespeichert";
+  if (tool.source === "Cloud") return "Cloud-Konto erforderlich; Zugangsdaten nicht im Katalog speichern";
+  return "Lokaler Ordnerzugang; keine Zugangsdaten im Katalog gespeichert";
+}
+
 function archiveFor(tool: Tool) {
   if (tool.archive) return tool.archive;
   if (tool.source === "GitHub" && tool.url) return tool.url;
@@ -409,7 +418,7 @@ function createdFor(tool: Tool) {
 }
 
 function localPortFor(tool: Tool) {
-  return localPorts[tool.id] ?? "Kein lokaler Web-Port dokumentiert";
+  return localPorts[tool.id] ?? "— (kein lokaler Port)";
 }
 
 function localHrefFor(tool: Tool) {
@@ -437,6 +446,7 @@ export default function Home() {
   const [status, setStatus] = useState<Status | "Alle">("Alle");
   const [builderFilter, setBuilderFilter] = useState<BuilderFilter>("Alle");
   const [sortBy, setSortBy] = useState<"created" | "status">("created");
+  const [showAllTools, setShowAllTools] = useState(false);
   const [testResults, setTestResults] = useState<Record<string, TestResult>>({});
   const [selectedId, setSelectedId] = useState("overview");
   const [panel, setPanel] = useState<DetailPanel>("masterdata");
@@ -533,6 +543,7 @@ export default function Home() {
   const fullyDocumented = allTools.filter((tool) => documentationStateFor(tool) === "Fertig dokumentiert");
   const partlyDocumented = allTools.filter((tool) => documentationStateFor(tool) === "Teilweise dokumentiert");
   const documentationRows = [...allTools].sort((a, b) => documentationStateFor(a).localeCompare(documentationStateFor(b), "de") || a.title.localeCompare(b.title, "de"));
+  const renderedTools = showAllTools ? filtered : filtered.slice(0, 24);
 
   return (
     <main className="app-shell">
@@ -580,7 +591,7 @@ export default function Home() {
           </div>
           <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? allTools.length : allTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
           <div className="tool-grid">
-            {filtered.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openTool(tool); }}>
+            {renderedTools.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openTool(tool); }}>
               <span className="card-top"><span className="source-marks"><ProviderIcon tool={tool} /><ClaudeSurfaceBadge tool={tool} /></span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
               <button className="card-select" onClick={(event) => { event.stopPropagation(); openTool(tool); }}><span className="tool-title">{tool.title}</span><span className="tool-description">{tool.description}</span></button>
               <span className="tool-meta">{tool.source} · {tool.category}</span>
@@ -604,6 +615,7 @@ export default function Home() {
               </span>
             </article>)}
           </div>
+          {filtered.length > renderedTools.length && <button type="button" className="load-more" onClick={() => setShowAllTools(true)}>Alle {filtered.length} Apps laden</button>}
         </div>
 
         <aside className="detail" aria-live="polite">
@@ -616,7 +628,7 @@ export default function Home() {
             <button className={panel === "architecture" ? "active" : ""} onClick={() => setPanel("architecture")}>IT-Architektur</button>
             <button className={panel === "features" ? "active" : ""} onClick={() => setPanel("features")}>Neue Features</button>
           </div>
-          {panel === "masterdata" && <dl className="info-list"><div><dt>Erstelldatum</dt><dd>{createdFor(selected)}</dd></div><div><dt>Erstellt mit</dt><dd>{builderForFilter(selected)}</dd></div>{isClaudeWorkspace(selected) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(selected)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(selected)}</dd></div></>}<div><dt>Lokaler Port</dt><dd>{localPortFor(selected)}</dd></div><div><dt>Letzte Aktualisierung</dt><dd>{selected.checkedAt ?? "Aus der ersten Inventur"}</dd></div><div><dt>Aktueller Status</dt><dd>{statusFor(selected)}</dd></div><div><dt>Performance / Zugang</dt><dd>{selected.performance ?? detailsFor(selected).access ?? "Noch nicht gemessen"}</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
+          {panel === "masterdata" && <dl className="info-list"><div><dt>Erstelldatum</dt><dd>{createdFor(selected)}</dd></div><div><dt>Erstellt mit</dt><dd>{builderForFilter(selected)}</dd></div>{isClaudeWorkspace(selected) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(selected)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(selected)}</dd></div></>}<div><dt>Direkt-URL</dt><dd><a className="data-link" href={quickStartFor(selected)} target="_blank" rel="noreferrer">{quickStartFor(selected)}</a></dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(selected)}</dd></div><div><dt>Zugang</dt><dd>{accessProfileFor(selected)}</dd></div><div><dt>Letzte Aktualisierung</dt><dd>{selected.checkedAt ?? "Aus der ersten Inventur"}</dd></div><div><dt>Aktueller Status</dt><dd>{statusFor(selected)}</dd></div><div><dt>Performance / Zugang</dt><dd>{selected.performance ?? detailsFor(selected).access ?? "Noch nicht gemessen"}</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
           {panel === "tags" && <div className="tags-panel"><p>Vorläufige Beschreibung</p><div className="tag-list">{tagsFor(selected).map((tag) => <span key={tag}>{tag}</span>)}</div><p className="similar"><strong>Ähnliche Apps:</strong> {selected.overlap ?? "Noch abgleichen"}</p><p className="similar"><strong>Zuordnung:</strong> {scopeFor(selected)}</p></div>}
           {panel === "architecture" && <dl className="info-list architecture">{Object.entries(architectureFor(selected)).map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl>}
           {panel === "features" && <ul className="features-list">{featuresFor(selected).map((feature) => <li key={feature}>{feature}</li>)}</ul>}
@@ -662,7 +674,7 @@ export default function Home() {
             <button className={windowTab === "screens" ? "active" : ""} onClick={() => setWindowTab("screens")}>Echte Screens ({screensFor(opened).length})</button>
           </nav>
           <div className="window-content">
-            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{opened.trafficLight && <p className={`traffic-light ${opened.trafficLight}`} title={opened.trafficNote}><i></i>{trafficLabelFor(opened)} · {opened.trafficNote}</p>}{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div>{isClaudeWorkspace(opened) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(opened)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(opened)}</dd></div></>}<div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Noch nicht verifiziert"}</dd></div><div><dt>Modellbezug der App</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
+            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{opened.trafficLight && <p className={`traffic-light ${opened.trafficLight}`} title={opened.trafficNote}><i></i>{trafficLabelFor(opened)} · {opened.trafficNote}</p>}{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div>{isClaudeWorkspace(opened) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(opened)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(opened)}</dd></div></>}<div><dt>Direkt-URL</dt><dd><a className="data-link" href={quickStartFor(opened)} target="_blank" rel="noreferrer">{quickStartFor(opened)}</a></dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{accessProfileFor(opened)}</dd></div><div><dt>Modellbezug der App</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
             {windowTab === "systems" && <div className="systems-grid"><article><span>Frontend</span><strong>{detailsFor(opened).frontend}</strong></article><article><span>Middleware</span><strong>{detailsFor(opened).middleware}</strong></article><article><span>Backend</span><strong>{detailsFor(opened).backend}</strong></article><article><span>Datenbank</span><strong>{detailsFor(opened).database}</strong></article><article><span>Connections</span><strong>{detailsFor(opened).connections}</strong></article><article><span>Modelle</span><strong>{detailsFor(opened).models}</strong></article><article><span>Pruefgrundlage</span><strong>{detailsFor(opened).evidence}</strong></article></div>}
             {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{screensFor(opened).length > 0 ? <div className="screens-grid">{screensFor(opened).map((screen) => <figure key={screen.src}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
           </div>
