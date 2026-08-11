@@ -59,7 +59,7 @@ const categoryTags: Record<string, string[]> = {
   Analyse: ["Kosten", "Simulation", "Management", "Reporting"],
 };
 
-const aiMesseGuide: Tool = { id: "messe", title: "AI Messe Guide", description: "Dashboard fuer KI-Messen, Konferenzen und Reisen.", source: "Lokaler Rechner", status: "Aktiv", category: "Organisation", detail: "Verwaltungs-App mit lokalem Modus sowie optionalem Cloud-Login, MFA und Synchronisierung.", location: "C:\\2026\\Claude\\AI_Messe_Guide", overlap: "AI Eventorganizer", url: "https://ai-messe-guide.vercel.app" };
+const aiMesseGuide: Tool = { id: "messe", title: "AI Messe Guide", description: "Dashboard fuer KI-Messen, Konferenzen und Reisen.", source: "Lokaler Rechner", status: "Aktiv", category: "Organisation", detail: "Verwaltungs-App mit lokalem Modus sowie optionalem Cloud-Login, MFA und Synchronisierung.", location: "C:\\2026\\Claude\\AI_Messe_Guide", overlap: "AI Eventorganizer", url: "https://ai-messe-guide.vercel.app", checkedAt: "11.08.2026", performance: "Live-Zugang im Browser geprüft; Oberfläche und Inhalte wurden geladen" };
 const codexDiscoveredTools: Tool[] = [
   { id: "codex-n8n", title: "Codex N8N Releaseletter-System", description: "Multi-Agent-Grundgeruest fuer Releaseletter, Freigaben und Ausspielung.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Automatisierung", detail: "Codex-Projekt mit Workflow-, Ontologie-, Graph- und Infrastrukturartefakten.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\Codex N8N", overlap: "Releaseletter · Dify Releaseletter · n8n", checkedAt: "11.08.2026", performance: "Quellcode und Archive vorhanden; keine laufende Web-App gestartet" },
   { id: "voice-presentation", title: "Voice Präsentationstool", description: "Codex-Projekt fuer sprachgesteuerte Präsentationssuche.", source: "Lokaler Rechner", status: "Entwurf", category: "Präsentation", detail: "Projektordner wurde im Codex gefunden; im Stammordner liegt noch keine lauffaehige Anwendung.", location: "C:\\2026\\Codex\\Voice Präsentationstool", overlap: "Präsentations-Finder · Presentation Designer", checkedAt: "11.08.2026", performance: "Kein Startpunkt im Projektordner gefunden" },
@@ -162,6 +162,22 @@ function screensFor(tool: Tool) {
     ],
     messe: [{ src: "/screenshots/ai-messe-guide.png", title: "Live Dashboard", source: "Echte Live-App" }],
     event: [{ src: "/screenshots/ai-messe-guide.png", title: "Live Dashboard", source: "Echte Live-App derselben Codebasis" }],
+    transparency: [
+      { src: "/screenshots/transparency-dashboard.jpg", title: "Dashboard", source: "Original-Mockup aus dem Projekt" },
+      { src: "/screenshots/transparency-explorer.jpg", title: "Datei-Explorer", source: "Original-Mockup aus dem Projekt" },
+    ],
+    "n8n-library": [
+      { src: "/screenshots/n8n-library-dashboard.png", title: "Bibliothek Dashboard", source: "Original-Testansicht aus dem Projekt" },
+      { src: "/screenshots/n8n-library-workflows.png", title: "Workflow Hub", source: "Original-Testansicht aus dem Projekt" },
+    ],
+    "pc-optimizer": [
+      { src: "/screenshots/pc-optimizer-overview.jpg", title: "Gesamtsicht", source: "Original-Mockup aus dem Projekt" },
+      { src: "/screenshots/pc-optimizer-operations.jpg", title: "Operations", source: "Original-Mockup aus dem Projekt" },
+    ],
+    "n8n-excel": [
+      { src: "/screenshots/investment-cashflow.png", title: "Investitionen und Cashflow", source: "Original-Auswertung aus dem Projekt" },
+      { src: "/screenshots/investment-interest.png", title: "Zinssensitivitaet", source: "Original-Auswertung aus dem Projekt" },
+    ],
   };
   return authentic[tool.id] ?? [];
 }
