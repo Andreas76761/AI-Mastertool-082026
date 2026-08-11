@@ -23,6 +23,8 @@ type Tool = {
   performance?: string;
 };
 
+type TestResult = { phase: "testing" | "done" | "error"; message: string };
+
 const tools: Tool[] = [
   { id: "overview", title: "AI-Artefakte Übersicht", description: "Bestehender plattformübergreifender Projektkatalog.", source: "Lokaler Rechner", status: "Aktiv", category: "Katalog", detail: "Der klarste Vorgänger des neuen Master-Tools. Er soll als Grundlage geprüft und gezielt erweitert werden.", location: "C:\\2026\\Claude\\Übersicht", overlap: "Master-Tool-Vorläufer" },
   { id: "business", title: "AI Business Berater", description: "Vergleichsportal für Datenbanken und Bildspeicher.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Beratung", detail: "Lokale Codex-App mit Startdokumentation und eigenem Projektordner.", location: "C:\\2026\\Codex\\AI Business Berater" },
@@ -248,6 +250,7 @@ export default function Home() {
   const [status, setStatus] = useState<Status | "Alle">("Alle");
   const [builderFilter, setBuilderFilter] = useState<BuilderFilter>("Alle");
   const [sortBy, setSortBy] = useState<"created" | "status">("created");
+  const [testResults, setTestResults] = useState<Record<string, TestResult>>({});
   const [selectedId, setSelectedId] = useState("overview");
   const [panel, setPanel] = useState<DetailPanel>("masterdata");
   const [openedId, setOpenedId] = useState<string | null>(null);
@@ -266,6 +269,28 @@ export default function Home() {
 
   async function copyLocation(tool: Tool) {
     await navigator.clipboard?.writeText(tool.location);
+  }
+
+  async function testApp(tool: Tool) {
+    const target = quickStartFor(tool);
+    const testWindow = window.open(target, "_blank");
+    if (testWindow) testWindow.opener = null;
+
+    if (!target.startsWith("https://")) {
+      setTestResults((current) => ({ ...current, [tool.id]: { phase: "done", message: "Neues Fenster wurde geöffnet. Lokale Ordner können nicht über einen externen Server geprüft werden." } }));
+      return;
+    }
+
+    setTestResults((current) => ({ ...current, [tool.id]: { phase: "testing", message: "Neues Fenster geöffnet – Zielserver wird geprüft …" } }));
+    try {
+      const response = await fetch(`/api/test?url=${encodeURIComponent(target)}`, { cache: "no-store" });
+      const data = await response.json() as { outcome?: string; status?: number; durationMs?: number; message?: string; error?: string };
+      if (!response.ok || data.error) throw new Error(data.error ?? "Der Linktest konnte nicht gestartet werden.");
+      const message = data.outcome === "available" ? `Erreichbar: HTTP ${data.status} in ${data.durationMs} ms.` : data.outcome === "login_required" ? `Erreichbar, Anmeldung erforderlich: HTTP ${data.status} in ${data.durationMs} ms.` : data.outcome === "local_only" ? data.message ?? "Lokaler Ordner." : `${data.message ?? "Nicht erreichbar"}${data.status ? ` (HTTP ${data.status})` : ""}`;
+      setTestResults((current) => ({ ...current, [tool.id]: { phase: "done", message } }));
+    } catch (error) {
+      setTestResults((current) => ({ ...current, [tool.id]: { phase: "error", message: error instanceof Error ? error.message : "Linktest fehlgeschlagen." } }));
+    }
   }
 
   function startDrag(event: React.PointerEvent<HTMLElement>) {
@@ -340,6 +365,7 @@ export default function Home() {
               <span className="checked-status" title={tool.performance ?? "Keine Performance-Angabe"}>Status: {statusFor(tool)}</span>
               <span className="card-actions" aria-label={`Aktionen für ${tool.title}`}>
                 <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); }}>Start</a>
+                <button onClick={(event) => { event.stopPropagation(); testApp(tool); }}>Test</button>
                 <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("masterdata"); }}>Daten</button>
                 <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("tags"); }}>Tags</button>
                 <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("architecture"); }}>IT</button>
@@ -372,7 +398,7 @@ export default function Home() {
         <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
           <header className="window-header" onPointerDown={startDrag} onPointerMove={moveWindow} onPointerUp={() => { drag.current = null; }}>
             <div className="window-title"><span className="detail-icon">{opened.source === "GitHub" ? "GH" : opened.source === "Google Drive" ? "GD" : "PC"}</span><div><strong>{opened.title}</strong><small>Arbeitsfenster - verschieben am Kopf, Groesse unten rechts anpassen</small></div></div>
-            <div className="window-actions"><a href={quickStartFor(opened)} target="_blank" rel="noreferrer">App oeffnen</a><button type="button" onClick={() => setOpenedId(null)} aria-label="Fenster schliessen">Schliessen</button></div>
+            <div className="window-actions"><button type="button" className="test-action" onClick={() => testApp(opened)}>App testen</button><a href={quickStartFor(opened)} target="_blank" rel="noreferrer">App oeffnen</a><button type="button" onClick={() => setOpenedId(null)} aria-label="Fenster schliessen">Schliessen</button></div>
           </header>
           <nav className="window-tabs" aria-label="App-Informationen">
             <button className={windowTab === "profile" ? "active" : ""} onClick={() => setWindowTab("profile")}>Herkunft & Tool</button>
@@ -380,7 +406,7 @@ export default function Home() {
             <button className={windowTab === "screens" ? "active" : ""} onClick={() => setWindowTab("screens")}>Echte Screens ({screensFor(opened).length})</button>
           </nav>
           <div className="window-content">
-            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p></div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Noch nicht verifiziert"}</dd></div><div><dt>Modell</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
+            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Noch nicht verifiziert"}</dd></div><div><dt>Modell</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
             {windowTab === "systems" && <div className="systems-grid"><article><span>Frontend</span><strong>{detailsFor(opened).frontend}</strong></article><article><span>Middleware</span><strong>{detailsFor(opened).middleware}</strong></article><article><span>Backend</span><strong>{detailsFor(opened).backend}</strong></article><article><span>Datenbank</span><strong>{detailsFor(opened).database}</strong></article><article><span>Connections</span><strong>{detailsFor(opened).connections}</strong></article><article><span>Modelle</span><strong>{detailsFor(opened).models}</strong></article><article><span>Pruefgrundlage</span><strong>{detailsFor(opened).evidence}</strong></article></div>}
             {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{screensFor(opened).length > 0 ? <div className="screens-grid">{screensFor(opened).map((screen) => <figure key={screen.src}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
           </div>
