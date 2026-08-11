@@ -170,10 +170,49 @@ function isClaudeWorkspace(tool: Tool) {
   return ["overview", "contracts", "dokupress", "slides", "presentation", "releaseletter", "messe"].includes(tool.id) || tool.id.startsWith("claude-workspace-");
 }
 
+const claudeSurfaces: Record<string, "Claude Code" | "Claude Desktop"> = {
+  overview: "Claude Code",
+  contracts: "Claude Desktop",
+  dokupress: "Claude Desktop",
+  slides: "Claude Desktop",
+  presentation: "Claude Desktop",
+  releaseletter: "Claude Desktop",
+  messe: "Claude Desktop",
+  "claude-workspace-app-overview": "Claude Code",
+  "claude-workspace-dateibetrachter": "Claude Code",
+};
+
+const claudeModelEvidence: Record<string, string> = {
+  slides: "Claude Opus 4.8 Vision ist als App-Modell dokumentiert; das Erstellmodell des Artefakts ist nicht separat belegt.",
+  presentation: "Claude 3.5 Sonnet ist im Projekt dokumentiert; das Erstellmodell des Artefakts ist nicht separat belegt.",
+  contracts: "Erstellmodell nicht nachgewiesen; GPT-4o ist als Produktionsintegration dokumentiert.",
+  dokupress: "Erstellmodell nicht nachgewiesen; Qwen ist als lokale Runtime dokumentiert.",
+};
+
+function claudeSurfaceFor(tool: Tool) {
+  return claudeSurfaces[tool.id] ?? "Claude Desktop";
+}
+
+function claudeCreationModelFor(tool: Tool) {
+  return claudeModelEvidence[tool.id] ?? "Erstellmodell im Artefakt nicht nachgewiesen";
+}
+
 function sourceIconFor(tool: Tool) {
   if (isGoogleStudio(tool)) return "G";
   if (isClaudeWorkspace(tool)) return "C";
   return tool.source === "GitHub" ? "GH" : tool.source === "Google Drive" ? "GD" : tool.source === "Cloud" ? "CL" : "PC";
+}
+
+function ProviderIcon({ tool, detail = false }: { tool: Tool; detail?: boolean }) {
+  const className = `${detail ? "detail-icon" : "source-icon"} ${isGoogleStudio(tool) ? "google-icon" : isClaudeWorkspace(tool) ? "claude-icon" : ""}`;
+  if (isClaudeWorkspace(tool)) return <span className={className} title="Claude / Anthropic"><img src="https://cdn.simpleicons.org/anthropic/D97757" alt="Claude" /></span>;
+  return <span className={className} aria-hidden="true">{sourceIconFor(tool)}</span>;
+}
+
+function ClaudeSurfaceBadge({ tool }: { tool: Tool }) {
+  if (!isClaudeWorkspace(tool)) return null;
+  const surface = claudeSurfaceFor(tool);
+  return <span className={`claude-surface ${surface === "Claude Code" ? "code" : "desktop"}`} title={`${surface} · ${claudeCreationModelFor(tool)}`} aria-label={`${surface}. ${claudeCreationModelFor(tool)}`}><b aria-hidden="true">{surface === "Claude Code" ? "&lt;/&gt;" : "▣"}</b><small>{surface === "Claude Code" ? "Code" : "Desktop"}</small></span>;
 }
 
 function trafficLabelFor(tool: Tool) {
@@ -343,7 +382,7 @@ const appDetails: Record<string, AppDetails> = {
 function detailsFor(tool: Tool): AppDetails {
   if (isGoogleStudio(tool)) return { builder: "Google AI Studio", frontend: "Google AI Studio App", middleware: "Google AI Studio Plattform", backend: "Google Cloud verwaltet", database: "Nicht in der App-Übersicht verifiziert", connections: "Google AI Studio; weitere Verbindungen pro App noch prüfen", models: "Gemini in Google AI Studio; konkretes Modell nicht in der Übersicht ausgewiesen", evidence: "Google AI Studio / My apps, am 11.08.2026 geprüft", access: "Öffnet im angemeldeten Google-AI-Studio-Konto" };
   if (appDetails[tool.id]) return appDetails[tool.id];
-  if (isClaudeWorkspace(tool)) return { builder: "Claude", frontend: "Lokales Artefakt oder Web-Frontend", middleware: "Noch zu prüfen", backend: "Lokale Projektdateien", database: "Noch nicht verifiziert", connections: "Lokaler Projektordner", models: "Claude-Modell in den lokalen Dateien nicht eindeutig ausgewiesen", evidence: "Projektordner unter C:\\2026\\Claude, am 11.08.2026 inventarisiert", access: "Öffnet lokal aus dem Projektordner" };
+  if (isClaudeWorkspace(tool)) return { builder: claudeSurfaceFor(tool), frontend: "Lokales Artefakt oder Web-Frontend", middleware: "Noch zu prüfen", backend: "Lokale Projektdateien", database: "Noch nicht verifiziert", connections: "Lokaler Projektordner", models: claudeCreationModelFor(tool), evidence: "Projektordner unter C:\\2026\\Claude, am 11.08.2026 inventarisiert", access: "Öffnet lokal aus dem Projektordner" };
   return { builder: "Noch zu pruefen", frontend: "Noch zu pruefen", middleware: "Noch zu pruefen", backend: "Noch zu pruefen", database: "Noch zu pruefen", connections: "Noch zu pruefen", models: "Noch zu pruefen", evidence: "Noch keine Quelle bewertet" };
 }
 
@@ -537,7 +576,7 @@ export default function Home() {
           <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? allTools.length : allTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
           <div className="tool-grid">
             {filtered.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openTool(tool); }}>
-              <span className="card-top"><span className={`source-icon ${isGoogleStudio(tool) ? "google-icon" : isClaudeWorkspace(tool) ? "claude-icon" : ""}`} aria-hidden="true">{sourceIconFor(tool)}</span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
+              <span className="card-top"><span className="source-marks"><ProviderIcon tool={tool} /><ClaudeSurfaceBadge tool={tool} /></span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
               <button className="card-select" onClick={(event) => { event.stopPropagation(); openTool(tool); }}><span className="tool-title">{tool.title}</span><span className="tool-description">{tool.description}</span></button>
               <span className="tool-meta">{tool.source} · {tool.category}</span>
               <span className="classification">{builderForFilter(tool)} · erstellt {createdFor(tool)}</span>
@@ -564,7 +603,7 @@ export default function Home() {
 
         <aside className="detail" aria-live="polite">
           <p className="eyebrow">Ausgewähltes Werkzeug</p>
-          <div className="detail-head"><span className={`detail-icon ${isGoogleStudio(selected) ? "google-icon" : isClaudeWorkspace(selected) ? "claude-icon" : ""}`}>{sourceIconFor(selected)}</span><span className={`status ${selected.status.toLowerCase()}`}>{selected.status}</span></div>
+          <div className="detail-head"><span className="source-marks"><ProviderIcon tool={selected} detail /><ClaudeSurfaceBadge tool={selected} /></span><span className={`status ${selected.status.toLowerCase()}`}>{selected.status}</span></div>
           <h2>{selected.title}</h2><p>{selected.detail}</p>
           <div className="detail-actions" aria-label="Detailansichten">
             <button className={panel === "masterdata" ? "active" : ""} onClick={() => setPanel("masterdata")}>Masterdata</button>
@@ -572,7 +611,7 @@ export default function Home() {
             <button className={panel === "architecture" ? "active" : ""} onClick={() => setPanel("architecture")}>IT-Architektur</button>
             <button className={panel === "features" ? "active" : ""} onClick={() => setPanel("features")}>Neue Features</button>
           </div>
-          {panel === "masterdata" && <dl className="info-list"><div><dt>Erstelldatum</dt><dd>{createdFor(selected)}</dd></div><div><dt>Erstellt mit</dt><dd>{builderForFilter(selected)}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(selected)}</dd></div><div><dt>Letzte Aktualisierung</dt><dd>{selected.checkedAt ?? "Aus der ersten Inventur"}</dd></div><div><dt>Aktueller Status</dt><dd>{statusFor(selected)}</dd></div><div><dt>Performance / Zugang</dt><dd>{selected.performance ?? detailsFor(selected).access ?? "Noch nicht gemessen"}</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
+          {panel === "masterdata" && <dl className="info-list"><div><dt>Erstelldatum</dt><dd>{createdFor(selected)}</dd></div><div><dt>Erstellt mit</dt><dd>{builderForFilter(selected)}</dd></div>{isClaudeWorkspace(selected) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(selected)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(selected)}</dd></div></>}<div><dt>Lokaler Port</dt><dd>{localPortFor(selected)}</dd></div><div><dt>Letzte Aktualisierung</dt><dd>{selected.checkedAt ?? "Aus der ersten Inventur"}</dd></div><div><dt>Aktueller Status</dt><dd>{statusFor(selected)}</dd></div><div><dt>Performance / Zugang</dt><dd>{selected.performance ?? detailsFor(selected).access ?? "Noch nicht gemessen"}</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
           {panel === "tags" && <div className="tags-panel"><p>Vorläufige Beschreibung</p><div className="tag-list">{tagsFor(selected).map((tag) => <span key={tag}>{tag}</span>)}</div><p className="similar"><strong>Ähnliche Apps:</strong> {selected.overlap ?? "Noch abgleichen"}</p><p className="similar"><strong>Zuordnung:</strong> {scopeFor(selected)}</p></div>}
           {panel === "architecture" && <dl className="info-list architecture">{Object.entries(architectureFor(selected)).map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl>}
           {panel === "features" && <ul className="features-list">{featuresFor(selected).map((feature) => <li key={feature}>{feature}</li>)}</ul>}
@@ -609,7 +648,7 @@ export default function Home() {
       {opened && <div className="app-window-layer" role="presentation">
         <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
           <header className="window-header" onPointerDown={startDrag} onPointerMove={moveWindow} onPointerUp={() => { drag.current = null; }}>
-            <div className="window-title"><span className={`detail-icon ${isGoogleStudio(opened) ? "google-icon" : isClaudeWorkspace(opened) ? "claude-icon" : ""}`}>{sourceIconFor(opened)}</span><div><strong>{opened.title}</strong><small>Arbeitsfenster - verschieben am Kopf, Groesse unten rechts anpassen</small></div></div>
+            <div className="window-title"><span className="source-marks"><ProviderIcon tool={opened} detail /><ClaudeSurfaceBadge tool={opened} /></span><div><strong>{opened.title}</strong><small>Arbeitsfenster - verschieben am Kopf, Groesse unten rechts anpassen</small></div></div>
             <div className="window-actions"><button type="button" className="test-action" onClick={() => testApp(opened)}>App testen</button><a href={quickStartFor(opened)} target="_blank" rel="noreferrer">App oeffnen</a><button type="button" onClick={() => setOpenedId(null)} aria-label="Fenster schliessen">Schliessen</button></div>
           </header>
           <nav className="window-tabs" aria-label="App-Informationen">
@@ -618,7 +657,7 @@ export default function Home() {
             <button className={windowTab === "screens" ? "active" : ""} onClick={() => setWindowTab("screens")}>Echte Screens ({screensFor(opened).length})</button>
           </nav>
           <div className="window-content">
-            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{opened.trafficLight && <p className={`traffic-light ${opened.trafficLight}`} title={opened.trafficNote}><i></i>{trafficLabelFor(opened)} · {opened.trafficNote}</p>}{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Noch nicht verifiziert"}</dd></div><div><dt>Modell</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
+            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{opened.trafficLight && <p className={`traffic-light ${opened.trafficLight}`} title={opened.trafficNote}><i></i>{trafficLabelFor(opened)} · {opened.trafficNote}</p>}{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div>{isClaudeWorkspace(opened) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(opened)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(opened)}</dd></div></>}<div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Noch nicht verifiziert"}</dd></div><div><dt>Modellbezug der App</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
             {windowTab === "systems" && <div className="systems-grid"><article><span>Frontend</span><strong>{detailsFor(opened).frontend}</strong></article><article><span>Middleware</span><strong>{detailsFor(opened).middleware}</strong></article><article><span>Backend</span><strong>{detailsFor(opened).backend}</strong></article><article><span>Datenbank</span><strong>{detailsFor(opened).database}</strong></article><article><span>Connections</span><strong>{detailsFor(opened).connections}</strong></article><article><span>Modelle</span><strong>{detailsFor(opened).models}</strong></article><article><span>Pruefgrundlage</span><strong>{detailsFor(opened).evidence}</strong></article></div>}
             {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{screensFor(opened).length > 0 ? <div className="screens-grid">{screensFor(opened).map((screen) => <figure key={screen.src}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
           </div>
