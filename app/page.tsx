@@ -251,8 +251,10 @@ function sourceIconFor(tool: Tool) {
 }
 
 function ProviderIcon({ tool, detail = false }: { tool: Tool; detail?: boolean }) {
-  const className = `${detail ? "detail-icon" : "source-icon"} ${isGoogleStudio(tool) ? "google-icon" : isClaudeWorkspace(tool) ? "claude-icon" : ""}`;
+  const perplexity = tool.technical?.builder === "Perplexity";
+  const className = `${detail ? "detail-icon" : "source-icon"} ${isGoogleStudio(tool) ? "google-icon" : isClaudeWorkspace(tool) ? "claude-icon" : perplexity ? "perplexity-icon" : ""}`;
   if (isClaudeWorkspace(tool)) return <span className={className} title="Claude / Anthropic"><img src="https://cdn.simpleicons.org/anthropic/D97757" alt="Claude" /></span>;
+  if (perplexity) return <span className={className} title="Perplexity"><img src="https://www.perplexity.ai/favicon.ico" alt="Perplexity" /></span>;
   return <span className={className} aria-hidden="true">{sourceIconFor(tool)}</span>;
 }
 
