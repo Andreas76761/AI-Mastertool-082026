@@ -7,7 +7,7 @@ type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
 type WindowTab = "profile" | "systems" | "screens";
 type MainView = "dashboard" | "catalog" | "control" | "chats";
-type ControlTab = "analytics" | "sources" | "devices" | "matrix" | "scores" | "ideas" | "remote";
+type ControlTab = "analytics" | "sources" | "devices" | "matrix" | "scores" | "ideas" | "remote" | "security";
 
 type Tool = {
   id: string;
@@ -26,17 +26,19 @@ type Tool = {
   performance?: string;
   trafficLight?: "green" | "gray" | "red";
   trafficNote?: string;
+  technical?: AppDetails;
 };
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
 type ChatRecord = { id: string; source: string; title: string; summary: string; updatedAt: string; model: string; appId?: string; appMatch: string; status: "Erfasst" | "Zugang fehlt" };
 type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number };
-type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null };
+type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: string | null; models: string | null; evidence: unknown; access_profile: string | null };
 
 function remoteCatalogTool(app: RemoteCatalogApp): Tool {
   const source: Source = ["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"].includes(app.source) ? app.source as Source : "Cloud";
   const status: Status = ["Aktiv", "Prüfen", "Dokumentiert", "Entwurf"].includes(app.status) ? app.status as Status : "Prüfen";
-  return { id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined };
+  const evidence = Array.isArray(app.evidence) ? app.evidence.join(", ") : typeof app.evidence === "string" ? app.evidence : "Kataloginventur";
+  return { id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined, technical: { builder: app.builder ?? "Noch nicht verifiziert", frontend: app.frontend ?? "Noch zu prüfen", middleware: app.middleware ?? "Noch zu prüfen", backend: app.backend ?? "Noch zu prüfen", database: app.database_technology ?? "Noch zu prüfen", connections: app.connections ?? "Noch zu prüfen", models: app.models ?? "Noch zu prüfen", evidence, access: app.access_profile ?? "Zugang über sicheren Verweis; keine Passwörter im Katalog" } };
 }
 
 const networkDevices = [
@@ -458,6 +460,7 @@ const appDetails: Record<string, AppDetails> = {
 };
 
 function detailsFor(tool: Tool): AppDetails {
+  if (tool.technical) return tool.technical;
   if (isGoogleStudio(tool)) return { builder: "Google AI Studio", frontend: "Google AI Studio App", middleware: "Google AI Studio Plattform", backend: "Google Cloud verwaltet", database: "Nicht in der App-Übersicht verifiziert", connections: "Google AI Studio; weitere Verbindungen pro App noch prüfen", models: googleStudioModelEvidence[tool.id] ?? "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft", evidence: `Google AI Studio / My apps, am 11.08.2026 geprüft${googleStudioModelEvidence[tool.id] ? "; Einzeltest der App durchgeführt" : ""}`, access: "Öffnet im angemeldeten Google-AI-Studio-Konto" };
   if (appDetails[tool.id]) return appDetails[tool.id];
   if (isClaudeWorkspace(tool)) return { builder: claudeSurfaceFor(tool), frontend: "Lokales Artefakt oder Web-Frontend", middleware: "Noch zu prüfen", backend: "Lokale Projektdateien", database: "Noch nicht verifiziert", connections: "Lokaler Projektordner", models: claudeCreationModelFor(tool), evidence: "Projektordner unter C:\\2026\\Claude, am 11.08.2026 inventarisiert", access: "Öffnet lokal aus dem Projektordner" };
@@ -519,6 +522,7 @@ export default function Home() {
   const [windowPosition, setWindowPosition] = useState({ x: 0, y: 0 });
   const [remoteTools, setRemoteTools] = useState<Tool[] | null>(null);
   const [catalogSync, setCatalogSync] = useState<CatalogSync>({ phase: "loading", message: "Zentralen Katalog verbinden …" });
+  const [backupNotice, setBackupNotice] = useState("Noch keine Sicherung in dieser Sitzung erstellt.");
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
   const catalogTools = remoteTools ?? allTools;
   const selected = catalogTools.find((tool) => tool.id === selectedId) ?? catalogTools[0];
@@ -603,6 +607,18 @@ export default function Home() {
       setTestResults((current) => ({ ...current, [tool.id]: { phase: "done", message } }));
     } catch (error) {
       setTestResults((current) => ({ ...current, [tool.id]: { phase: "error", message: error instanceof Error ? error.message : "Linktest fehlgeschlagen." } }));
+    }
+  }
+
+  async function runBackup(verify = false) {
+    setBackupNotice(verify ? "Sicherung wird auf Vollständigkeit geprüft …" : "Private Metadatensicherung wird erstellt …");
+    try {
+      const response = await fetch(`/api/catalog/backup${verify ? "?verify=1" : ""}`, { method: "POST" });
+      const data = await response.json() as { verified?: boolean; tableCounts?: Record<string, number>; error?: string };
+      if (!response.ok || data.error) throw new Error(data.error ?? "Sicherung konnte nicht ausgeführt werden.");
+      setBackupNotice(verify ? (data.verified ? "Wiederherstellungstest bestanden: Struktur und Prüfsumme stimmen." : "Wiederherstellungstest fehlgeschlagen.") : `Sicherung erstellt: ${Object.values(data.tableCounts ?? {}).reduce((sum, count) => sum + count, 0)} Datensätze gesichert.`);
+    } catch (error) {
+      setBackupNotice(error instanceof Error ? error.message : "Sicherung konnte nicht ausgeführt werden.");
     }
   }
 
@@ -745,7 +761,7 @@ export default function Home() {
       </section>}
       {mainView === "control" && <section className="control-center" aria-label="Control Center">
         <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{allTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>
-        <nav className="control-tabs" aria-label="Control Center Funktionen">{(["analytics", "sources", "devices", "matrix", "scores", "ideas", "remote"] as ControlTab[]).map((tab) => <button key={tab} type="button" className={controlTab === tab ? "active" : ""} onClick={() => setControlTab(tab)}>{{ analytics: "Analytics", sources: "Quellen", devices: "Geräte", matrix: "Matrix", scores: "Scorecards", ideas: "Ideen", remote: "Remote Launcher" }[tab]}</button>)}</nav>
+        <nav className="control-tabs" aria-label="Control Center Funktionen">{(["analytics", "sources", "devices", "matrix", "scores", "ideas", "remote", "security"] as ControlTab[]).map((tab) => <button key={tab} type="button" className={controlTab === tab ? "active" : ""} onClick={() => setControlTab(tab)}>{{ analytics: "Analytics", sources: "Quellen", devices: "Geräte", matrix: "Matrix", scores: "Scorecards", ideas: "Ideen", remote: "Remote Launcher", security: "Sicherung & Zugang" }[tab]}</button>)}</nav>
         {controlTab === "analytics" && <div className="control-panel"><div className="analytics-cards"><article><span>Fertig dokumentiert</span><strong>{fullyDocumented.length}</strong><small>technische Akte geprüft</small></article><article><span>Teilweise dokumentiert</span><strong>{partlyDocumented.length}</strong><small>Quellen oder Zugang ergänzen</small></article><article><span>Aktive Apps</span><strong>{allTools.filter((tool) => tool.status === "Aktiv").length}</strong><small>im Inventar als aktiv geführt</small></article><article><span>Lokale Ports</span><strong>{allTools.filter((tool) => localHrefFor(tool)).length}</strong><small>dokumentierte Web-Startpunkte</small></article></div><div className="control-actions"><button type="button" onClick={() => exportCatalog("json")}>JSON exportieren</button><button type="button" onClick={() => exportCatalog("csv")}>CSV exportieren</button><button type="button" onClick={() => exportCatalog("markdown")}>Markdown exportieren</button><button type="button" onClick={() => window.print()}>Drucken</button></div></div>}
         {controlTab === "sources" && <div className="source-summary-grid">{(["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"] as Source[]).map((item) => <article key={item}><span>{item}</span><strong>{allTools.filter((tool) => tool.source === item).length}</strong><p>{allTools.filter((tool) => tool.source === item && documentationStateFor(tool) === "Fertig dokumentiert").length} vollständig dokumentiert</p></article>)}</div>}
         {controlTab === "devices" && <div className="control-panel"><div className="control-panel-head"><div><h2>Gerätestatus im Netzwerk</h2><p>{networkNotice}</p></div><button type="button" onClick={() => setNetworkNotice("Erneute Prüfung ist erst möglich, wenn die drei Geräte im aktuellen WLAN erreichbar sind oder ein Status-Agent eingerichtet wurde.")}>Status aktualisieren</button></div><div className="device-grid">{networkDevices.map((device) => <article key={device.id}><span className={`device-dot ${device.state}`}></span><div><strong>{device.name}</strong><p>{device.system} · {device.address}</p><small>{device.detail}</small></div><b className={device.state}>{device.state === "online" ? "Online" : "Nicht erreichbar"}</b></article>)}</div><p className="network-help">Für echte Live-Daten der anderen Rechner braucht jeder Rechner einen kleinen Status-Agenten oder eine HTTPS-fähige Freigabe. Die frühere Konfiguration zeigt noch Adressen aus dem Netz 192.168.1.x, der aktuelle Rechner arbeitet im Netz 192.168.2.x.</p></div>}
@@ -754,6 +770,7 @@ export default function Home() {
         {controlTab === "ideas" && <div className="ideas-grid">{featureIdeas.map((idea) => <article key={idea.id}><h2>{idea.title}</h2><p>{idea.detail}</p><button type="button" onClick={() => voteForIdea(idea.id)}>Priorisieren <span>{idea.votes + (ideaVotes[idea.id] ?? 0)}</span></button></article>)}</div>}
         {controlTab === "remote" && <div className="control-panel remote-panel"><h2>Remote Launcher</h2><p>Die frühere Übersicht konnte Apps auf anderen Geräten über einen lokalen Dienst starten. Aktuell ist keiner der drei hinterlegten Rechner im erreichbaren Netzsegment.</p><div className="device-grid">{networkDevices.filter((device) => device.id !== "local").map((device) => <article key={device.id}><span className="device-dot unavailable"></span><div><strong>{device.name}</strong><p>{device.address}</p><small>Startdienst nicht erreichbar</small></div><button type="button" disabled>Starten</button></article>)}</div><p className="network-help">Sobald ein Status- und Startdienst auf dem jeweiligen Rechner erreichbar ist, kann dieser Bereich die Prüfung und den Startvorgang übernehmen.</p></div>}
       </section>}
+      {mainView === "control" && controlTab === "security" && <section className="security-panel control-panel" aria-label="Sicherung und Zugang"><div className="security-grid"><article><span>Private Dateien</span><strong>{catalogSync.screenshots ?? 0}</strong><p>Screenshots liegen im geschützten Dateispeicher. Dokumente werden erst nach bewusster Auswahl hochgeladen.</p></article><article><span>Zugangsdaten</span><strong>Vault-Referenzen</strong><p>Der Katalog speichert nur Anbieter, Tresor und Eintragsname – niemals Kennwörter, Tokens oder Wiederherstellungscodes.</p></article><article><span>Mehrnutzerzugang</span><strong>Rollenbereit</strong><p>Private Site-Anmeldung bleibt führend. Supabase-Identitäten können je Nutzer sicher zugeordnet und später aktiviert werden.</p></article></div><div className="control-actions"><button type="button" onClick={() => runBackup(false)}>Sicherung jetzt erstellen</button><button type="button" onClick={() => runBackup(true)}>Letzte Sicherung prüfen</button></div><p className="security-notice">{backupNotice}</p><p className="network-help">Automatische tägliche Sicherungen werden über den hinterlegten Statusdienst ausgelöst. Vor einer Einladung erhält jede Person eine Rolle im Katalog.</p></section>}
       {opened && <div className="app-window-layer" role="presentation">
         <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
           <header className="window-header" onPointerDown={startDrag} onPointerMove={moveWindow} onPointerUp={() => { drag.current = null; }}>
