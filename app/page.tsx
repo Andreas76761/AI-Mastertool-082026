@@ -6,7 +6,7 @@ type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
 type WindowTab = "profile" | "systems" | "screens";
-type MainView = "dashboard" | "catalog" | "control";
+type MainView = "dashboard" | "catalog" | "control" | "chats";
 type ControlTab = "analytics" | "sources" | "devices" | "matrix" | "scores" | "ideas" | "remote";
 
 type Tool = {
@@ -29,6 +29,7 @@ type Tool = {
 };
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
+type ChatRecord = { id: string; source: string; title: string; summary: string; updatedAt: string; model: string; appId?: string; appMatch: string; status: "Erfasst" | "Zugang fehlt" };
 
 const networkDevices = [
   { id: "local", name: "Dieser Rechner", system: "Windows 11", address: "192.168.2.185", state: "online", detail: "Master-App und lokale Dienste sind erreichbar." },
@@ -42,6 +43,30 @@ const featureIdeas = [
   { id: "github", title: "GitHub-Abgleich", detail: "Commits, Pull Requests und Deployments direkt im Projektprofil bündeln.", votes: 0 },
   { id: "search", title: "Globale Projektsuche", detail: "Suche über Dateien, Dokumentation und Screenshots hinweg.", votes: 0 },
   { id: "portfolio", title: "Portfolio-Report", detail: "Exportierbarer Management-Bericht für Status und Fortschritt.", votes: 0 },
+];
+
+const chatRecords: ChatRecord[] = [
+  { id: "codex-master", source: "Codex", title: "Erstelle Master-Tool Übersicht", summary: "Apps, Tools und Funktionen aus Geräten, Cloud und Entwicklungsplattformen bündeln.", updatedAt: "11.08.2026 21:43", model: "Im Thread-Metadatensatz nicht ausgewiesen", appId: "overview", appMatch: "Mein App-Katalog", status: "Erfasst" },
+  { id: "codex-skill-map", source: "Codex", title: "Skill progression map", summary: "Automatisierte Vorschläge für die nächsten Entwicklungsschwerpunkte aus Projektaktivität.", updatedAt: "11.08.2026 18:20", model: "Automation; Modell nicht ausgewiesen", appId: "n8n-excel", appMatch: "Investitions-Dashboard", status: "Erfasst" },
+  { id: "codex-standup-excel", source: "Codex", title: "Standup summary – N8N Excel", summary: "Automatisierte Zusammenfassung der Git-Aktivität für das Investitions-Dashboard.", updatedAt: "11.08.2026 18:18", model: "Automation; Modell nicht ausgewiesen", appId: "n8n-excel", appMatch: "Investitions-Dashboard", status: "Erfasst" },
+  { id: "codex-standup-pc", source: "Codex", title: "Standup summary – PC Analyse", summary: "Automatisierte Zusammenfassung der Projektaktivität zur PC-Analyse.", updatedAt: "11.08.2026 18:18", model: "Automation; Modell nicht ausgewiesen", appId: "pc-optimizer", appMatch: "PC Optimizer", status: "Erfasst" },
+  { id: "codex-standup-library", source: "Codex", title: "Standup summary – N8N Bibliothek", summary: "Automatisierte Zusammenfassung der Projektaktivität der Workflow-Bibliothek.", updatedAt: "11.08.2026 18:18", model: "Automation; Modell nicht ausgewiesen", appId: "n8n-library", appMatch: "n8n Library", status: "Erfasst" },
+  { id: "codex-standup-release", source: "Codex", title: "Standup summary – Codex N8N", summary: "Automatisierte Zusammenfassung der Projektaktivität des Releaseletter-Systems.", updatedAt: "11.08.2026 18:18", model: "Automation; Modell nicht ausgewiesen", appId: "codex-n8n", appMatch: "Codex N8N Releaseletter-System", status: "Erfasst" },
+  { id: "codex-standup-slides", source: "Codex", title: "Standup summary – Präsentationsfolien", summary: "Automatisierte Zusammenfassung der Projektaktivität des Folien-Studios.", updatedAt: "11.08.2026 18:18", model: "Automation; Modell nicht ausgewiesen", appId: "n8n-slides", appMatch: "Präsentationsfolien Studio", status: "Erfasst" },
+  { id: "codex-standup-viewer", source: "Codex", title: "Standup summary – Bildbetrachter", summary: "Automatisierte Zusammenfassung des Bildbetrachter-Projekts; App-Zuordnung noch offen.", updatedAt: "11.08.2026 18:17", model: "Automation; Modell nicht ausgewiesen", appMatch: "Noch zuordnen", status: "Erfasst" },
+  { id: "chatgpt-domain", source: "ChatGPT", title: "Gliederung Domain Model", summary: "ChatGPT-Verlauf ist sichtbar; Kurzinhalt wurde in den zugänglichen Metadaten nicht geliefert.", updatedAt: "03.08.2026 11:21", model: "Im Thread-Metadatensatz nicht ausgewiesen", appMatch: "Noch zuordnen", status: "Erfasst" },
+  { id: "codex-finder", source: "Codex", title: "Präsentations-Finder planen", summary: "Windows-App mit Sprachsuche, Folien-Thumbnails, Notion-Katalog und Probenmodus planen.", updatedAt: "31.07.2026 11:27", model: "Im Thread-Metadatensatz nicht ausgewiesen", appId: "presentation-finder", appMatch: "Präsentations-Finder", status: "Erfasst" },
+];
+
+const chatProviderStates = [
+  { source: "Codex", state: "Verbunden", detail: "9 Codex-Verläufe erfasst" },
+  { source: "ChatGPT", state: "Teilzugriff", detail: "1 sichtbarer Verlauf erfasst" },
+  { source: "Claude", state: "Zugang fehlt", detail: "Keine angemeldete Claude-Sitzung" },
+  { source: "Copilot", state: "Zugang fehlt", detail: "Keine aktive Sitzung im Browser" },
+  { source: "Bing", state: "Zugang fehlt", detail: "Keine aktive Sitzung im Browser" },
+  { source: "Perplexity", state: "Zugang fehlt", detail: "Keine aktive Sitzung im Browser" },
+  { source: "Google Gemini", state: "Zugang fehlt", detail: "Keine aktive Chat-Sitzung im Browser" },
+  { source: "Google AI Studio", state: "Verbunden", detail: "Apps zugänglich; keine Gemini-Chat-Historie ausgelesen" },
 ];
 
 const tools: Tool[] = [
@@ -576,6 +601,7 @@ export default function Home() {
         <nav className="main-nav" aria-label="Hauptnavigation">
           <button type="button" className={mainView === "dashboard" ? "active" : ""} onClick={() => setMainView("dashboard")}>Dashboard</button>
           <button type="button" className={mainView === "catalog" ? "active" : ""} onClick={() => setMainView("catalog")}>Apps</button>
+          <button type="button" className={mainView === "chats" ? "active" : ""} onClick={() => setMainView("chats")}>Chats</button>
           <button type="button" className={mainView === "control" ? "active" : ""} onClick={() => setMainView("control")}>Control Center</button>
           <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
         </nav>
@@ -667,6 +693,7 @@ export default function Home() {
           <div><p className="eyebrow">Dokumentationsstand</p><h1>Projektakte auf einen Blick.</h1><p>Die Einordnung trennt vollständig geprüfte Projektakten von Einträgen, bei denen Quellen, Zugang oder technische Details noch ergänzt werden.</p></div>
           <div className="documentation-summary"><span><strong>{fullyDocumented.length}</strong> fertig dokumentiert</span><span><strong>{partlyDocumented.length}</strong> teilweise dokumentiert</span></div>
         </div>
+        <section className="chat-dashboard" aria-label="Chat-Übersicht"><div><p className="eyebrow">Chat-Übersicht</p><h2>{chatRecords.length} Verläufe erfasst</h2><p>{chatRecords.filter((chat) => chat.appId).length} Chats sind bereits einer App zugeordnet. Weitere Quellen werden erst nach Anmeldung ergänzt.</p></div><button type="button" onClick={() => setMainView("chats")}>Chat-Register öffnen</button></section>
         <div className="documentation-table-wrap">
           <table className="documentation-table">
             <caption>Übersicht aller Apps nach Dokumentationsstand</caption>
@@ -674,6 +701,11 @@ export default function Home() {
             <tbody>{documentationRows.map((tool) => <tr key={tool.id}><td><button type="button" onClick={() => { setSelectedId(tool.id); setMainView("catalog"); }}>{tool.title}</button><span>{tool.source} · {tool.category}</span></td><td><span className={`documentation-state ${documentationStateFor(tool) === "Fertig dokumentiert" ? "complete" : "partial"}`}>{documentationStateFor(tool)}</span></td><td>{detailsFor(tool).evidence}</td><td>{localPortFor(tool)}</td><td>{statusFor(tool)}</td></tr>)}</tbody>
           </table>
         </div>
+      </section>}
+      {mainView === "chats" && <section className="chats-view" aria-label="Chat-Register">
+        <div className="dashboard-heading"><div><p className="eyebrow">Quellenübergreifende Chat-Akte</p><h1>Chats mit App-Zuordnung.</h1><p>Nur zugängliche Verläufe werden aufgenommen. Modell, Datum und Kurzinhalt bleiben als belegte Metadaten oder sind ausdrücklich als nicht verfügbar markiert.</p></div><div className="documentation-summary"><span><strong>{chatRecords.length}</strong> erfasst</span><span><strong>{chatRecords.filter((chat) => chat.appId).length}</strong> zugeordnet</span></div></div>
+        <div className="chat-source-grid">{chatProviderStates.map((provider) => <article key={provider.source}><strong>{provider.source}</strong><span className={provider.state === "Verbunden" ? "connected" : provider.state === "Teilzugriff" ? "partial" : "unavailable"}>{provider.state}</span><p>{provider.detail}</p></article>)}</div>
+        <div className="documentation-table-wrap"><table className="documentation-table chat-table"><caption>Erfasste Chats und fachliche Zuordnung</caption><thead><tr><th>Quelle</th><th>Chat</th><th>Kurzinhalt</th><th>Datum</th><th>Modell</th><th>Passende App</th></tr></thead><tbody>{chatRecords.map((chat) => <tr key={chat.id}><td>{chat.source}</td><td><strong>{chat.title}</strong></td><td>{chat.summary}</td><td>{chat.updatedAt}</td><td>{chat.model}</td><td>{chat.appId ? <button type="button" onClick={() => { setSelectedId(chat.appId!); setMainView("catalog"); }}>{chat.appMatch}</button> : chat.appMatch}</td></tr>)}</tbody></table></div>
       </section>}
       {mainView === "control" && <section className="control-center" aria-label="Control Center">
         <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{allTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>
