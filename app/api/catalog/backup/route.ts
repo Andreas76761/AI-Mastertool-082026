@@ -23,9 +23,9 @@ export async function POST(request: Request) {
       const [bucket, ...objectParts] = latest.storage_path.split("/");
       const contentResponse = await supabaseStorage(`object/${bucket}/${objectParts.join("/")}`);
       const content = await contentResponse.text();
-      const { checksum } = await checksum(content);
+      const { checksum: calculatedChecksum } = await checksum(content);
       const payload = JSON.parse(content) as { tables?: Record<string, unknown[]> };
-      const valid = checksum === latest.checksum_sha256 && tables.every((table) => Array.isArray(payload.tables?.[table]));
+      const valid = calculatedChecksum === latest.checksum_sha256 && tables.every((table) => Array.isArray(payload.tables?.[table]));
       await supabaseRest(`catalog_backups?id=eq.${encodeURIComponent(latest.id)}`, { method: "PATCH", body: JSON.stringify({ status: valid ? "verified" : "failed", verified_at: new Date().toISOString(), detail: valid ? "Struktur und Prüfsumme erfolgreich wiederhergestellt geprüft." : "Prüfung fehlgeschlagen." }) });
       return Response.json({ verified: valid });
     }
