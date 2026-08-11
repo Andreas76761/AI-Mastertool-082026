@@ -18,6 +18,9 @@ type Tool = {
   location: string;
   overlap?: string;
   url?: string;
+  archive?: string;
+  checkedAt?: string;
+  performance?: string;
 };
 
 const tools: Tool[] = [
@@ -57,7 +60,21 @@ const categoryTags: Record<string, string[]> = {
 };
 
 const aiMesseGuide: Tool = { id: "messe", title: "AI Messe Guide", description: "Dashboard fuer KI-Messen, Konferenzen und Reisen.", source: "Lokaler Rechner", status: "Aktiv", category: "Organisation", detail: "Verwaltungs-App mit lokalem Modus sowie optionalem Cloud-Login, MFA und Synchronisierung.", location: "C:\\2026\\Claude\\AI_Messe_Guide", overlap: "AI Eventorganizer", url: "https://ai-messe-guide.vercel.app" };
-const allTools = [...tools, aiMesseGuide];
+const codexDiscoveredTools: Tool[] = [
+  { id: "codex-n8n", title: "Codex N8N Releaseletter-System", description: "Multi-Agent-Grundgeruest fuer Releaseletter, Freigaben und Ausspielung.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Automatisierung", detail: "Codex-Projekt mit Workflow-, Ontologie-, Graph- und Infrastrukturartefakten.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\Codex N8N", overlap: "Releaseletter · Dify Releaseletter · n8n", checkedAt: "11.08.2026", performance: "Quellcode und Archive vorhanden; keine laufende Web-App gestartet" },
+  { id: "voice-presentation", title: "Voice Präsentationstool", description: "Codex-Projekt fuer sprachgesteuerte Präsentationssuche.", source: "Lokaler Rechner", status: "Entwurf", category: "Präsentation", detail: "Projektordner wurde im Codex gefunden; im Stammordner liegt noch keine lauffaehige Anwendung.", location: "C:\\2026\\Codex\\Voice Präsentationstool", overlap: "Präsentations-Finder · Presentation Designer", checkedAt: "11.08.2026", performance: "Kein Startpunkt im Projektordner gefunden" },
+  { id: "funding", title: "Förderantrag", description: "Codex-Projekt mit Antragunterlagen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Analyse", detail: "Im Projektordner liegt derzeit eine PDF-Antragsunterlage.", location: "C:\\2026\\Codex\\Förderantrag", checkedAt: "11.08.2026", performance: "Dokumentenbestand vorhanden; keine Web-App" },
+  { id: "n8n-excel", title: "Investitions-Dashboard", description: "Web-App fuer Investitionsentscheidungen auf Basis von Excel-Auswertungen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Analyse", detail: "Node-Anwendung mit Excel-Quellen, Tests und Vercel-Konfiguration.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Excel Erweiterung", checkedAt: "11.08.2026", performance: "Start- und Testskripte vorhanden; noch nicht in dieser Sitzung gestartet" },
+  { id: "n8n-slides", title: "Präsentationsfolien Studio", description: "Lokale Web-App fuer Briefing, Folienentwurf, Bilder und PPTX-Export.", source: "Lokaler Rechner", status: "Aktiv", category: "Präsentation", detail: "Node-App mit SQLite, KI-Konfigurationscheck und überprüftem PPTX-Export.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Präsentationsfolien", checkedAt: "11.08.2026", performance: "Dokumentierter Bildvorschlags-Test: 152 ms; Healthcheck und Export zuvor erfolgreich" },
+  { id: "transparency", title: "Transparenz Hub", description: "Analyse- und Bearbeitungsplattform fuer Dateien, Bilder und Office-Dokumente.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Katalog", detail: "React- und Express-System fuer Explorer, Preview, Duplikate und Job-Monitor.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Bildbetrachter", checkedAt: "11.08.2026", performance: "MVP-Quellcode und Testdaten vorhanden; Anwendung noch nicht in dieser Sitzung gestartet" },
+  { id: "n8n-library", title: "n8n Bibliothek Dashboard", description: "Durchsuchbare Workflow-Bibliothek mit Graph Memory und Integrationsstatus.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Automatisierung", detail: "Statisches Dashboard mit 200 Workflows, API-Handlern und Graph-Backends.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Bibliothek", checkedAt: "11.08.2026", performance: "Dokumentierte API- und UI-Checks erfolgreich; keine laufende Instanz getestet" },
+  { id: "pc-optimizer", title: "PC Optimizer Dashboard", description: "Browser-App zur Windows- und Programmanalyse.", source: "Lokaler Rechner", status: "Prüfen", category: "Analyse", detail: "Express-Dashboard mit Programmkatalog, JSON-Datenbank und lokalen Windows-Analysen.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\Codex PC analyse", checkedAt: "11.08.2026", performance: "Lokaler Startpunkt dokumentiert; Zugang bewusst nicht mit im Projekt abgelegten Standarddaten getestet" },
+  { id: "waterdamage", title: "Wasserschaden Fallakte", description: "Codex-Projekt mit Kommunikations- und Argumentationsunterlagen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Verträge", detail: "Sammlung strukturierter Markdown-Protokolle und Zeitstrahlen; keine eigene Web-App gefunden.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\Wasserschaden", checkedAt: "11.08.2026", performance: "Dokumentenbestand vorhanden; keine Web-App" },
+  { id: "testing-screen", title: "Testing Screen Tool", description: "Als Codex-Projekt registriertes Testwerkzeug.", source: "Lokaler Rechner", status: "Prüfen", category: "Katalog", detail: "Projektordner ist registriert, enthält im Stammordner aber noch keine identifizierbare Anwendung.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\Testing Screen Tool", checkedAt: "11.08.2026", performance: "Kein Startpunkt im Projektordner gefunden" },
+  { id: "presentation-finder", title: "Präsentations-Finder", description: "Einzelplatz-App mit Sprachsuche, Folien-Thumbnails und lokalen Sicherungen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Präsentation", detail: "Codex-Projekt mit lokalem Dienst, Eigentümermodus, Hintergrundaufträgen und SQLite-Sicherung.", location: "C:\\Users\\andre\\Documents\\Codex\\2026-07-30\\realtime-voice-chat", overlap: "Voice Präsentationstool · Presentation Designer", checkedAt: "11.08.2026", performance: "Laut letzter Codex-Prüfung: Build, Lint und 9 Tests erfolgreich; lokaler Server auf Port 4310 geprüft" },
+  { id: "hackathon", title: "MB AI Hackathon", description: "ChatGPT-Projekt, fachliche Umsetzung noch zu erfassen.", source: "Cloud", status: "Prüfen", category: "KI", detail: "Als ChatGPT-Projekt registriert; es liegt noch keine technische Projektakte im lokalen Katalog vor.", location: "ChatGPT Projekt / MB AI Hackathon", checkedAt: "11.08.2026", performance: "Zugang zur Projektübersicht vorhanden; keine lauffaehige App identifiziert" },
+];
+const allTools = [...tools, aiMesseGuide, ...codexDiscoveredTools];
 
 function tagsFor(tool: Tool) {
   return [tool.category, tool.source, "KI-gestützt", "2026", "Web-App", "Weiterentwicklung", "Inventur", ...categoryTags[tool.category] ?? []].slice(0, 10);
@@ -71,6 +88,22 @@ function quickStartFor(tool: Tool) {
   if (tool.url) return tool.url;
   if (tool.source === "Google Drive") return "https://drive.google.com/drive/home";
   return `file:///${tool.location.replace(/\\/g, "/")}`;
+}
+
+function archiveFor(tool: Tool) {
+  if (tool.archive) return tool.archive;
+  if (tool.source === "GitHub" && tool.url) return tool.url;
+  if (tool.source === "Google Drive") return "https://drive.google.com/drive/home";
+  if (tool.source === "Cloud") return "https://chatgpt.com/";
+  return quickStartFor(tool);
+}
+
+function folderFor(tool: Tool) {
+  return tool.source === "Lokaler Rechner" ? quickStartFor(tool) : archiveFor(tool);
+}
+
+function statusFor(tool: Tool) {
+  return `${tool.status} · Stand ${tool.checkedAt ?? "erste Inventur"}`;
 }
 
 function architectureFor(tool: Tool) {
@@ -154,6 +187,18 @@ const appDetails: Record<string, AppDetails> = {
   event: { builder: "Claude", frontend: "Statisches HTML, CSS und JavaScript als Progressive Web App", middleware: "Optionales Supabase Cloud-Modul", backend: "Supabase Auth, Synchronisierung und Konto-Loeschung optional", database: "Supabase PostgreSQL optional; sonst LocalStorage und IndexedDB", connections: "GitHub zu Vercel, Supabase MFA, Google-Kalender-Links, ICS-Export und EZB-Wechselkurse", models: "Kein LLM im App-Code belegt", evidence: "README, cloud.js, db.js, schema.sql, vercel.json und Live-App", access: "Lokal ohne Login nutzbar; Cloud-Login mit Supabase-Konfiguration und MFA" },
   messe: { builder: "Claude", frontend: "Statisches HTML, CSS und JavaScript", middleware: "Optionales Supabase Cloud-Modul", backend: "Supabase Auth, Sync und Konto-Loeschung", database: "Supabase PostgreSQL optional; lokal LocalStorage und IndexedDB", connections: "GitHub zu Vercel Deployment, Supabase MFA, Cloud-Sync und Row-Level Security", models: "Kein LLM im App-Code dokumentiert", evidence: "README, cloud.js, schema.sql, vercel.json und Live-Screen", access: "Live-App ohne Konto sichtbar; Cloud-Login ist erst nach Supabase-Konfiguration verfuegbar" },
   cost: { builder: "Noch zu pruefen", frontend: "Dokument- und Analyseartefakte", middleware: "Noch zu pruefen", backend: "Google Drive Ablage", database: "Keine Datenbank erfasst", connections: "Google Drive und PDF-Unterlagen", models: "Kein Modellbezug verifiziert", evidence: "Google-Drive-PDFs und Managementunterlagen" },
+  "codex-n8n": { builder: "Codex", frontend: "Control-Center Frontend-Skelett", middleware: "n8n Orchestrierungs- und Freigabe-Workflows", backend: "Docker-Compose und Agenten-Infrastruktur", database: "Graphdatenbank als Zielarchitektur", connections: "Jira, Confluence, Mural, Excel, Teams und SharePoint", models: "Agentenmodell vorgesehen; konkrete Modelle noch offen", evidence: "README, Workflow-Archive, Ontologie- und Graph-Ordner", access: "Projektarchiv lokal vorhanden; keine laufende Oberfläche registriert" },
+  "voice-presentation": { builder: "Codex", frontend: "Noch nicht vorhanden", middleware: "Noch nicht vorhanden", backend: "Noch nicht vorhanden", database: "Noch nicht vorhanden", connections: "Noch keine Verbindung belegt", models: "Noch nicht belegt", evidence: "Codex-Projektregistrierung und leerer Stammordner", access: "Kein App-Startpunkt vorhanden" },
+  funding: { builder: "Codex", frontend: "PDF-Unterlage", middleware: "Keine", backend: "Lokaler Dokumentenbestand", database: "Keine", connections: "Keine belegt", models: "Kein Modellbezug belegt", evidence: "Förderantrag LBWW.pdf", access: "Lokaler Dokumentenzugang" },
+  "n8n-excel": { builder: "Codex", frontend: "Web-Dashboard", middleware: "Node.js Server", backend: "Excel-Auswertung und Reporting-Skripte", database: "Excel-Arbeitsmappen als Quelldaten", connections: "Vercel-Konfiguration; lokale Excel-, XLSM- und Reportingdateien", models: "Kein Modellbezug im package.json belegt", evidence: "package.json, server.js, Excel-Dateien und Tests", access: "Lokaler Startpunkt vorhanden; keine Anmeldung dokumentiert" },
+  "n8n-slides": { builder: "Codex", frontend: "HTML, CSS und clientseitiges JavaScript", middleware: "Node.js API", backend: "Node.js, SQLite und PPTX-Export", database: "SQLite: presentation-studio.db im lokalen AppData", connections: "Lokale Browser-Speicherung fuer KI-Zugangsdaten; PPTX-Export", models: "Modelle waehlen und testen; konkrete Providerkonfiguration lokal", evidence: "README, server.js, client.js und package.json", access: "Lokale Nutzung ohne Konto; KI-Funktionen erst nach eigener API-Konfiguration" },
+  transparency: { builder: "Codex", frontend: "React und Vite", middleware: "Express mit Sicherheits-Middleware", backend: "Lokale Datei- und Preview-Pipeline", database: "SQLite im lokalen AppData-Bereich", connections: "Lokale Laufwerke, SharePoint- und Cloud-Connectoren vorbereitet, Office COM", models: "KI-Reorganisationsplaene vorhanden; konkretes Modell noch nicht belegt", evidence: "README, Client- und Server-Workspace", access: "Lokale Konfiguration ueber server/.env erforderlich" },
+  "n8n-library": { builder: "Codex", frontend: "React, TypeScript und Vite", middleware: "API-Handler, n8n Workflows und Graph API", backend: "Graph Backends: JSON, Neo4j, Cognee oder Notion", database: "JSON-Fallback oder Neo4j; Notion optional", connections: "Notion, GitHub, Vercel und n8n", models: "Kein konkreter LLM-Aufruf im README belegt", evidence: "README, API-, Graph- und Workflow-Ordner", access: "Demo lokal nutzbar; externe Backends benoetigen eigene Secrets" },
+  "pc-optimizer": { builder: "Codex", frontend: "Browser-Dashboard mit sieben Registern", middleware: "Express", backend: "Windows Registry- und Prozessanalyse per PowerShell", database: "Dateibasierte JSON-Datenbank: data/optimizer.db.json", connections: "Lokale Windows-Registry und laufende Prozesse", models: "Kein Modellbezug im README belegt", evidence: "README, app-server.js, package.json und Mockup", access: "Lokaler Login vorhanden; keine Zugangsdaten im Katalog gespeichert oder verwendet" },
+  waterdamage: { builder: "Codex", frontend: "Markdown-Dokumente", middleware: "Keine", backend: "Lokale Fallakte", database: "Keine", connections: "Kommunikationsprotokolle und Zeitstrahlen", models: "Kein Modellbezug belegt", evidence: "Sechs lokale Protokoll- und Argumentationsdateien", access: "Lokaler Dokumentenzugang" },
+  "testing-screen": { builder: "Codex", frontend: "Noch nicht identifiziert", middleware: "Noch nicht identifiziert", backend: "Noch nicht identifiziert", database: "Noch nicht identifiziert", connections: "Noch nicht identifiziert", models: "Noch nicht identifiziert", evidence: "Codex-Projektregistrierung und leerer Stammordner", access: "Kein App-Startpunkt vorhanden" },
+  "presentation-finder": { builder: "Codex", frontend: "Lokale Desktop-nahe Web-Oberflaeche", middleware: "Lokaler Dienst auf 127.0.0.1", backend: "Persistente Hintergrundauftraege fuer Video und Sicherungen", database: "SQLite mit Medien, Vorschaubildern, Exporten und Sicherungsarchiv", connections: "Lokale Dateien, Fotos, Praesentationen und PDFs", models: "Sprachsuche vorgesehen; konkretes Modell nicht aus dem Abschlussbericht belegt", evidence: "Codex-Abschlussbericht, Production-Dokumentation und Teststand", access: "Einzelplatzbetrieb; letzter Bericht bestaetigt lokalen Server und 9 erfolgreiche Tests" },
+  hackathon: { builder: "ChatGPT", frontend: "Noch nicht identifiziert", middleware: "Noch nicht identifiziert", backend: "Noch nicht identifiziert", database: "Noch nicht identifiziert", connections: "ChatGPT-Projektbereich", models: "Noch nicht identifiziert", evidence: "ChatGPT-Projektregistrierung", access: "Projekt ist im ChatGPT-Bereich sichtbar; keine lauffaehige App belegt" },
 };
 
 function detailsFor(tool: Tool): AppDetails {
@@ -178,6 +223,10 @@ export default function Home() {
     setOpenedId(tool.id);
     setWindowTab("profile");
     setWindowPosition({ x: 0, y: 0 });
+  }
+
+  async function copyLocation(tool: Tool) {
+    await navigator.clipboard?.writeText(tool.location);
   }
 
   function startDrag(event: React.PointerEvent<HTMLElement>) {
@@ -213,7 +262,7 @@ export default function Home() {
           <p className="lead">Finde Apps, erkenne Überschneidungen und öffne die passende Quelle, um ein Projekt weiterzuentwickeln.</p>
         </div>
         <div className="summary" aria-label="Inventurstand">
-          <span><strong>{tools.length}</strong> erfasste Werkzeuge</span>
+          <span><strong>{allTools.length}</strong> erfasste Werkzeuge</span>
           <span><strong>4</strong> Quelltypen</span>
           <span><strong>5</strong> Prüfcluster</span>
         </div>
@@ -238,6 +287,13 @@ export default function Home() {
               <span className="card-top"><span className="source-icon" aria-hidden="true">{tool.source === "GitHub" ? "GH" : tool.source === "Google Drive" ? "GD" : tool.source === "Cloud" ? "CL" : "PC"}</span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
               <button className="card-select" onClick={(event) => { event.stopPropagation(); openTool(tool); }}><span className="tool-title">{tool.title}</span><span className="tool-description">{tool.description}</span></button>
               <span className="tool-meta">{tool.source} · {tool.category}</span>
+              <span className="resource-links" aria-label={`Zugänge für ${tool.title}`}>
+                <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Link</a>
+                <a href={archiveFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Archiv</a>
+                <a href={folderFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Ordner</a>
+                <button type="button" title={tool.location} onClick={(event) => { event.stopPropagation(); copyLocation(tool); }}>Pfad kopieren</button>
+              </span>
+              <span className="checked-status" title={tool.performance ?? "Keine Performance-Angabe"}>Status: {statusFor(tool)}</span>
               <span className="card-actions" aria-label={`Aktionen für ${tool.title}`}>
                 <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); }}>Start</a>
                 <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("masterdata"); }}>Daten</button>
@@ -259,10 +315,11 @@ export default function Home() {
             <button className={panel === "architecture" ? "active" : ""} onClick={() => setPanel("architecture")}>IT-Architektur</button>
             <button className={panel === "features" ? "active" : ""} onClick={() => setPanel("features")}>Neue Features</button>
           </div>
-          {panel === "masterdata" && <dl className="info-list"><div><dt>Angelegt</dt><dd>Noch zu erfassen</dd></div><div><dt>Letzte Aktualisierung</dt><dd>Aus der ersten Inventur</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
+          {panel === "masterdata" && <dl className="info-list"><div><dt>Angelegt</dt><dd>Noch zu erfassen</dd></div><div><dt>Letzte Aktualisierung</dt><dd>{selected.checkedAt ?? "Aus der ersten Inventur"}</dd></div><div><dt>Aktueller Status</dt><dd>{statusFor(selected)}</dd></div><div><dt>Performance / Zugang</dt><dd>{selected.performance ?? detailsFor(selected).access ?? "Noch nicht gemessen"}</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
           {panel === "tags" && <div className="tags-panel"><p>Vorläufige Beschreibung</p><div className="tag-list">{tagsFor(selected).map((tag) => <span key={tag}>{tag}</span>)}</div><p className="similar"><strong>Ähnliche Apps:</strong> {selected.overlap ?? "Noch abgleichen"}</p><p className="similar"><strong>Zuordnung:</strong> {scopeFor(selected)}</p></div>}
           {panel === "architecture" && <dl className="info-list architecture">{Object.entries(architectureFor(selected)).map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl>}
           {panel === "features" && <ul className="features-list">{featuresFor(selected).map((feature) => <li key={feature}>{feature}</li>)}</ul>}
+          <div className="selected-links"><a href={quickStartFor(selected)} target="_blank" rel="noreferrer">Link öffnen</a><a href={archiveFor(selected)} target="_blank" rel="noreferrer">Archiv</a><a href={folderFor(selected)} target="_blank" rel="noreferrer">Ordner</a></div>
           <a className="primary-action" href={quickStartFor(selected)} target="_blank" rel="noreferrer">Schnellstart öffnen <span aria-hidden="true">↗</span></a>
           <p className="detail-note">Weitere Rechner, OneDrive und Google Drive können in derselben Struktur ergänzt werden.</p>
         </aside>
