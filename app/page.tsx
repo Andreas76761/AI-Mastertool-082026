@@ -6,6 +6,7 @@ type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
 type WindowTab = "profile" | "systems" | "screens";
+type MainView = "dashboard" | "catalog";
 
 type Tool = {
   id: string;
@@ -77,6 +78,15 @@ const codexDiscoveredTools: Tool[] = [
   { id: "hackathon", title: "MB AI Hackathon", description: "ChatGPT-Projekt, fachliche Umsetzung noch zu erfassen.", source: "Cloud", status: "Prüfen", category: "KI", detail: "Als ChatGPT-Projekt registriert; es liegt noch keine technische Projektakte im lokalen Katalog vor.", location: "ChatGPT Projekt / MB AI Hackathon", checkedAt: "11.08.2026", performance: "Zugang zur Projektübersicht vorhanden; keine lauffaehige App identifiziert" },
 ];
 const allTools = [...tools, aiMesseGuide, ...codexDiscoveredTools];
+
+const fullyDocumentedIds = new Set([
+  "overview", "business", "contracts", "dokupress", "slides", "presentation", "releaseletter", "dify", "event", "messe",
+  "codex-n8n", "n8n-excel", "n8n-slides", "transparency", "n8n-library", "pc-optimizer", "presentation-finder",
+]);
+
+function documentationStateFor(tool: Tool) {
+  return fullyDocumentedIds.has(tool.id) ? "Fertig dokumentiert" : "Teilweise dokumentiert";
+}
 
 function tagsFor(tool: Tool) {
   return [tool.category, tool.source, "KI-gestützt", "2026", "Web-App", "Weiterentwicklung", "Inventur", ...categoryTags[tool.category] ?? []].slice(0, 10);
@@ -263,6 +273,7 @@ function builderForFilter(tool: Tool): Exclude<BuilderFilter, "Alle"> | "Andere"
 }
 
 export default function Home() {
+  const [mainView, setMainView] = useState<MainView>("catalog");
   const [query, setQuery] = useState("");
   const [source, setSource] = useState<Source | "Alle">("Alle");
   const [status, setStatus] = useState<Status | "Alle">("Alle");
@@ -330,14 +341,22 @@ export default function Home() {
       return (source === "Alle" || tool.source === source) && (status === "Alle" || tool.status === status) && (builderFilter === "Alle" || builderForFilter(tool) === builderFilter) && (!needle || searchable.includes(needle));
     }).sort((a, b) => sortBy === "created" ? createdFor(b).localeCompare(createdFor(a), "de") : a.status.localeCompare(b.status, "de"));
   }, [query, source, status, builderFilter, sortBy]);
+  const fullyDocumented = allTools.filter((tool) => documentationStateFor(tool) === "Fertig dokumentiert");
+  const partlyDocumented = allTools.filter((tool) => documentationStateFor(tool) === "Teilweise dokumentiert");
+  const documentationRows = [...allTools].sort((a, b) => documentationStateFor(a).localeCompare(documentationStateFor(b), "de") || a.title.localeCompare(b.title, "de"));
 
   return (
     <main className="app-shell">
       <header className="topbar">
         <div className="brand"><span className="brand-mark">M</span><span>Mein App-Katalog</span></div>
+        <nav className="main-nav" aria-label="Hauptnavigation">
+          <button type="button" className={mainView === "dashboard" ? "active" : ""} onClick={() => setMainView("dashboard")}>Dashboard</button>
+          <button type="button" className={mainView === "catalog" ? "active" : ""} onClick={() => setMainView("catalog")}>Apps</button>
+        </nav>
         <p>Arbeitsstand: erste Inventur · 18 GitHub-Repositories · Google Drive verbunden</p>
       </header>
 
+      <div className={mainView === "catalog" ? "catalog-view" : "catalog-view view-hidden"}>
       <section className="hero">
         <div>
           <p className="eyebrow">Zentrale Übersicht</p>
@@ -414,6 +433,20 @@ export default function Home() {
           <p className="detail-note">Weitere Rechner, OneDrive und Google Drive können in derselben Struktur ergänzt werden.</p>
         </aside>
       </section>
+      </div>
+      {mainView === "dashboard" && <section className="dashboard" aria-label="Dokumentationsdashboard">
+        <div className="dashboard-heading">
+          <div><p className="eyebrow">Dokumentationsstand</p><h1>Projektakte auf einen Blick.</h1><p>Die Einordnung trennt vollständig geprüfte Projektakten von Einträgen, bei denen Quellen, Zugang oder technische Details noch ergänzt werden.</p></div>
+          <div className="documentation-summary"><span><strong>{fullyDocumented.length}</strong> fertig dokumentiert</span><span><strong>{partlyDocumented.length}</strong> teilweise dokumentiert</span></div>
+        </div>
+        <div className="documentation-table-wrap">
+          <table className="documentation-table">
+            <caption>Übersicht aller Apps nach Dokumentationsstand</caption>
+            <thead><tr><th>App</th><th>Dokumentation</th><th>Prüfgrundlage</th><th>Lokaler Port</th><th>Aktueller Status</th></tr></thead>
+            <tbody>{documentationRows.map((tool) => <tr key={tool.id}><td><button type="button" onClick={() => { setSelectedId(tool.id); setMainView("catalog"); }}>{tool.title}</button><span>{tool.source} · {tool.category}</span></td><td><span className={`documentation-state ${documentationStateFor(tool) === "Fertig dokumentiert" ? "complete" : "partial"}`}>{documentationStateFor(tool)}</span></td><td>{detailsFor(tool).evidence}</td><td>{localPortFor(tool)}</td><td>{statusFor(tool)}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </section>}
       {opened && <div className="app-window-layer" role="presentation">
         <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
           <header className="window-header" onPointerDown={startDrag} onPointerMove={moveWindow} onPointerUp={() => { drag.current = null; }}>
