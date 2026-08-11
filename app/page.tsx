@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
 type WindowTab = "profile" | "systems" | "screens";
-type MainView = "dashboard" | "catalog";
+type MainView = "dashboard" | "catalog" | "control";
+type ControlTab = "analytics" | "sources" | "devices" | "matrix" | "scores" | "ideas" | "remote";
 
 type Tool = {
   id: string;
@@ -25,6 +26,20 @@ type Tool = {
 };
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
+
+const networkDevices = [
+  { id: "local", name: "Dieser Rechner", system: "Windows 11", address: "192.168.2.185", state: "online", detail: "Master-App und lokale Dienste sind erreichbar." },
+  { id: "w1", name: "Windows Laptop 1", system: "Windows 11", address: "192.168.1.100:9001", state: "unavailable", detail: "Am 11.08.2026 per Ping und Gesundheitsdienst nicht erreichbar; anderes Netzsegment." },
+  { id: "ubuntu", name: "Ubuntu Desktop", system: "Ubuntu 22.04", address: "192.168.1.102:9002", state: "unavailable", detail: "Am 11.08.2026 per Ping und Gesundheitsdienst nicht erreichbar; anderes Netzsegment." },
+  { id: "w2", name: "Windows Laptop 2", system: "Windows 10", address: "192.168.1.103:9003", state: "unavailable", detail: "Am 11.08.2026 per Ping und Gesundheitsdienst nicht erreichbar; anderes Netzsegment." },
+];
+
+const featureIdeas = [
+  { id: "sync", title: "Geräte-Status-Agent", detail: "Kleiner Dienst je Rechner für aktuelle Inventur und Gesundheitsstatus.", votes: 0 },
+  { id: "github", title: "GitHub-Abgleich", detail: "Commits, Pull Requests und Deployments direkt im Projektprofil bündeln.", votes: 0 },
+  { id: "search", title: "Globale Projektsuche", detail: "Suche über Dateien, Dokumentation und Screenshots hinweg.", votes: 0 },
+  { id: "portfolio", title: "Portfolio-Report", detail: "Exportierbarer Management-Bericht für Status und Fortschritt.", votes: 0 },
+];
 
 const tools: Tool[] = [
   { id: "overview", title: "AI-Artefakte Übersicht", description: "Bestehender plattformübergreifender Projektkatalog.", source: "Lokaler Rechner", status: "Aktiv", category: "Katalog", detail: "Der klarste Vorgänger des neuen Master-Tools. Er soll als Grundlage geprüft und gezielt erweitert werden.", location: "C:\\2026\\Claude\\Übersicht", overlap: "Master-Tool-Vorläufer", checkedAt: "11.08.2026", performance: "Lokaler Start geprüft: HTTP 200 auf Port 8000 (26.110 Bytes)." },
@@ -86,6 +101,12 @@ const fullyDocumentedIds = new Set([
 
 function documentationStateFor(tool: Tool) {
   return fullyDocumentedIds.has(tool.id) ? "Fertig dokumentiert" : "Teilweise dokumentiert";
+}
+
+function documentationScoreFor(tool: Tool) {
+  if (documentationStateFor(tool) === "Fertig dokumentiert") return tool.performance ? 90 : 82;
+  if (tool.status === "Entwurf") return 35;
+  return 55;
 }
 
 function tagsFor(tool: Tool) {
@@ -274,6 +295,10 @@ function builderForFilter(tool: Tool): Exclude<BuilderFilter, "Alle"> | "Andere"
 
 export default function Home() {
   const [mainView, setMainView] = useState<MainView>("catalog");
+  const [controlTab, setControlTab] = useState<ControlTab>("analytics");
+  const [darkMode, setDarkMode] = useState(false);
+  const [ideaVotes, setIdeaVotes] = useState<Record<string, number>>({});
+  const [networkNotice, setNetworkNotice] = useState("Letzte lokale Prüfung: 11.08.2026. Drei hinterlegte Geräte antworten im aktuellen Netz nicht.");
   const [query, setQuery] = useState("");
   const [source, setSource] = useState<Source | "Alle">("Alle");
   const [status, setStatus] = useState<Status | "Alle">("Alle");
@@ -288,6 +313,37 @@ export default function Home() {
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
   const selected = allTools.find((tool) => tool.id === selectedId) ?? allTools[0];
   const opened = allTools.find((tool) => tool.id === openedId);
+
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("catalog-theme");
+    const savedVotes = window.localStorage.getItem("catalog-feature-votes");
+    setDarkMode(savedTheme === "dark");
+    if (savedVotes) setIdeaVotes(JSON.parse(savedVotes) as Record<string, number>);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? "dark" : "light";
+    window.localStorage.setItem("catalog-theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
+  function voteForIdea(id: string) {
+    setIdeaVotes((current) => {
+      const next = { ...current, [id]: (current[id] ?? 0) + 1 };
+      window.localStorage.setItem("catalog-feature-votes", JSON.stringify(next));
+      return next;
+    });
+  }
+
+  function exportCatalog(format: "json" | "csv" | "markdown") {
+    const rows = allTools.map((tool) => ({ app: tool.title, dokumentation: documentationStateFor(tool), status: tool.status, quelle: tool.source, port: localPortFor(tool), pruefgrundlage: detailsFor(tool).evidence }));
+    const content = format === "json" ? JSON.stringify(rows, null, 2) : format === "csv" ? ["App;Dokumentation;Status;Quelle;Lokaler Port;Prüfgrundlage", ...rows.map((row) => [row.app, row.dokumentation, row.status, row.quelle, row.port, row.pruefgrundlage].map((value) => `\"${value.replaceAll("\"", "\"\"")}\"`).join(";"))].join("\n") : ["# Mein App-Katalog", "", ...rows.map((row) => `- **${row.app}** — ${row.dokumentation}; ${row.status}; ${row.port}`)].join("\n");
+    const type = format === "json" ? "application/json" : format === "csv" ? "text/csv" : "text/markdown";
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob([content], { type }));
+    link.download = `mein-app-katalog.${format === "markdown" ? "md" : format}`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
 
   function openTool(tool: Tool) {
     setSelectedId(tool.id);
@@ -352,6 +408,8 @@ export default function Home() {
         <nav className="main-nav" aria-label="Hauptnavigation">
           <button type="button" className={mainView === "dashboard" ? "active" : ""} onClick={() => setMainView("dashboard")}>Dashboard</button>
           <button type="button" className={mainView === "catalog" ? "active" : ""} onClick={() => setMainView("catalog")}>Apps</button>
+          <button type="button" className={mainView === "control" ? "active" : ""} onClick={() => setMainView("control")}>Control Center</button>
+          <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
         </nav>
         <p>Arbeitsstand: erste Inventur · 18 GitHub-Repositories · Google Drive verbunden</p>
       </header>
@@ -446,6 +504,17 @@ export default function Home() {
             <tbody>{documentationRows.map((tool) => <tr key={tool.id}><td><button type="button" onClick={() => { setSelectedId(tool.id); setMainView("catalog"); }}>{tool.title}</button><span>{tool.source} · {tool.category}</span></td><td><span className={`documentation-state ${documentationStateFor(tool) === "Fertig dokumentiert" ? "complete" : "partial"}`}>{documentationStateFor(tool)}</span></td><td>{detailsFor(tool).evidence}</td><td>{localPortFor(tool)}</td><td>{statusFor(tool)}</td></tr>)}</tbody>
           </table>
         </div>
+      </section>}
+      {mainView === "control" && <section className="control-center" aria-label="Control Center">
+        <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{allTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>
+        <nav className="control-tabs" aria-label="Control Center Funktionen">{(["analytics", "sources", "devices", "matrix", "scores", "ideas", "remote"] as ControlTab[]).map((tab) => <button key={tab} type="button" className={controlTab === tab ? "active" : ""} onClick={() => setControlTab(tab)}>{{ analytics: "Analytics", sources: "Quellen", devices: "Geräte", matrix: "Matrix", scores: "Scorecards", ideas: "Ideen", remote: "Remote Launcher" }[tab]}</button>)}</nav>
+        {controlTab === "analytics" && <div className="control-panel"><div className="analytics-cards"><article><span>Fertig dokumentiert</span><strong>{fullyDocumented.length}</strong><small>technische Akte geprüft</small></article><article><span>Teilweise dokumentiert</span><strong>{partlyDocumented.length}</strong><small>Quellen oder Zugang ergänzen</small></article><article><span>Aktive Apps</span><strong>{allTools.filter((tool) => tool.status === "Aktiv").length}</strong><small>im Inventar als aktiv geführt</small></article><article><span>Lokale Ports</span><strong>{allTools.filter((tool) => localHrefFor(tool)).length}</strong><small>dokumentierte Web-Startpunkte</small></article></div><div className="control-actions"><button type="button" onClick={() => exportCatalog("json")}>JSON exportieren</button><button type="button" onClick={() => exportCatalog("csv")}>CSV exportieren</button><button type="button" onClick={() => exportCatalog("markdown")}>Markdown exportieren</button><button type="button" onClick={() => window.print()}>Drucken</button></div></div>}
+        {controlTab === "sources" && <div className="source-summary-grid">{(["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"] as Source[]).map((item) => <article key={item}><span>{item}</span><strong>{allTools.filter((tool) => tool.source === item).length}</strong><p>{allTools.filter((tool) => tool.source === item && documentationStateFor(tool) === "Fertig dokumentiert").length} vollständig dokumentiert</p></article>)}</div>}
+        {controlTab === "devices" && <div className="control-panel"><div className="control-panel-head"><div><h2>Gerätestatus im Netzwerk</h2><p>{networkNotice}</p></div><button type="button" onClick={() => setNetworkNotice("Erneute Prüfung ist erst möglich, wenn die drei Geräte im aktuellen WLAN erreichbar sind oder ein Status-Agent eingerichtet wurde.")}>Status aktualisieren</button></div><div className="device-grid">{networkDevices.map((device) => <article key={device.id}><span className={`device-dot ${device.state}`}></span><div><strong>{device.name}</strong><p>{device.system} · {device.address}</p><small>{device.detail}</small></div><b className={device.state}>{device.state === "online" ? "Online" : "Nicht erreichbar"}</b></article>)}</div><p className="network-help">Für echte Live-Daten der anderen Rechner braucht jeder Rechner einen kleinen Status-Agenten oder eine HTTPS-fähige Freigabe. Die frühere Konfiguration zeigt noch Adressen aus dem Netz 192.168.1.x, der aktuelle Rechner arbeitet im Netz 192.168.2.x.</p></div>}
+        {controlTab === "matrix" && <div className="documentation-table-wrap"><table className="documentation-table"><caption>Projekt × Quelle × lokaler Zugang</caption><thead><tr><th>App</th><th>Quelle</th><th>Dokumentation</th><th>Lokaler Zugang</th><th>Status</th></tr></thead><tbody>{allTools.map((tool) => <tr key={tool.id}><td><button type="button" onClick={() => { setSelectedId(tool.id); setMainView("catalog"); }}>{tool.title}</button></td><td>{tool.source}</td><td>{documentationStateFor(tool)}</td><td>{localPortFor(tool)}</td><td>{tool.status}</td></tr>)}</tbody></table></div>}
+        {controlTab === "scores" && <div className="score-grid">{[...allTools].sort((a, b) => documentationScoreFor(b) - documentationScoreFor(a)).map((tool) => <article key={tool.id}><div><strong>{tool.title}</strong><span>{documentationStateFor(tool)}</span></div><b>{documentationScoreFor(tool)}%</b><div className="score-track"><i style={{ width: `${documentationScoreFor(tool)}%` }}></i></div><small>{detailsFor(tool).evidence}</small></article>)}</div>}
+        {controlTab === "ideas" && <div className="ideas-grid">{featureIdeas.map((idea) => <article key={idea.id}><h2>{idea.title}</h2><p>{idea.detail}</p><button type="button" onClick={() => voteForIdea(idea.id)}>Priorisieren <span>{idea.votes + (ideaVotes[idea.id] ?? 0)}</span></button></article>)}</div>}
+        {controlTab === "remote" && <div className="control-panel remote-panel"><h2>Remote Launcher</h2><p>Die frühere Übersicht konnte Apps auf anderen Geräten über einen lokalen Dienst starten. Aktuell ist keiner der drei hinterlegten Rechner im erreichbaren Netzsegment.</p><div className="device-grid">{networkDevices.filter((device) => device.id !== "local").map((device) => <article key={device.id}><span className="device-dot unavailable"></span><div><strong>{device.name}</strong><p>{device.address}</p><small>Startdienst nicht erreichbar</small></div><button type="button" disabled>Starten</button></article>)}</div><p className="network-help">Sobald ein Status- und Startdienst auf dem jeweiligen Rechner erreichbar ist, kann dieser Bereich die Prüfung und den Startvorgang übernehmen.</p></div>}
       </section>}
       {opened && <div className="app-window-layer" role="presentation">
         <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
