@@ -24,6 +24,8 @@ type Tool = {
   createdAt?: string;
   checkedAt?: string;
   performance?: string;
+  trafficLight?: "green" | "gray" | "red";
+  trafficNote?: string;
 };
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
@@ -79,6 +81,32 @@ const categoryTags: Record<string, string[]> = {
 };
 
 const aiMesseGuide: Tool = { id: "messe", title: "AI Messe Guide", description: "Dashboard fuer KI-Messen, Konferenzen und Reisen.", source: "Lokaler Rechner", status: "Aktiv", category: "Organisation", detail: "Verwaltungs-App mit lokalem Modus sowie optionalem Cloud-Login, MFA und Synchronisierung.", location: "C:\\2026\\Claude\\AI_Messe_Guide", overlap: "AI Eventorganizer", url: "https://ai-messe-guide.vercel.app", checkedAt: "11.08.2026", performance: "Live-Zugang im Browser geprüft; Oberfläche und Inhalte wurden geladen" };
+const googleStudioTestResults: Record<string, Pick<Tool, "trafficLight" | "trafficNote" | "performance">> = {
+  "google-studio-vibe-web": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-vibe-android": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-excel-sharepoint": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-jira-release-qa": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-intellifile": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-gmx": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-taxflow": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-code-smells": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-studienbescheinigung": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-jiraextender": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-untitled": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-phasen": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-usecase": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-kihub": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-n8n-support": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-presentation": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-app-building": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-n8n-expert": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-featurewatch": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-systemdoc": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-release-hub": { trafficLight: "gray", trafficNote: "App vorhanden, aber Google meldet eine überschrittene Projekt-Quota.", performance: "Einzeltest 11.08.2026: Editor erreichbar; Modell-/Projektliste durch Google-Quota blockiert." },
+  "google-studio-reportmonitor": { trafficLight: "gray", trafficNote: "App vorhanden, aber Google meldet eine überschrittene Modell-Quota.", performance: "Einzeltest 11.08.2026: Editor erreichbar; Modellliste durch Google-Quota blockiert." },
+  "google-studio-einnahmen": { trafficLight: "red", trafficNote: "Google AI Studio liefert „Seite nicht gefunden“.", performance: "Einzeltest 11.08.2026: Direkter Link nicht vorhanden." },
+  "google-studio-social": { trafficLight: "gray", trafficNote: "App vorhanden, aber Google meldet eine überschrittene Modell-Quota.", performance: "Einzeltest 11.08.2026: Editor erreichbar; Modellliste durch Google-Quota blockiert." },
+};
 const googleStudioTools: Tool[] = [
   { id: "google-studio-vibe-web", title: "Vibe Evaluator", description: "IT Stack und MVP Use Case Evaluator für Konzernumgebungen", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Google-AI-Studio-App zur Bewertung von IT-Stack und MVP-Use-Cases.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/68504720-64f6-456b-97af-3afec59064ea?showPreview=true&showAssistant=true", createdAt: "07.08.2026", checkedAt: "10.08.2026" },
   { id: "google-studio-vibe-android", title: "Vibe Evaluator Android", description: "IT Stack Evaluator für Rapid Prototyping in DAX-Konzernen", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Android-Variante des Vibe Evaluators in Google AI Studio.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/c4c56c76-bf5a-4e09-ab4c-ae8c25f12485?showPreview=true&showAssistant=true", createdAt: "07.08.2026", checkedAt: "07.08.2026" },
@@ -104,7 +132,7 @@ const googleStudioTools: Tool[] = [
   { id: "google-studio-reportmonitor", title: "ReportMonitor", description: "Gesamtdokumentation und Monitoring-Dashboard für Geschäfts-, Prozess- und Steuerungskennzahlen.", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Google-AI-Studio-App für Monitoring und Dokumentation.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/4bc99f33-f10e-498f-a99a-a57e79feebec?showPreview=true&showAssistant=true", createdAt: "20.03.2026", checkedAt: "11.04.2026" },
   { id: "google-studio-einnahmen", title: "Einnahmen Treppendiagramm", description: "Interaktives Treppendiagramm für Einnahmen auf Basis einer editierbaren Datentabelle.", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Google-AI-Studio-App zur Einnahmenvisualisierung.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/b7db094b-6032-4beb-b9c8-2ebe9d41dd8c?showPreview=true&showAssistant=true", createdAt: "28.02.2026", checkedAt: "29.03.2026" },
   { id: "google-studio-social", title: "Social Media Content Generator", description: "Maßgeschneiderte Posts und Bilder für LinkedIn, Twitter und Instagram erzeugen.", source: "Google Drive", status: "Dokumentiert", category: "Kommunikation", detail: "Google-AI-Studio-App für Social-Media-Inhalte.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/d242ae67-d15b-4807-89c6-913100c85f80?showPreview=true&showAssistant=true", createdAt: "12.03.2026", checkedAt: "12.03.2026" },
-];
+].map((tool) => ({ ...tool, ...googleStudioTestResults[tool.id] }));
 const codexDiscoveredTools: Tool[] = [
   { id: "codex-n8n", title: "Codex N8N Releaseletter-System", description: "Multi-Agent-Grundgeruest fuer Releaseletter, Freigaben und Ausspielung.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Automatisierung", detail: "Codex-Projekt mit Workflow-, Ontologie-, Graph- und Infrastrukturartefakten.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\Codex N8N", overlap: "Releaseletter · Dify Releaseletter · n8n", checkedAt: "11.08.2026", performance: "Quellcode und Archive vorhanden; keine laufende Web-App gestartet" },
   { id: "voice-presentation", title: "Voice Präsentationstool", description: "Codex-Projekt fuer sprachgesteuerte Präsentationssuche.", source: "Lokaler Rechner", status: "Entwurf", category: "Präsentation", detail: "Projektordner wurde im Codex gefunden; im Stammordner liegt noch keine lauffaehige Anwendung.", location: "C:\\2026\\Codex\\Voice Präsentationstool", overlap: "Präsentations-Finder · Presentation Designer", checkedAt: "11.08.2026", performance: "Kein Startpunkt im Projektordner gefunden" },
@@ -128,6 +156,10 @@ function isGoogleStudio(tool: Tool) {
 function sourceIconFor(tool: Tool) {
   if (isGoogleStudio(tool)) return "G";
   return tool.source === "GitHub" ? "GH" : tool.source === "Google Drive" ? "GD" : tool.source === "Cloud" ? "CL" : "PC";
+}
+
+function trafficLabelFor(tool: Tool) {
+  return tool.trafficLight === "green" ? "Lauffähig" : tool.trafficLight === "gray" ? "Inaktiv / blockiert" : tool.trafficLight === "red" ? "Nicht vorhanden" : null;
 }
 
 const fullyDocumentedIds = new Set([
@@ -490,6 +522,7 @@ export default function Home() {
               <span className="tool-meta">{tool.source} · {tool.category}</span>
               <span className="classification">{builderForFilter(tool)} · erstellt {createdFor(tool)}</span>
               <span className="local-port">{localHrefFor(tool) ? <a href={localHrefFor(tool) ?? undefined} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Lokal: {localPortFor(tool)}</a> : `Lokal: ${localPortFor(tool)}`}</span>
+              {tool.trafficLight && <span className={`traffic-light ${tool.trafficLight}`} title={tool.trafficNote}><i></i>{trafficLabelFor(tool)}</span>}
               <span className="resource-links" aria-label={`Zugänge für ${tool.title}`}>
                 <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Link</a>
                 <a href={archiveFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Archiv</a>
@@ -565,7 +598,7 @@ export default function Home() {
             <button className={windowTab === "screens" ? "active" : ""} onClick={() => setWindowTab("screens")}>Echte Screens ({screensFor(opened).length})</button>
           </nav>
           <div className="window-content">
-            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Noch nicht verifiziert"}</dd></div><div><dt>Modell</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
+            {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{opened.trafficLight && <p className={`traffic-light ${opened.trafficLight}`} title={opened.trafficNote}><i></i>{trafficLabelFor(opened)} · {opened.trafficNote}</p>}{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Noch nicht verifiziert"}</dd></div><div><dt>Modell</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
             {windowTab === "systems" && <div className="systems-grid"><article><span>Frontend</span><strong>{detailsFor(opened).frontend}</strong></article><article><span>Middleware</span><strong>{detailsFor(opened).middleware}</strong></article><article><span>Backend</span><strong>{detailsFor(opened).backend}</strong></article><article><span>Datenbank</span><strong>{detailsFor(opened).database}</strong></article><article><span>Connections</span><strong>{detailsFor(opened).connections}</strong></article><article><span>Modelle</span><strong>{detailsFor(opened).models}</strong></article><article><span>Pruefgrundlage</span><strong>{detailsFor(opened).evidence}</strong></article></div>}
             {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{screensFor(opened).length > 0 ? <div className="screens-grid">{screensFor(opened).map((screen) => <figure key={screen.src}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
           </div>
