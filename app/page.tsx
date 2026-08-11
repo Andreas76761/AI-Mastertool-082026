@@ -523,6 +523,10 @@ export default function Home() {
   const [remoteTools, setRemoteTools] = useState<Tool[] | null>(null);
   const [catalogSync, setCatalogSync] = useState<CatalogSync>({ phase: "loading", message: "Zentralen Katalog verbinden …" });
   const [backupNotice, setBackupNotice] = useState("Noch keine Sicherung in dieser Sitzung erstellt.");
+  const [evidenceFile, setEvidenceFile] = useState<File | null>(null);
+  const [evidenceAppKey, setEvidenceAppKey] = useState("messe");
+  const [evidenceKind, setEvidenceKind] = useState<"screenshot" | "document">("screenshot");
+  const [evidenceNotice, setEvidenceNotice] = useState("Noch keine Datei ausgewählt.");
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
   const catalogTools = remoteTools ?? allTools;
   const selected = catalogTools.find((tool) => tool.id === selectedId) ?? catalogTools[0];
@@ -619,6 +623,28 @@ export default function Home() {
       setBackupNotice(verify ? (data.verified ? "Wiederherstellungstest bestanden: Struktur und Prüfsumme stimmen." : "Wiederherstellungstest fehlgeschlagen.") : `Sicherung erstellt: ${Object.values(data.tableCounts ?? {}).reduce((sum, count) => sum + count, 0)} Datensätze gesichert.`);
     } catch (error) {
       setBackupNotice(error instanceof Error ? error.message : "Sicherung konnte nicht ausgeführt werden.");
+    }
+  }
+
+  async function uploadEvidence() {
+    if (!evidenceFile) {
+      setEvidenceNotice("Bitte zuerst eine echte Bildschirmansicht oder ein geprüftes Dokument auswählen.");
+      return;
+    }
+    setEvidenceNotice("Datei wird geschützt abgelegt …");
+    try {
+      const form = new FormData();
+      form.set("file", evidenceFile);
+      form.set("appKey", evidenceAppKey);
+      form.set("kind", evidenceKind);
+      form.set("title", evidenceFile.name);
+      const response = await fetch("/api/catalog/upload", { method: "POST", body: form });
+      const data = await response.json() as { stored?: boolean; error?: string };
+      if (!response.ok || !data.stored) throw new Error(data.error ?? "Datei konnte nicht gespeichert werden.");
+      setEvidenceNotice("Geschützt gespeichert und der ausgewählten App zugeordnet.");
+      setEvidenceFile(null);
+    } catch (error) {
+      setEvidenceNotice(error instanceof Error ? error.message : "Datei konnte nicht gespeichert werden.");
     }
   }
 
@@ -771,6 +797,7 @@ export default function Home() {
         {controlTab === "remote" && <div className="control-panel remote-panel"><h2>Remote Launcher</h2><p>Die frühere Übersicht konnte Apps auf anderen Geräten über einen lokalen Dienst starten. Aktuell ist keiner der drei hinterlegten Rechner im erreichbaren Netzsegment.</p><div className="device-grid">{networkDevices.filter((device) => device.id !== "local").map((device) => <article key={device.id}><span className="device-dot unavailable"></span><div><strong>{device.name}</strong><p>{device.address}</p><small>Startdienst nicht erreichbar</small></div><button type="button" disabled>Starten</button></article>)}</div><p className="network-help">Sobald ein Status- und Startdienst auf dem jeweiligen Rechner erreichbar ist, kann dieser Bereich die Prüfung und den Startvorgang übernehmen.</p></div>}
       </section>}
       {mainView === "control" && controlTab === "security" && <section className="security-panel control-panel" aria-label="Sicherung und Zugang"><div className="security-grid"><article><span>Private Dateien</span><strong>{catalogSync.screenshots ?? 0}</strong><p>Screenshots liegen im geschützten Dateispeicher. Dokumente werden erst nach bewusster Auswahl hochgeladen.</p></article><article><span>Zugangsdaten</span><strong>Vault-Referenzen</strong><p>Der Katalog speichert nur Anbieter, Tresor und Eintragsname – niemals Kennwörter, Tokens oder Wiederherstellungscodes.</p></article><article><span>Mehrnutzerzugang</span><strong>Rollenbereit</strong><p>Private Site-Anmeldung bleibt führend. Supabase-Identitäten können je Nutzer sicher zugeordnet und später aktiviert werden.</p></article></div><div className="control-actions"><button type="button" onClick={() => runBackup(false)}>Sicherung jetzt erstellen</button><button type="button" onClick={() => runBackup(true)}>Letzte Sicherung prüfen</button></div><p className="security-notice">{backupNotice}</p><p className="network-help">Automatische tägliche Sicherungen werden über den hinterlegten Statusdienst ausgelöst. Vor einer Einladung erhält jede Person eine Rolle im Katalog.</p></section>}
+      {mainView === "control" && controlTab === "security" && <section className="evidence-upload control-panel" aria-label="Private Dateiablage"><h2>Echte Screens und geprüfte Dokumente ablegen</h2><p>Nur freigegebene Projektunterlagen hochladen. Passwörter, private Browserdaten und ungeprüfte Fallakten bleiben außerhalb des Katalogs.</p><div className="evidence-form"><select value={evidenceAppKey} onChange={(event) => setEvidenceAppKey(event.target.value)} aria-label="App auswählen">{catalogTools.map((tool) => <option value={tool.id} key={tool.id}>{tool.title}</option>)}</select><select value={evidenceKind} onChange={(event) => setEvidenceKind(event.target.value as "screenshot" | "document")} aria-label="Dateityp auswählen"><option value="screenshot">Echter Screen</option><option value="document">Geprüftes Dokument</option></select><input type="file" accept={evidenceKind === "screenshot" ? "image/png,image/jpeg,image/webp" : ".pdf,.json,.txt,.md"} onChange={(event) => setEvidenceFile(event.target.files?.[0] ?? null)} /><button type="button" onClick={uploadEvidence}>Geschützt hochladen</button></div><p className="security-notice">{evidenceNotice}</p></section>}
       {opened && <div className="app-window-layer" role="presentation">
         <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
           <header className="window-header" onPointerDown={startDrag} onPointerMove={moveWindow} onPointerUp={() => { drag.current = null; }}>
