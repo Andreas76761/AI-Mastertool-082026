@@ -327,6 +327,22 @@ function modelsFor(tool: Tool) {
 
 function screensFor(tool: Tool) {
   const authentic: Record<string, { src: string; title: string; source: string }[]> = {
+    overview: [
+      { src: "/screenshots/master-1.png", title: "Herkunft & Tool", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-2.png", title: "Masterdaten", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-3.png", title: "Tags", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-4.png", title: "IT-Architektur", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-5.png", title: "Neue Features", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-6.png", title: "Dashboard", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-7.png", title: "Schnellfilter", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-8.png", title: "Arbeitsfenster", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-9.png", title: "Architektur & Daten", source: "Originalansicht der AI-Artefakte Übersicht" },
+      { src: "/screenshots/master-10.png", title: "Screens-Register", source: "Originalansicht der AI-Artefakte Übersicht" },
+    ],
+    business: [
+      { src: "/screenshots/ai-business-berater-catalog-live.png", title: "Technologie-Katalog", source: "Echte lokale Live-App" },
+      { src: "/screenshots/ai-business-berater-graph-live.png", title: "Technologie-Beziehungsgraph", source: "Echte lokale Live-App" },
+    ],
     "contracts-hub": [
       { src: "/screenshots/service-kpis.png", title: "Kennzahlen", source: "Originalbild aus dem Repository" },
       { src: "/screenshots/service-campaigns.png", title: "Kampagnen", source: "Originalbild aus dem Repository" },
@@ -336,8 +352,16 @@ function screensFor(tool: Tool) {
       { src: "/screenshots/service-swot.png", title: "SWOT", source: "Originalbild aus dem Repository" },
       { src: "/screenshots/service-werkstattrechnung.png", title: "Werkstattrechnung", source: "Originalbild aus dem Repository" },
     ],
-    messe: [{ src: "/screenshots/ai-messe-guide.png", title: "Live Dashboard", source: "Echte Live-App" }],
-    event: [{ src: "/screenshots/ai-messe-guide.png", title: "Live Dashboard", source: "Echte Live-App derselben Codebasis" }],
+    messe: [
+      { src: "/screenshots/ai-messe-dashboard-live.png", title: "Live Dashboard", source: "Echte Live-App" },
+      { src: "/screenshots/ai-messe-calendar-live.png", title: "Veranstaltungskalender", source: "Echte Live-App" },
+      { src: "/screenshots/ai-messe-costs-live.png", title: "Kosten & Budget", source: "Echte Live-App" },
+    ],
+    event: [
+      { src: "/screenshots/ai-messe-dashboard-live.png", title: "Live Dashboard", source: "Echte Live-App derselben Codebasis" },
+      { src: "/screenshots/ai-messe-calendar-live.png", title: "Veranstaltungskalender", source: "Echte Live-App derselben Codebasis" },
+      { src: "/screenshots/ai-messe-costs-live.png", title: "Kosten & Budget", source: "Echte Live-App derselben Codebasis" },
+    ],
     transparency: [
       { src: "/screenshots/transparency-dashboard.jpg", title: "Dashboard", source: "Original-Mockup aus dem Projekt" },
       { src: "/screenshots/transparency-explorer.jpg", title: "Datei-Explorer", source: "Original-Mockup aus dem Projekt" },
