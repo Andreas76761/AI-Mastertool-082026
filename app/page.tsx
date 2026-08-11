@@ -100,7 +100,7 @@ const googleStudioTestResults: Record<string, Pick<Tool, "trafficLight" | "traff
   "google-studio-excel-sharepoint": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-jira-release-qa": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-intellifile": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
-  "google-studio-gmx": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-gmx": { trafficLight: "green", trafficNote: "Editor und echte Vorschau laden bis zum MailArchive-Pro-Login.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor sowie Vorschau erfolgreich geladen." },
   "google-studio-taxflow": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-code-smells": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-studienbescheinigung": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
@@ -112,13 +112,18 @@ const googleStudioTestResults: Record<string, Pick<Tool, "trafficLight" | "traff
   "google-studio-n8n-support": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-presentation": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-app-building": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
-  "google-studio-n8n-expert": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
+  "google-studio-n8n-expert": { trafficLight: "gray", trafficNote: "Editor lädt, aber ein Modellanbieter-Fehler blockiert die Vorschau.", performance: "Einzeltest 11.08.2026: Editor geöffnet; Preview-Steuerung wegen wiederholtem Provider-Fehler deaktiviert." },
   "google-studio-featurewatch": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-systemdoc": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-release-hub": { trafficLight: "gray", trafficNote: "App vorhanden, aber Google meldet eine überschrittene Projekt-Quota.", performance: "Einzeltest 11.08.2026: Editor erreichbar; Modell-/Projektliste durch Google-Quota blockiert." },
   "google-studio-reportmonitor": { trafficLight: "gray", trafficNote: "App vorhanden, aber Google meldet eine überschrittene Modell-Quota.", performance: "Einzeltest 11.08.2026: Editor erreichbar; Modellliste durch Google-Quota blockiert." },
   "google-studio-einnahmen": { trafficLight: "red", trafficNote: "Google AI Studio liefert „Seite nicht gefunden“.", performance: "Einzeltest 11.08.2026: Direkter Link nicht vorhanden." },
   "google-studio-social": { trafficLight: "gray", trafficNote: "App vorhanden, aber Google meldet eine überschrittene Modell-Quota.", performance: "Einzeltest 11.08.2026: Editor erreichbar; Modellliste durch Google-Quota blockiert." },
+};
+const googleStudioModelEvidence: Record<string, string> = {
+  "google-studio-gmx": "Gemini 3.5 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)",
+  "google-studio-n8n-expert": "Gemini 3.6 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)",
+  "google-studio-featurewatch": "Gemini 3.6 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)",
 };
 const googleStudioTools: Tool[] = [
   { id: "google-studio-vibe-web", title: "Vibe Evaluator", description: "IT Stack und MVP Use Case Evaluator für Konzernumgebungen", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Google-AI-Studio-App zur Bewertung von IT-Stack und MVP-Use-Cases.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/68504720-64f6-456b-97af-3afec59064ea?showPreview=true&showAssistant=true", createdAt: "07.08.2026", checkedAt: "10.08.2026" },
@@ -380,7 +385,7 @@ const appDetails: Record<string, AppDetails> = {
 };
 
 function detailsFor(tool: Tool): AppDetails {
-  if (isGoogleStudio(tool)) return { builder: "Google AI Studio", frontend: "Google AI Studio App", middleware: "Google AI Studio Plattform", backend: "Google Cloud verwaltet", database: "Nicht in der App-Übersicht verifiziert", connections: "Google AI Studio; weitere Verbindungen pro App noch prüfen", models: "Gemini in Google AI Studio; konkretes Modell nicht in der Übersicht ausgewiesen", evidence: "Google AI Studio / My apps, am 11.08.2026 geprüft", access: "Öffnet im angemeldeten Google-AI-Studio-Konto" };
+  if (isGoogleStudio(tool)) return { builder: "Google AI Studio", frontend: "Google AI Studio App", middleware: "Google AI Studio Plattform", backend: "Google Cloud verwaltet", database: "Nicht in der App-Übersicht verifiziert", connections: "Google AI Studio; weitere Verbindungen pro App noch prüfen", models: googleStudioModelEvidence[tool.id] ?? "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft", evidence: `Google AI Studio / My apps, am 11.08.2026 geprüft${googleStudioModelEvidence[tool.id] ? "; Einzeltest der App durchgeführt" : ""}`, access: "Öffnet im angemeldeten Google-AI-Studio-Konto" };
   if (appDetails[tool.id]) return appDetails[tool.id];
   if (isClaudeWorkspace(tool)) return { builder: claudeSurfaceFor(tool), frontend: "Lokales Artefakt oder Web-Frontend", middleware: "Noch zu prüfen", backend: "Lokale Projektdateien", database: "Noch nicht verifiziert", connections: "Lokaler Projektordner", models: claudeCreationModelFor(tool), evidence: "Projektordner unter C:\\2026\\Claude, am 11.08.2026 inventarisiert", access: "Öffnet lokal aus dem Projektordner" };
   return { builder: "Noch zu pruefen", frontend: "Noch zu pruefen", middleware: "Noch zu pruefen", backend: "Noch zu pruefen", database: "Noch zu pruefen", connections: "Noch zu pruefen", models: "Noch zu pruefen", evidence: "Noch keine Quelle bewertet" };
