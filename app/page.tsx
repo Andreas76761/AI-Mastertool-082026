@@ -196,6 +196,9 @@ const codexDiscoveredTools: Tool[] = [
 ];
 const allTools = [...tools, aiMesseGuide, ...claudeWorkspaceTools, ...googleStudioTools, ...codexDiscoveredTools];
 
+// Central catalogue data for future protected server-side synchronisation.
+export { allTools, chatRecords, networkDevices, featureIdeas, chatProviderStates };
+
 function isGoogleStudio(tool: Tool) {
   return tool.id === "studio" || tool.id.startsWith("google-studio-");
 }
