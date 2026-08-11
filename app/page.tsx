@@ -6,7 +6,7 @@ type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
 type WindowTab = "profile" | "systems" | "screens";
-type MainView = "dashboard" | "catalog" | "control" | "chats";
+type MainView = "dashboard" | "catalog" | "control" | "chats" | "costs";
 type ControlTab = "analytics" | "sources" | "devices" | "matrix" | "scores" | "ideas" | "remote" | "security";
 
 type Tool = {
@@ -35,6 +35,7 @@ type ChatRecord = { id: string; source: string; title: string; summary: string; 
 type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number };
 type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: string | null; models: string | null; evidence: unknown; access_profile: string | null };
 type RemoteCatalogChat = { external_key: string; provider: string; title: string; summary: string | null; occurred_on: string | null; model: string | null; app_key: string | null; app_match: string | null; access_status: string | null };
+type CostEntry = { id: string; app_key: string | null; provider: string; transaction_date: string; amount: number | string; currency: string; description: string | null; source: string };
 
 function remoteCatalogTool(app: RemoteCatalogApp): Tool {
   const source: Source = ["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"].includes(app.source) ? app.source as Source : "Cloud";
@@ -538,11 +539,21 @@ export default function Home() {
   const [evidenceKind, setEvidenceKind] = useState<"screenshot" | "document">("screenshot");
   const [evidenceNotice, setEvidenceNotice] = useState("Noch keine Datei ausgewählt.");
   const [storedScreens, setStoredScreens] = useState<Record<string, StoredScreen[]>>({});
+  const [costEntries, setCostEntries] = useState<CostEntry[]>([]);
+  const [costFile, setCostFile] = useState<File | null>(null);
+  const [costNotice, setCostNotice] = useState("Noch keine Zahlungsdaten importiert.");
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
   const catalogTools = remoteTools ?? allTools;
   const displayedChats = remoteChats ?? chatRecords;
   const selected = catalogTools.find((tool) => tool.id === selectedId) ?? catalogTools[0];
   const opened = catalogTools.find((tool) => tool.id === openedId);
+  const monthlyCosts = useMemo(() => {
+    const start = new Date(2025, 0, 1); const end = new Date(); const rows: { month: string; total: number; change: number }[] = []; let previous = 0;
+    for (let cursor = new Date(start); cursor <= end; cursor.setMonth(cursor.getMonth() + 1)) { const key = `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, "0")}`; const total = costEntries.filter((entry) => entry.transaction_date.startsWith(key) && entry.currency === "EUR").reduce((sum, entry) => sum + Number(entry.amount), 0); rows.push({ month: new Intl.DateTimeFormat("de-DE", { month: "short", year: "numeric" }).format(cursor), total, change: total - previous }); previous = total; }
+    return rows;
+  }, [costEntries]);
+  const costByApp = useMemo(() => Object.values(costEntries.reduce<Record<string, { key: string | null; title: string; total: number; entries: number }>>((groups, entry) => { const key = entry.app_key ?? "unassigned"; const tool = catalogTools.find((item) => item.id === entry.app_key); const group = groups[key] ?? { key: entry.app_key, title: tool?.title ?? "Nicht zugeordnet", total: 0, entries: 0 }; group.total += Number(entry.amount); group.entries += 1; groups[key] = group; return groups; }, {})).sort((a, b) => b.total - a.total), [catalogTools, costEntries]);
+  const totalCosts = costEntries.filter((entry) => entry.currency === "EUR").reduce((sum, entry) => sum + Number(entry.amount), 0);
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("catalog-theme");
@@ -566,6 +577,12 @@ export default function Home() {
         if (active) setCatalogSync({ phase: "fallback", message: error instanceof Error ? error.message : "Lokaler Katalogstand aktiv." });
       });
     return () => { active = false; };
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/catalog/costs", { cache: "no-store" })
+      .then(async (response) => { const data = await response.json() as { entries?: CostEntry[] }; if (response.ok) setCostEntries(data.entries ?? []); })
+      .catch(() => setCostNotice("Kostenansicht ist bereit; noch keine Zahlungsdaten geladen."));
   }, []);
 
   useEffect(() => {
@@ -677,6 +694,16 @@ export default function Home() {
     }
   }
 
+  async function importCosts() {
+    if (!costFile) { setCostNotice("Bitte zuerst eine CSV aus der Zahlungsmethode auswählen."); return; }
+    setCostNotice("Zahlungszeilen werden privat importiert …");
+    try { const form = new FormData(); form.set("file", costFile); const response = await fetch("/api/catalog/costs", { method: "POST", body: form }); const data = await response.json() as { imported?: number; error?: string }; if (!response.ok || !data.imported) throw new Error(data.error ?? "Import fehlgeschlagen."); const refreshed = await fetch("/api/catalog/costs", { cache: "no-store" }); const costs = await refreshed.json() as { entries?: CostEntry[] }; setCostEntries(costs.entries ?? []); setCostNotice(`${data.imported} Zahlungszeilen importiert. Doppelte Zeilen werden nicht erneut angelegt.`); setCostFile(null); } catch (error) { setCostNotice(error instanceof Error ? error.message : "Import fehlgeschlagen."); }
+  }
+
+  function downloadCostTemplate() {
+    const content = "datum;anbieter;betrag;waehrung;app_key;beschreibung\n2025-01-15;Beispielanbieter;0,00;EUR;overview;Beispiel – bitte ersetzen"; const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([content], { type: "text/csv;charset=utf-8" })); link.download = "kostenimport-vorlage.csv"; link.click(); URL.revokeObjectURL(link.href);
+  }
+
   function startDrag(event: React.PointerEvent<HTMLElement>) {
     if ((event.target as HTMLElement).closest("button,a")) return;
     drag.current = { startX: event.clientX, startY: event.clientY, x: windowPosition.x, y: windowPosition.y };
@@ -708,6 +735,7 @@ export default function Home() {
           <button type="button" className={mainView === "dashboard" ? "active" : ""} onClick={() => setMainView("dashboard")}>Dashboard</button>
           <button type="button" className={mainView === "catalog" ? "active" : ""} onClick={() => setMainView("catalog")}>Apps</button>
           <button type="button" className={mainView === "chats" ? "active" : ""} onClick={() => setMainView("chats")}>Chats</button>
+          <button type="button" className={mainView === "costs" ? "active" : ""} onClick={() => setMainView("costs")}>Cost</button>
           <button type="button" className={mainView === "control" ? "active" : ""} onClick={() => setMainView("control")}>Control Center</button>
           <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
         </nav>
@@ -813,6 +841,13 @@ export default function Home() {
         <div className="dashboard-heading"><div><p className="eyebrow">Quellenübergreifende Chat-Akte</p><h1>Chats mit App-Zuordnung.</h1><p>Nur zugängliche Verläufe werden aufgenommen. Modell, Datum und Kurzinhalt bleiben als belegte Metadaten oder sind ausdrücklich als nicht verfügbar markiert.</p></div><div className="documentation-summary"><span><strong>{displayedChats.length}</strong> erfasst</span><span><strong>{displayedChats.filter((chat) => chat.appId).length}</strong> zugeordnet</span></div></div>
         <div className="chat-source-grid">{chatProviderStates.map((provider) => { const count = displayedChats.filter((chat) => chat.source === provider.source).length; const detail = provider.source === "ChatGPT" && count ? `${count} sichtbare ChatGPT-Verläufe aus den übermittelten Screens erfasst` : provider.detail; return <article key={provider.source}><strong>{provider.source}</strong><span className={provider.state === "Verbunden" ? "connected" : provider.state === "Teilzugriff" ? "partial" : "unavailable"}>{provider.state}</span><p>{detail}</p></article>; })}</div>
         <div className="documentation-table-wrap"><table className="documentation-table chat-table"><caption>Erfasste Chats und fachliche Zuordnung</caption><thead><tr><th>Quelle</th><th>Chat</th><th>Kurzinhalt</th><th>Datum</th><th>Modell</th><th>Passende App</th></tr></thead><tbody>{displayedChats.map((chat) => <tr key={chat.id}><td>{chat.source}</td><td><strong>{chat.title}</strong></td><td>{chat.summary}</td><td>{chat.updatedAt}</td><td>{chat.model}</td><td>{chat.appId ? <button type="button" onClick={() => { setSelectedId(chat.appId!); setMainView("catalog"); }}>{chat.appMatch}</button> : chat.appMatch}</td></tr>)}</tbody></table></div>
+      </section>}
+      {mainView === "costs" && <section className="costs-view" aria-label="Kostenübersicht">
+        <div className="dashboard-heading"><div><p className="eyebrow">Kostenakte ab Januar 2025</p><h1>Alle Tool-Kosten im Blick.</h1><p>Die Ansicht zeigt ausschließlich importierte Zahlungszeilen. Es werden keine Kosten geschätzt oder aus Zugangsdaten abgeleitet.</p></div><div className="documentation-summary"><span><strong>{new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(totalCosts)}</strong> Gesamt, EUR</span><span><strong>{costEntries.length}</strong> Zahlungszeilen</span></div></div>
+        <div className="cost-summary-grid"><article><span>Aktueller Monat</span><strong>{new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(monthlyCosts.at(-1)?.total ?? 0)}</strong><small>{monthlyCosts.at(-1)?.change ? `${monthlyCosts.at(-1)!.change > 0 ? "+" : ""}${new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(monthlyCosts.at(-1)!.change)} gegenüber Vormonat` : "Keine Veränderung"}</small></article><article><span>Zuordnung</span><strong>{costEntries.filter((entry) => entry.app_key).length}/{costEntries.length}</strong><small>Zahlungszeilen mit App-Verknüpfung</small></article><article><span>Importstatus</span><strong>{costEntries.length ? "Aktuell" : "Offen"}</strong><small>{costEntries.length ? "Aus den hinterlegten CSV-Zeilen berechnet" : "CSV aus Zahlungsmethode erforderlich"}</small></article></div>
+        <section className="cost-import"><div><h2>Zahlungen privat importieren</h2><p>CSV-Export aus Kreditkarte, PayPal, Apple/Google, App Store oder Anbieterrechnung wählen. Benötigte Spalten: <code>datum;anbieter;betrag;waehrung;app_key;beschreibung</code>.</p></div><div className="cost-import-actions"><input type="file" accept=".csv,text/csv" onChange={(event) => setCostFile(event.target.files?.[0] ?? null)} /><button type="button" onClick={importCosts}>CSV importieren</button><button type="button" className="secondary" onClick={downloadCostTemplate}>Vorlage laden</button></div><p>{costNotice}</p></section>
+        <div className="cost-layout"><section className="cost-panel"><h2>Monatliche Entwicklung</h2><div className="cost-bars">{monthlyCosts.map((month) => <div key={month.month}><span style={{ height: `${Math.max(4, totalCosts ? (month.total / Math.max(...monthlyCosts.map((entry) => entry.total), 1)) * 100 : 4)}%` }} title={`${month.month}: ${month.total.toFixed(2)} EUR`}></span><small>{month.month}</small><b className={month.change > 0 ? "up" : month.change < 0 ? "down" : "flat"}>{month.change > 0 ? "↑" : month.change < 0 ? "↓" : "–"}</b></div>)}</div></section><section className="cost-panel"><h2>Kosten nach App</h2>{costByApp.length ? <div className="cost-app-list">{costByApp.map((item) => <button key={item.title} type="button" onClick={() => item.key && (setSelectedId(item.key), setMainView("catalog"))}><span>{item.title}<small>{item.entries} Zeilen</small></span><strong>{new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(item.total)}</strong></button>)}</div> : <p className="empty-costs">Nach dem CSV-Import erscheinen hier die Gesamtkosten pro App.</p>}</section></div>
+        <div className="documentation-table-wrap"><table className="documentation-table cost-table"><caption>Importierte Zahlungszeilen</caption><thead><tr><th>Datum</th><th>Anbieter</th><th>App</th><th>Beschreibung</th><th>Betrag</th><th>Quelle</th></tr></thead><tbody>{costEntries.length ? costEntries.map((entry) => <tr key={entry.id}><td>{entry.transaction_date}</td><td>{entry.provider}</td><td>{catalogTools.find((tool) => tool.id === entry.app_key)?.title ?? "Nicht zugeordnet"}</td><td>{entry.description ?? "—"}</td><td>{new Intl.NumberFormat("de-DE", { style: "currency", currency: entry.currency || "EUR" }).format(Number(entry.amount))}</td><td>{entry.source}</td></tr>) : <tr><td colSpan={6}>Noch keine realen Zahlungszeilen vorhanden.</td></tr>}</tbody></table></div>
       </section>}
       {mainView === "control" && <section className="control-center" aria-label="Control Center">
         <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{allTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>

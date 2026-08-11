@@ -2,7 +2,7 @@ import { isAdmin, requireCatalogUser, supabaseRest, supabaseStorage } from "../.
 
 export const dynamic = "force-dynamic";
 
-const tables = ["catalog_apps", "catalog_chats", "catalog_documents", "app_screenshots", "app_test_runs", "device_statuses", "deployment_events", "catalog_integrations", "catalog_vault_references"];
+const tables = ["catalog_apps", "catalog_chats", "catalog_documents", "app_screenshots", "app_test_runs", "catalog_cost_entries", "device_statuses", "deployment_events", "catalog_integrations", "catalog_vault_references"];
 
 async function checksum(content: string) {
   const bytes = new TextEncoder().encode(content);
