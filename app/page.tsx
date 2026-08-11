@@ -81,6 +81,19 @@ const categoryTags: Record<string, string[]> = {
 };
 
 const aiMesseGuide: Tool = { id: "messe", title: "AI Messe Guide", description: "Dashboard fuer KI-Messen, Konferenzen und Reisen.", source: "Lokaler Rechner", status: "Aktiv", category: "Organisation", detail: "Verwaltungs-App mit lokalem Modus sowie optionalem Cloud-Login, MFA und Synchronisierung.", location: "C:\\2026\\Claude\\AI_Messe_Guide", overlap: "AI Eventorganizer", url: "https://ai-messe-guide.vercel.app", checkedAt: "11.08.2026", performance: "Live-Zugang im Browser geprüft; Oberfläche und Inhalte wurden geladen" };
+const claudeWorkspaceTools: Tool[] = [
+  { id: "claude-workspace-app-overview", title: "Claude App Übersicht", description: "Lokale Übersicht bereits angelegter Anwendungen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Katalog", detail: "Statische HTML-Übersicht aus dem Claude-Arbeitsbereich.", location: "C:\\2026\\Claude\\-Übersicht Apps\\app-uebersicht.html", createdAt: "24.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-1e9", title: "1E9 2026", description: "Claude-Projekt mit Python-, Bild- und Präsentationsartefakten.", source: "Lokaler Rechner", status: "Prüfen", category: "Katalog", detail: "Projektordner mit Python-Skripten, JSON-Daten, Bildern und PPTX-Dateien; Web-Startpunkt noch nicht verifiziert.", location: "C:\\2026\\Claude\\1E9_2026", createdAt: "03.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-messe-explorer", title: "Messe Explorer Designauswahl", description: "Vier Designrichtungen für eine Messe-Explorer-Vorlage.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Organisation", detail: "Statische HTML-Designvarianten für den Messe-Explorer.", location: "C:\\2026\\Claude\\Artefact_Messe\\design-varianten\\index.html", createdAt: "05.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-bw-bank", title: "BW Bank Kreditkarten-App", description: "Lokale Kreditkartenübersicht auf Basis von Abrechnungen und Excel-Dateien.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Analyse", detail: "HTML-App mit zugehörigen Kreditkartenabrechnungen und Tabellen.", location: "C:\\2026\\Claude\\BW Bank 2025 2026\\BW_Bank_Kreditkarte_App.html", createdAt: "28.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-dateibetrachter", title: "Dateiverwaltung", description: "Dateibetrachter mit Vorschauen für Bilder, PDFs und Präsentationen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Katalog", detail: "Lokale HTML- und Python-App mit Vorschau- und Index-Pipeline.", location: "C:\\2026\\Claude\\Dateibetrachter neu\\Dateiverwaltung.html", createdAt: "19.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-dateiorganizer", title: "Dateiorganizer", description: "Lokales Explorer-Dashboard mit Analyse, Duplikatensuche und Automatisierungsskripten.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Automatisierung", detail: "HTML-Dashboards sowie PowerShell- und Batch-Werkzeuge für die Dateiorganisation.", location: "C:\\2026\\Claude\\Dateiorganizer\\00_Explorer_Dashboard.html", createdAt: "28.06.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-db-flow", title: "Deckungsbeitragsflussrechnung", description: "Abweichungsanalyse für Deckungsbeiträge und Finanzkennzahlen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Analyse", detail: "Lokale Fable/Claude-HTML-App mit Chart-Studio und Finanzanalyse.", location: "C:\\2026\\Claude\\Fable\\Deckungsbeitragflussrechnung\\app\\index.html", createdAt: "08.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-linkedin", title: "LinkedIn Dashboard", description: "Lokales Dashboard und Skripte für LinkedIn-Datenexporte.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Analyse", detail: "HTML-Dashboard mit lokalen JavaScript-Hilfsprogrammen und Exportbestand.", location: "C:\\2026\\Claude\\LinkedIn\\linkedin-dashboard.html", createdAt: "17.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-sirius", title: "SIRIUS oneSCM Dokumentation", description: "Benutzerhandbuch, Chatbot, Knowledge Graph und Vertragsanlagen für SIRIUS.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Dokumentation", detail: "Mehrere lokale HTML-Anwendungen mit Bilddatenbank und Benutzerhandbuch.", location: "C:\\2026\\Claude\\oneSCM Doku\\SIRIUS_Chatbot_App.html", createdAt: "23.06.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-webinar-recorder", title: "Webinar Screen Recorder", description: "Windows-App für Webinar-Screenshots, Audioaufzeichnung, OCR und lokale Transkription.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Dokumentation", detail: "Python/Windows-Anwendung mit EXE-Build, Aufnahmebereich und lokaler Whisper-Transkription.", location: "C:\\2026\\Claude\\Videoscreen", createdAt: "17.07.2026", checkedAt: "11.08.2026" },
+  { id: "claude-workspace-wad", title: "WAD 2026 Explorer", description: "Designauswahl für den WeAreDevelopers World Congress 2026 Explorer.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Organisation", detail: "Statische HTML-Designvarianten für den WAD-Explorer.", location: "C:\\2026\\Claude\\WAD_2026\\index.html", createdAt: "06.07.2026", checkedAt: "11.08.2026" },
+];
 const googleStudioTestResults: Record<string, Pick<Tool, "trafficLight" | "trafficNote" | "performance">> = {
   "google-studio-vibe-web": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
   "google-studio-vibe-android": { trafficLight: "green", trafficNote: "Google AI Studio lädt; Editor und Preview vorhanden.", performance: "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen." },
@@ -147,14 +160,19 @@ const codexDiscoveredTools: Tool[] = [
   { id: "presentation-finder", title: "Präsentations-Finder", description: "Einzelplatz-App mit Sprachsuche, Folien-Thumbnails und lokalen Sicherungen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Präsentation", detail: "Codex-Projekt mit lokalem Dienst, Eigentümermodus, Hintergrundaufträgen und SQLite-Sicherung.", location: "C:\\Users\\andre\\Documents\\Codex\\2026-07-30\\realtime-voice-chat", overlap: "Voice Präsentationstool · Presentation Designer", checkedAt: "11.08.2026", performance: "Laut letzter Codex-Prüfung: Build, Lint und 9 Tests erfolgreich; lokaler Server auf Port 4310 geprüft" },
   { id: "hackathon", title: "MB AI Hackathon", description: "ChatGPT-Projekt, fachliche Umsetzung noch zu erfassen.", source: "Cloud", status: "Prüfen", category: "KI", detail: "Als ChatGPT-Projekt registriert; es liegt noch keine technische Projektakte im lokalen Katalog vor.", location: "ChatGPT Projekt / MB AI Hackathon", checkedAt: "11.08.2026", performance: "Zugang zur Projektübersicht vorhanden; keine lauffaehige App identifiziert" },
 ];
-const allTools = [...tools, aiMesseGuide, ...googleStudioTools, ...codexDiscoveredTools];
+const allTools = [...tools, aiMesseGuide, ...claudeWorkspaceTools, ...googleStudioTools, ...codexDiscoveredTools];
 
 function isGoogleStudio(tool: Tool) {
   return tool.id === "studio" || tool.id.startsWith("google-studio-");
 }
 
+function isClaudeWorkspace(tool: Tool) {
+  return ["overview", "contracts", "dokupress", "slides", "presentation", "releaseletter", "messe"].includes(tool.id) || tool.id.startsWith("claude-workspace-");
+}
+
 function sourceIconFor(tool: Tool) {
   if (isGoogleStudio(tool)) return "G";
+  if (isClaudeWorkspace(tool)) return "C";
   return tool.source === "GitHub" ? "GH" : tool.source === "Google Drive" ? "GD" : tool.source === "Cloud" ? "CL" : "PC";
 }
 
@@ -324,7 +342,9 @@ const appDetails: Record<string, AppDetails> = {
 
 function detailsFor(tool: Tool): AppDetails {
   if (isGoogleStudio(tool)) return { builder: "Google AI Studio", frontend: "Google AI Studio App", middleware: "Google AI Studio Plattform", backend: "Google Cloud verwaltet", database: "Nicht in der App-Übersicht verifiziert", connections: "Google AI Studio; weitere Verbindungen pro App noch prüfen", models: "Gemini in Google AI Studio; konkretes Modell nicht in der Übersicht ausgewiesen", evidence: "Google AI Studio / My apps, am 11.08.2026 geprüft", access: "Öffnet im angemeldeten Google-AI-Studio-Konto" };
-  return appDetails[tool.id] ?? { builder: "Noch zu pruefen", frontend: "Noch zu pruefen", middleware: "Noch zu pruefen", backend: "Noch zu pruefen", database: "Noch zu pruefen", connections: "Noch zu pruefen", models: "Noch zu pruefen", evidence: "Noch keine Quelle bewertet" };
+  if (appDetails[tool.id]) return appDetails[tool.id];
+  if (isClaudeWorkspace(tool)) return { builder: "Claude", frontend: "Lokales Artefakt oder Web-Frontend", middleware: "Noch zu prüfen", backend: "Lokale Projektdateien", database: "Noch nicht verifiziert", connections: "Lokaler Projektordner", models: "Claude-Modell in den lokalen Dateien nicht eindeutig ausgewiesen", evidence: "Projektordner unter C:\\2026\\Claude, am 11.08.2026 inventarisiert", access: "Öffnet lokal aus dem Projektordner" };
+  return { builder: "Noch zu pruefen", frontend: "Noch zu pruefen", middleware: "Noch zu pruefen", backend: "Noch zu pruefen", database: "Noch zu pruefen", connections: "Noch zu pruefen", models: "Noch zu pruefen", evidence: "Noch keine Quelle bewertet" };
 }
 
 type BuilderFilter = "Alle" | "Claude" | "Codex" | "Google" | "Lovable";
@@ -517,7 +537,7 @@ export default function Home() {
           <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? allTools.length : allTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
           <div className="tool-grid">
             {filtered.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openTool(tool); }}>
-              <span className="card-top"><span className={`source-icon ${isGoogleStudio(tool) ? "google-icon" : ""}`} aria-hidden="true">{sourceIconFor(tool)}</span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
+              <span className="card-top"><span className={`source-icon ${isGoogleStudio(tool) ? "google-icon" : isClaudeWorkspace(tool) ? "claude-icon" : ""}`} aria-hidden="true">{sourceIconFor(tool)}</span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
               <button className="card-select" onClick={(event) => { event.stopPropagation(); openTool(tool); }}><span className="tool-title">{tool.title}</span><span className="tool-description">{tool.description}</span></button>
               <span className="tool-meta">{tool.source} · {tool.category}</span>
               <span className="classification">{builderForFilter(tool)} · erstellt {createdFor(tool)}</span>
@@ -544,7 +564,7 @@ export default function Home() {
 
         <aside className="detail" aria-live="polite">
           <p className="eyebrow">Ausgewähltes Werkzeug</p>
-          <div className="detail-head"><span className={`detail-icon ${isGoogleStudio(selected) ? "google-icon" : ""}`}>{sourceIconFor(selected)}</span><span className={`status ${selected.status.toLowerCase()}`}>{selected.status}</span></div>
+          <div className="detail-head"><span className={`detail-icon ${isGoogleStudio(selected) ? "google-icon" : isClaudeWorkspace(selected) ? "claude-icon" : ""}`}>{sourceIconFor(selected)}</span><span className={`status ${selected.status.toLowerCase()}`}>{selected.status}</span></div>
           <h2>{selected.title}</h2><p>{selected.detail}</p>
           <div className="detail-actions" aria-label="Detailansichten">
             <button className={panel === "masterdata" ? "active" : ""} onClick={() => setPanel("masterdata")}>Masterdata</button>
@@ -589,7 +609,7 @@ export default function Home() {
       {opened && <div className="app-window-layer" role="presentation">
         <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
           <header className="window-header" onPointerDown={startDrag} onPointerMove={moveWindow} onPointerUp={() => { drag.current = null; }}>
-            <div className="window-title"><span className={`detail-icon ${isGoogleStudio(opened) ? "google-icon" : ""}`}>{sourceIconFor(opened)}</span><div><strong>{opened.title}</strong><small>Arbeitsfenster - verschieben am Kopf, Groesse unten rechts anpassen</small></div></div>
+            <div className="window-title"><span className={`detail-icon ${isGoogleStudio(opened) ? "google-icon" : isClaudeWorkspace(opened) ? "claude-icon" : ""}`}>{sourceIconFor(opened)}</span><div><strong>{opened.title}</strong><small>Arbeitsfenster - verschieben am Kopf, Groesse unten rechts anpassen</small></div></div>
             <div className="window-actions"><button type="button" className="test-action" onClick={() => testApp(opened)}>App testen</button><a href={quickStartFor(opened)} target="_blank" rel="noreferrer">App oeffnen</a><button type="button" onClick={() => setOpenedId(null)} aria-label="Fenster schliessen">Schliessen</button></div>
           </header>
           <nav className="window-tabs" aria-label="App-Informationen">
