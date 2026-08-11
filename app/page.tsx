@@ -34,12 +34,17 @@ type StoredScreen = { id: string; src: string; title: string; source: string };
 type ChatRecord = { id: string; source: string; title: string; summary: string; updatedAt: string; model: string; appId?: string; appMatch: string; status: "Erfasst" | "Zugang fehlt" };
 type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number };
 type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: string | null; models: string | null; evidence: unknown; access_profile: string | null };
+type RemoteCatalogChat = { external_key: string; provider: string; title: string; summary: string | null; occurred_on: string | null; model: string | null; app_key: string | null; app_match: string | null; access_status: string | null };
 
 function remoteCatalogTool(app: RemoteCatalogApp): Tool {
   const source: Source = ["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"].includes(app.source) ? app.source as Source : "Cloud";
   const status: Status = ["Aktiv", "Prüfen", "Dokumentiert", "Entwurf"].includes(app.status) ? app.status as Status : "Prüfen";
   const evidence = Array.isArray(app.evidence) ? app.evidence.join(", ") : typeof app.evidence === "string" ? app.evidence : "Kataloginventur";
   return { id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined, technical: { builder: app.builder ?? "Noch nicht verifiziert", frontend: app.frontend ?? "Noch zu prüfen", middleware: app.middleware ?? "Noch zu prüfen", backend: app.backend ?? "Noch zu prüfen", database: app.database_technology ?? "Noch zu prüfen", connections: app.connections ?? "Noch zu prüfen", models: app.models ?? "Noch zu prüfen", evidence, access: app.access_profile ?? "Zugang über sicheren Verweis; keine Passwörter im Katalog" } };
+}
+
+function remoteCatalogChat(chat: RemoteCatalogChat): ChatRecord {
+  return { id: chat.external_key, source: chat.provider || "Unbekannt", title: chat.title, summary: chat.summary || "Kurzinhalt nicht erfasst.", updatedAt: chat.occurred_on || "Nicht aus der Quelle ersichtlich", model: chat.model || "Nicht aus der Quelle ersichtlich", appId: chat.app_key || undefined, appMatch: chat.app_match || "Noch zuordnen", status: chat.access_status === "Zugang fehlt" ? "Zugang fehlt" : "Erfasst" };
 }
 
 const networkDevices = [
@@ -525,6 +530,7 @@ export default function Home() {
   const [windowTab, setWindowTab] = useState<WindowTab>("profile");
   const [windowPosition, setWindowPosition] = useState({ x: 0, y: 0 });
   const [remoteTools, setRemoteTools] = useState<Tool[] | null>(null);
+  const [remoteChats, setRemoteChats] = useState<ChatRecord[] | null>(null);
   const [catalogSync, setCatalogSync] = useState<CatalogSync>({ phase: "loading", message: "Zentralen Katalog verbinden …" });
   const [backupNotice, setBackupNotice] = useState("Noch keine Sicherung in dieser Sitzung erstellt.");
   const [evidenceFile, setEvidenceFile] = useState<File | null>(null);
@@ -534,6 +540,7 @@ export default function Home() {
   const [storedScreens, setStoredScreens] = useState<Record<string, StoredScreen[]>>({});
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
   const catalogTools = remoteTools ?? allTools;
+  const displayedChats = remoteChats ?? chatRecords;
   const selected = catalogTools.find((tool) => tool.id === selectedId) ?? catalogTools[0];
   const opened = catalogTools.find((tool) => tool.id === openedId);
 
@@ -548,10 +555,11 @@ export default function Home() {
     let active = true;
     fetch("/api/catalog", { cache: "no-store" })
       .then(async (response) => {
-        const data = await response.json() as { apps?: RemoteCatalogApp[]; summary?: { syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number }; error?: string };
+        const data = await response.json() as { apps?: RemoteCatalogApp[]; chats?: RemoteCatalogChat[]; summary?: { syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number }; error?: string };
         if (!response.ok || !data.apps) throw new Error(data.error ?? "Zentrale Daten sind momentan nicht erreichbar.");
         if (!active) return;
         setRemoteTools(data.apps.map(remoteCatalogTool));
+        if (data.chats) setRemoteChats(data.chats.map(remoteCatalogChat));
         setCatalogSync({ phase: "live", message: "Mit Supabase synchronisiert", syncedAt: data.summary?.syncedAt, qualityIssues: data.summary?.qualityIssues, screenshots: data.summary?.screenshots, devices: data.summary?.devices });
       })
       .catch((error) => {
@@ -792,7 +800,7 @@ export default function Home() {
           <div><p className="eyebrow">Dokumentationsstand</p><h1>Projektakte auf einen Blick.</h1><p>Die Einordnung trennt vollständig geprüfte Projektakten von Einträgen, bei denen Quellen, Zugang oder technische Details noch ergänzt werden.</p></div>
           <div className="documentation-summary"><span><strong>{fullyDocumented.length}</strong> fertig dokumentiert</span><span><strong>{partlyDocumented.length}</strong> teilweise dokumentiert</span></div>
         </div>
-        <section className="chat-dashboard" aria-label="Chat-Übersicht"><div><p className="eyebrow">Chat-Übersicht</p><h2>{chatRecords.length} Verläufe erfasst</h2><p>{chatRecords.filter((chat) => chat.appId).length} Chats sind bereits einer App zugeordnet. Weitere Quellen werden erst nach Anmeldung ergänzt.</p></div><button type="button" onClick={() => setMainView("chats")}>Chat-Register öffnen</button></section>
+        <section className="chat-dashboard" aria-label="Chat-Übersicht"><div><p className="eyebrow">Chat-Übersicht</p><h2>{displayedChats.length} Verläufe erfasst</h2><p>{displayedChats.filter((chat) => chat.appId).length} Chats sind bereits einer App zugeordnet. Weitere Quellen werden erst nach Anmeldung ergänzt.</p></div><button type="button" onClick={() => setMainView("chats")}>Chat-Register öffnen</button></section>
         <div className="documentation-table-wrap">
           <table className="documentation-table">
             <caption>Übersicht aller Apps nach Dokumentationsstand</caption>
@@ -802,9 +810,9 @@ export default function Home() {
         </div>
       </section>}
       {mainView === "chats" && <section className="chats-view" aria-label="Chat-Register">
-        <div className="dashboard-heading"><div><p className="eyebrow">Quellenübergreifende Chat-Akte</p><h1>Chats mit App-Zuordnung.</h1><p>Nur zugängliche Verläufe werden aufgenommen. Modell, Datum und Kurzinhalt bleiben als belegte Metadaten oder sind ausdrücklich als nicht verfügbar markiert.</p></div><div className="documentation-summary"><span><strong>{chatRecords.length}</strong> erfasst</span><span><strong>{chatRecords.filter((chat) => chat.appId).length}</strong> zugeordnet</span></div></div>
+        <div className="dashboard-heading"><div><p className="eyebrow">Quellenübergreifende Chat-Akte</p><h1>Chats mit App-Zuordnung.</h1><p>Nur zugängliche Verläufe werden aufgenommen. Modell, Datum und Kurzinhalt bleiben als belegte Metadaten oder sind ausdrücklich als nicht verfügbar markiert.</p></div><div className="documentation-summary"><span><strong>{displayedChats.length}</strong> erfasst</span><span><strong>{displayedChats.filter((chat) => chat.appId).length}</strong> zugeordnet</span></div></div>
         <div className="chat-source-grid">{chatProviderStates.map((provider) => <article key={provider.source}><strong>{provider.source}</strong><span className={provider.state === "Verbunden" ? "connected" : provider.state === "Teilzugriff" ? "partial" : "unavailable"}>{provider.state}</span><p>{provider.detail}</p></article>)}</div>
-        <div className="documentation-table-wrap"><table className="documentation-table chat-table"><caption>Erfasste Chats und fachliche Zuordnung</caption><thead><tr><th>Quelle</th><th>Chat</th><th>Kurzinhalt</th><th>Datum</th><th>Modell</th><th>Passende App</th></tr></thead><tbody>{chatRecords.map((chat) => <tr key={chat.id}><td>{chat.source}</td><td><strong>{chat.title}</strong></td><td>{chat.summary}</td><td>{chat.updatedAt}</td><td>{chat.model}</td><td>{chat.appId ? <button type="button" onClick={() => { setSelectedId(chat.appId!); setMainView("catalog"); }}>{chat.appMatch}</button> : chat.appMatch}</td></tr>)}</tbody></table></div>
+        <div className="documentation-table-wrap"><table className="documentation-table chat-table"><caption>Erfasste Chats und fachliche Zuordnung</caption><thead><tr><th>Quelle</th><th>Chat</th><th>Kurzinhalt</th><th>Datum</th><th>Modell</th><th>Passende App</th></tr></thead><tbody>{displayedChats.map((chat) => <tr key={chat.id}><td>{chat.source}</td><td><strong>{chat.title}</strong></td><td>{chat.summary}</td><td>{chat.updatedAt}</td><td>{chat.model}</td><td>{chat.appId ? <button type="button" onClick={() => { setSelectedId(chat.appId!); setMainView("catalog"); }}>{chat.appMatch}</button> : chat.appMatch}</td></tr>)}</tbody></table></div>
       </section>}
       {mainView === "control" && <section className="control-center" aria-label="Control Center">
         <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{allTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>
