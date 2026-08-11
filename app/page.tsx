@@ -467,8 +467,8 @@ function detailsFor(tool: Tool): AppDetails {
   return { builder: "Noch zu pruefen", frontend: "Noch zu pruefen", middleware: "Noch zu pruefen", backend: "Noch zu pruefen", database: "Noch zu pruefen", connections: "Noch zu pruefen", models: "Noch zu pruefen", evidence: "Noch keine Quelle bewertet" };
 }
 
-type BuilderFilter = "Alle" | "Claude" | "Codex" | "Google" | "Lovable";
-const builderFilters: BuilderFilter[] = ["Alle", "Claude", "Codex", "Google", "Lovable"];
+type BuilderFilter = "Alle" | "Claude" | "Codex" | "Google" | "Lovable" | "Perplexity";
+const builderFilters: BuilderFilter[] = ["Alle", "Claude", "Codex", "Google", "Lovable", "Perplexity"];
 const creationDates: Record<string, string> = {
   overview: "26.06.2026", business: "05.07.2026", bau: "19.07.2026", calendar: "22.07.2026", contracts: "01.05.2026", dokupress: "01.08.2026", slides: "24.07.2026", presentation: "29.04.2026", releaseletter: "08.05.2026", messe: "06.07.2026",
   "contracts-hub": "08.07.2026", thumbnail: "30.04.2026", dify: "28.07.2026", event: "06.07.2026",
@@ -499,6 +499,7 @@ function builderForFilter(tool: Tool): Exclude<BuilderFilter, "Alle"> | "Andere"
   if (builder.includes("codex")) return "Codex";
   if (builder.includes("google")) return "Google";
   if (builder.includes("lovable")) return "Lovable";
+  if (builder.includes("perplexity")) return "Perplexity";
   return "Andere";
 }
 
