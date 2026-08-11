@@ -221,10 +221,33 @@ function detailsFor(tool: Tool): AppDetails {
   return appDetails[tool.id] ?? { builder: "Noch zu pruefen", frontend: "Noch zu pruefen", middleware: "Noch zu pruefen", backend: "Noch zu pruefen", database: "Noch zu pruefen", connections: "Noch zu pruefen", models: "Noch zu pruefen", evidence: "Noch keine Quelle bewertet" };
 }
 
+type BuilderFilter = "Alle" | "Claude" | "Codex" | "Google" | "Lovable";
+const builderFilters: BuilderFilter[] = ["Alle", "Claude", "Codex", "Google", "Lovable"];
+const creationDates: Record<string, string> = {
+  overview: "26.06.2026", business: "05.07.2026", bau: "19.07.2026", calendar: "22.07.2026", contracts: "01.05.2026", dokupress: "01.08.2026", slides: "24.07.2026", presentation: "29.04.2026", releaseletter: "08.05.2026", messe: "06.07.2026",
+  "contracts-hub": "08.07.2026", thumbnail: "30.04.2026", dify: "28.07.2026", event: "06.07.2026",
+  "codex-n8n": "14.04.2026", "voice-presentation": "30.07.2026", funding: "17.07.2026", "n8n-excel": "15.04.2026", "n8n-slides": "15.04.2026", transparency: "14.04.2026", "n8n-library": "14.04.2026", "pc-optimizer": "14.04.2026", waterdamage: "04.07.2026", "testing-screen": "10.07.2026", "presentation-finder": "30.07.2026",
+};
+
+function createdFor(tool: Tool) {
+  return creationDates[tool.id] ?? "Noch nicht verifiziert";
+}
+
+function builderForFilter(tool: Tool): Exclude<BuilderFilter, "Alle"> | "Andere" {
+  const builder = detailsFor(tool).builder.toLocaleLowerCase("de");
+  if (builder.includes("claude")) return "Claude";
+  if (builder.includes("codex")) return "Codex";
+  if (builder.includes("google")) return "Google";
+  if (builder.includes("lovable")) return "Lovable";
+  return "Andere";
+}
+
 export default function Home() {
   const [query, setQuery] = useState("");
   const [source, setSource] = useState<Source | "Alle">("Alle");
   const [status, setStatus] = useState<Status | "Alle">("Alle");
+  const [builderFilter, setBuilderFilter] = useState<BuilderFilter>("Alle");
+  const [sortBy, setSortBy] = useState<"created" | "status">("created");
   const [selectedId, setSelectedId] = useState("overview");
   const [panel, setPanel] = useState<DetailPanel>("masterdata");
   const [openedId, setOpenedId] = useState<string | null>(null);
@@ -260,9 +283,9 @@ export default function Home() {
     const needle = query.trim().toLocaleLowerCase("de");
     return allTools.filter((tool) => {
       const searchable = `${tool.title} ${tool.description} ${tool.category} ${tool.detail} ${tool.location} ${tool.overlap ?? ""}`.toLocaleLowerCase("de");
-      return (source === "Alle" || tool.source === source) && (status === "Alle" || tool.status === status) && (!needle || searchable.includes(needle));
-    });
-  }, [query, source, status]);
+      return (source === "Alle" || tool.source === source) && (status === "Alle" || tool.status === status) && (builderFilter === "Alle" || builderForFilter(tool) === builderFilter) && (!needle || searchable.includes(needle));
+    }).sort((a, b) => sortBy === "created" ? createdFor(b).localeCompare(createdFor(a), "de") : a.status.localeCompare(b.status, "de"));
+  }, [query, source, status, builderFilter, sortBy]);
 
   return (
     <main className="app-shell">
@@ -297,12 +320,17 @@ export default function Home() {
             <select value={status} onChange={(event) => setStatus(event.target.value as Status | "Alle")} aria-label="Status filtern">
               <option>Alle</option>{statuses.map((item) => <option key={item}>{item}</option>)}
             </select>
+            <select value={sortBy} onChange={(event) => setSortBy(event.target.value as "created" | "status")} aria-label="Sortierung">
+              <option value="created">Neueste Erstellung</option><option value="status">Status</option>
+            </select>
           </div>
+          <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? allTools.length : allTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
           <div className="tool-grid">
             {filtered.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openTool(tool); }}>
               <span className="card-top"><span className="source-icon" aria-hidden="true">{tool.source === "GitHub" ? "GH" : tool.source === "Google Drive" ? "GD" : tool.source === "Cloud" ? "CL" : "PC"}</span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
               <button className="card-select" onClick={(event) => { event.stopPropagation(); openTool(tool); }}><span className="tool-title">{tool.title}</span><span className="tool-description">{tool.description}</span></button>
               <span className="tool-meta">{tool.source} · {tool.category}</span>
+              <span className="classification">{builderForFilter(tool)} · erstellt {createdFor(tool)}</span>
               <span className="resource-links" aria-label={`Zugänge für ${tool.title}`}>
                 <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Link</a>
                 <a href={archiveFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Archiv</a>
@@ -331,7 +359,7 @@ export default function Home() {
             <button className={panel === "architecture" ? "active" : ""} onClick={() => setPanel("architecture")}>IT-Architektur</button>
             <button className={panel === "features" ? "active" : ""} onClick={() => setPanel("features")}>Neue Features</button>
           </div>
-          {panel === "masterdata" && <dl className="info-list"><div><dt>Angelegt</dt><dd>Noch zu erfassen</dd></div><div><dt>Letzte Aktualisierung</dt><dd>{selected.checkedAt ?? "Aus der ersten Inventur"}</dd></div><div><dt>Aktueller Status</dt><dd>{statusFor(selected)}</dd></div><div><dt>Performance / Zugang</dt><dd>{selected.performance ?? detailsFor(selected).access ?? "Noch nicht gemessen"}</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
+          {panel === "masterdata" && <dl className="info-list"><div><dt>Erstelldatum</dt><dd>{createdFor(selected)}</dd></div><div><dt>Erstellt mit</dt><dd>{builderForFilter(selected)}</dd></div><div><dt>Letzte Aktualisierung</dt><dd>{selected.checkedAt ?? "Aus der ersten Inventur"}</dd></div><div><dt>Aktueller Status</dt><dd>{statusFor(selected)}</dd></div><div><dt>Performance / Zugang</dt><dd>{selected.performance ?? detailsFor(selected).access ?? "Noch nicht gemessen"}</dd></div><div><dt>Tokenverbrauch</dt><dd>Noch nicht gemessen</dd></div><div><dt>Nutzung</dt><dd>{scopeFor(selected)}</dd></div></dl>}
           {panel === "tags" && <div className="tags-panel"><p>Vorläufige Beschreibung</p><div className="tag-list">{tagsFor(selected).map((tag) => <span key={tag}>{tag}</span>)}</div><p className="similar"><strong>Ähnliche Apps:</strong> {selected.overlap ?? "Noch abgleichen"}</p><p className="similar"><strong>Zuordnung:</strong> {scopeFor(selected)}</p></div>}
           {panel === "architecture" && <dl className="info-list architecture">{Object.entries(architectureFor(selected)).map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl>}
           {panel === "features" && <ul className="features-list">{featuresFor(selected).map((feature) => <li key={feature}>{feature}</li>)}</ul>}
