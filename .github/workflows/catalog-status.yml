@@ -1,0 +1,21 @@
+name: Catalog status
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report commit status to catalog
+        if: ${{ secrets.CATALOG_INTEGRATION_URL != '' && secrets.CATALOG_INTEGRATION_TOKEN != '' }}
+        env:
+          CATALOG_URL: ${{ secrets.CATALOG_INTEGRATION_URL }}
+          CATALOG_TOKEN: ${{ secrets.CATALOG_INTEGRATION_TOKEN }}
+        run: |
+          curl --fail-with-body --request POST "$CATALOG_URL/api/integrations/event" \
+            --header "Authorization: Bearer $CATALOG_TOKEN" \
+            --header "Content-Type: application/json" \
+            --data '{"provider":"GitHub","integrationKey":"github-mastertool","appKey":"overview","state":"success","commitSha":"${{ github.sha }}","detail":"Push auf main wurde erfolgreich gemeldet.","metadata":{"repository":"${{ github.repository }}","workflow":"${{ github.workflow }}"}}'

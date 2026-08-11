@@ -30,6 +30,14 @@ type Tool = {
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
 type ChatRecord = { id: string; source: string; title: string; summary: string; updatedAt: string; model: string; appId?: string; appMatch: string; status: "Erfasst" | "Zugang fehlt" };
+type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number };
+type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null };
+
+function remoteCatalogTool(app: RemoteCatalogApp): Tool {
+  const source: Source = ["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"].includes(app.source) ? app.source as Source : "Cloud";
+  const status: Status = ["Aktiv", "Prüfen", "Dokumentiert", "Entwurf"].includes(app.status) ? app.status as Status : "Prüfen";
+  return { id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined };
+}
 
 const networkDevices = [
   { id: "local", name: "Dieser Rechner", system: "Windows 11", address: "192.168.2.185", state: "online", detail: "Master-App und lokale Dienste sind erreichbar." },
@@ -509,15 +517,34 @@ export default function Home() {
   const [openedId, setOpenedId] = useState<string | null>(null);
   const [windowTab, setWindowTab] = useState<WindowTab>("profile");
   const [windowPosition, setWindowPosition] = useState({ x: 0, y: 0 });
+  const [remoteTools, setRemoteTools] = useState<Tool[] | null>(null);
+  const [catalogSync, setCatalogSync] = useState<CatalogSync>({ phase: "loading", message: "Zentralen Katalog verbinden …" });
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
-  const selected = allTools.find((tool) => tool.id === selectedId) ?? allTools[0];
-  const opened = allTools.find((tool) => tool.id === openedId);
+  const catalogTools = remoteTools ?? allTools;
+  const selected = catalogTools.find((tool) => tool.id === selectedId) ?? catalogTools[0];
+  const opened = catalogTools.find((tool) => tool.id === openedId);
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("catalog-theme");
     const savedVotes = window.localStorage.getItem("catalog-feature-votes");
     setDarkMode(savedTheme === "dark");
     if (savedVotes) setIdeaVotes(JSON.parse(savedVotes) as Record<string, number>);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/catalog", { cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json() as { apps?: RemoteCatalogApp[]; summary?: { syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number }; error?: string };
+        if (!response.ok || !data.apps) throw new Error(data.error ?? "Zentrale Daten sind momentan nicht erreichbar.");
+        if (!active) return;
+        setRemoteTools(data.apps.map(remoteCatalogTool));
+        setCatalogSync({ phase: "live", message: "Mit Supabase synchronisiert", syncedAt: data.summary?.syncedAt, qualityIssues: data.summary?.qualityIssues, screenshots: data.summary?.screenshots, devices: data.summary?.devices });
+      })
+      .catch((error) => {
+        if (active) setCatalogSync({ phase: "fallback", message: error instanceof Error ? error.message : "Lokaler Katalogstand aktiv." });
+      });
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {
@@ -534,7 +561,7 @@ export default function Home() {
   }
 
   function exportCatalog(format: "json" | "csv" | "markdown") {
-    const rows = allTools.map((tool) => ({ app: tool.title, dokumentation: documentationStateFor(tool), status: tool.status, quelle: tool.source, port: localPortFor(tool), pruefgrundlage: detailsFor(tool).evidence }));
+    const rows = catalogTools.map((tool) => ({ app: tool.title, dokumentation: documentationStateFor(tool), status: tool.status, quelle: tool.source, port: localPortFor(tool), pruefgrundlage: detailsFor(tool).evidence }));
     const content = format === "json" ? JSON.stringify(rows, null, 2) : format === "csv" ? ["App;Dokumentation;Status;Quelle;Lokaler Port;Prüfgrundlage", ...rows.map((row) => [row.app, row.dokumentation, row.status, row.quelle, row.port, row.pruefgrundlage].map((value) => `\"${value.replaceAll("\"", "\"\"")}\"`).join(";"))].join("\n") : ["# Mein App-Katalog", "", ...rows.map((row) => `- **${row.app}** — ${row.dokumentation}; ${row.status}; ${row.port}`)].join("\n");
     const type = format === "json" ? "application/json" : format === "csv" ? "text/csv" : "text/markdown";
     const link = document.createElement("a");
@@ -571,6 +598,7 @@ export default function Home() {
       const response = await fetch(`/api/test?url=${encodeURIComponent(target)}`, { cache: "no-store" });
       const data = await response.json() as { outcome?: string; status?: number; durationMs?: number; message?: string; error?: string };
       if (!response.ok || data.error) throw new Error(data.error ?? "Der Linktest konnte nicht gestartet werden.");
+      void fetch("/api/catalog/test", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ appKey: tool.id, url: target }) });
       const message = data.outcome === "available" ? `Erreichbar: HTTP ${data.status} in ${data.durationMs} ms.` : data.outcome === "login_required" ? `Erreichbar, Anmeldung erforderlich: HTTP ${data.status} in ${data.durationMs} ms.` : data.outcome === "local_only" ? data.message ?? "Lokaler Ordner." : `${data.message ?? "Nicht erreichbar"}${data.status ? ` (HTTP ${data.status})` : ""}`;
       setTestResults((current) => ({ ...current, [tool.id]: { phase: "done", message } }));
     } catch (error) {
@@ -591,14 +619,14 @@ export default function Home() {
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase("de");
-    return allTools.filter((tool) => {
+    return catalogTools.filter((tool) => {
       const searchable = `${tool.title} ${tool.description} ${tool.category} ${tool.detail} ${tool.location} ${tool.overlap ?? ""}`.toLocaleLowerCase("de");
       return (source === "Alle" || tool.source === source) && (status === "Alle" || tool.status === status) && (builderFilter === "Alle" || builderForFilter(tool) === builderFilter) && (!needle || searchable.includes(needle));
     }).sort((a, b) => sortBy === "created" ? createdFor(b).localeCompare(createdFor(a), "de") : a.status.localeCompare(b.status, "de"));
-  }, [query, source, status, builderFilter, sortBy]);
-  const fullyDocumented = allTools.filter((tool) => documentationStateFor(tool) === "Fertig dokumentiert");
-  const partlyDocumented = allTools.filter((tool) => documentationStateFor(tool) === "Teilweise dokumentiert");
-  const documentationRows = [...allTools].sort((a, b) => documentationStateFor(a).localeCompare(documentationStateFor(b), "de") || a.title.localeCompare(b.title, "de"));
+  }, [catalogTools, query, source, status, builderFilter, sortBy]);
+  const fullyDocumented = catalogTools.filter((tool) => documentationStateFor(tool) === "Fertig dokumentiert");
+  const partlyDocumented = catalogTools.filter((tool) => documentationStateFor(tool) === "Teilweise dokumentiert");
+  const documentationRows = [...catalogTools].sort((a, b) => documentationStateFor(a).localeCompare(documentationStateFor(b), "de") || a.title.localeCompare(b.title, "de"));
   const renderedTools = showAllTools ? filtered : filtered.slice(0, 24);
 
   return (
@@ -616,6 +644,7 @@ export default function Home() {
       </header>
 
       <div className={mainView === "catalog" ? "catalog-view" : "catalog-view view-hidden"}>
+      <p className={`sync-indicator sync-${catalogSync.phase}`}>{catalogSync.message}{catalogSync.syncedAt ? ` · Stand ${new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(catalogSync.syncedAt))}` : ""}</p>
       <section className="hero">
         <div>
           <p className="eyebrow">Zentrale Übersicht</p>
@@ -623,7 +652,7 @@ export default function Home() {
           <p className="lead">Finde Apps, erkenne Überschneidungen und öffne die passende Quelle, um ein Projekt weiterzuentwickeln.</p>
         </div>
         <div className="summary" aria-label="Inventurstand">
-          <span><strong>{allTools.length}</strong> erfasste Werkzeuge</span>
+          <span><strong>{catalogTools.length}</strong> erfasste Werkzeuge</span>
           <span><strong>4</strong> Quelltypen</span>
           <span><strong>5</strong> Prüfcluster</span>
         </div>
@@ -646,7 +675,7 @@ export default function Home() {
               <option value="created">Neueste Erstellung</option><option value="status">Status</option>
             </select>
           </div>
-          <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? allTools.length : allTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
+          <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? catalogTools.length : catalogTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
           <div className="tool-grid">
             {renderedTools.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openTool(tool); }}>
               <span className="card-top"><span className="source-marks"><ProviderIcon tool={tool} /><ClaudeSurfaceBadge tool={tool} /></span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
