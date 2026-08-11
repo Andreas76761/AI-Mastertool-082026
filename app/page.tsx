@@ -30,6 +30,7 @@ type Tool = {
 };
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
+type StoredScreen = { id: string; src: string; title: string; source: string };
 type ChatRecord = { id: string; source: string; title: string; summary: string; updatedAt: string; model: string; appId?: string; appMatch: string; status: "Erfasst" | "Zugang fehlt" };
 type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number };
 type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: string | null; models: string | null; evidence: unknown; access_profile: string | null };
@@ -530,6 +531,7 @@ export default function Home() {
   const [evidenceAppKey, setEvidenceAppKey] = useState("messe");
   const [evidenceKind, setEvidenceKind] = useState<"screenshot" | "document">("screenshot");
   const [evidenceNotice, setEvidenceNotice] = useState("Noch keine Datei ausgewählt.");
+  const [storedScreens, setStoredScreens] = useState<Record<string, StoredScreen[]>>({});
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
   const catalogTools = remoteTools ?? allTools;
   const selected = catalogTools.find((tool) => tool.id === selectedId) ?? catalogTools[0];
@@ -563,6 +565,18 @@ export default function Home() {
     window.localStorage.setItem("catalog-theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
+  useEffect(() => {
+    if (!openedId) return;
+    let active = true;
+    fetch(`/api/catalog/screens?appKey=${encodeURIComponent(openedId)}`, { cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json() as { screens?: StoredScreen[] };
+        if (response.ok && active) setStoredScreens((current) => ({ ...current, [openedId]: data.screens ?? [] }));
+      })
+      .catch(() => undefined);
+    return () => { active = false; };
+  }, [openedId]);
+
   function voteForIdea(id: string) {
     setIdeaVotes((current) => {
       const next = { ...current, [id]: (current[id] ?? 0) + 1 };
@@ -587,6 +601,10 @@ export default function Home() {
     setOpenedId(tool.id);
     setWindowTab("profile");
     setWindowPosition({ x: 0, y: 0 });
+  }
+
+  function allScreensFor(tool: Tool) {
+    return [...screensFor(tool), ...(storedScreens[tool.id] ?? [])];
   }
 
   async function copyLocation(tool: Tool) {
@@ -810,12 +828,12 @@ export default function Home() {
           <nav className="window-tabs" aria-label="App-Informationen">
             <button className={windowTab === "profile" ? "active" : ""} onClick={() => setWindowTab("profile")}>Herkunft & Tool</button>
             <button className={windowTab === "systems" ? "active" : ""} onClick={() => setWindowTab("systems")}>Architektur & Daten</button>
-            <button className={windowTab === "screens" ? "active" : ""} onClick={() => setWindowTab("screens")}>Echte Screens ({screensFor(opened).length})</button>
+            <button className={windowTab === "screens" ? "active" : ""} onClick={() => setWindowTab("screens")}>Echte Screens ({allScreensFor(opened).length})</button>
           </nav>
           <div className="window-content">
             {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{opened.trafficLight && <p className={`traffic-light ${opened.trafficLight}`} title={opened.trafficNote}><i></i>{trafficLabelFor(opened)} · {opened.trafficNote}</p>}{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div>{isClaudeWorkspace(opened) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(opened)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(opened)}</dd></div></>}<div><dt>Direkt-URL</dt><dd><a className="data-link" href={quickStartFor(opened)} target="_blank" rel="noreferrer">{quickStartFor(opened)}</a></dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{accessProfileFor(opened)}</dd></div><div><dt>Modellbezug der App</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
             {windowTab === "systems" && <div className="systems-grid"><article><span>Frontend</span><strong>{detailsFor(opened).frontend}</strong></article><article><span>Middleware</span><strong>{detailsFor(opened).middleware}</strong></article><article><span>Backend</span><strong>{detailsFor(opened).backend}</strong></article><article><span>Datenbank</span><strong>{detailsFor(opened).database}</strong></article><article><span>Connections</span><strong>{detailsFor(opened).connections}</strong></article><article><span>Modelle</span><strong>{detailsFor(opened).models}</strong></article><article><span>Pruefgrundlage</span><strong>{detailsFor(opened).evidence}</strong></article></div>}
-            {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{screensFor(opened).length > 0 ? <div className="screens-grid">{screensFor(opened).map((screen) => <figure key={screen.src}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
+            {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{allScreensFor(opened).length > 0 ? <div className="screens-grid">{allScreensFor(opened).map((screen) => <figure key={"id" in screen ? screen.id : screen.src}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
           </div>
         </section>
       </div>}

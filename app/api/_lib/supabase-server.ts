@@ -14,6 +14,10 @@ function config() {
   return { url: url.replace(/\/$/, ""), key };
 }
 
+export function supabaseBaseUrl() {
+  return config().url;
+}
+
 export async function supabaseRest(path: string, init: RequestInit = {}) {
   const { url, key } = config();
   const headers = new Headers(init.headers);
