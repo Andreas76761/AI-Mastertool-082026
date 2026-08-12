@@ -4,8 +4,17 @@ param(
   [Parameter(Mandatory = $true)][string]$DeviceKey,
   [Parameter(Mandatory = $true)][string]$AppKey,
   [Parameter(Mandatory = $true)][int]$Port,
-  [string]$EnrollmentCode
+  [string]$EnrollmentCode,
+  [string]$SiteBypassToken
 )
+
+# Die private Site benötigt für den rein technischen Status-Endpunkt ein lokales Gateway-Merkmal.
+if ([string]::IsNullOrWhiteSpace($SiteBypassToken)) {
+  $SiteBypassToken = $env:CATALOG_SITE_BYPASS_TOKEN
+}
+if ([string]::IsNullOrWhiteSpace($SiteBypassToken)) {
+  throw "Das lokale Gateway-Merkmal fehlt. Bitte den vollständigen Startbefehl aus dem privaten Katalog verwenden."
+}
 
 # Der Token bleibt ausschließlich als lokale Umgebungsvariable auf dem jeweiligen Rechner.
 if ([string]::IsNullOrWhiteSpace($env:CATALOG_AGENT_TOKEN)) {
@@ -17,12 +26,14 @@ if ([string]::IsNullOrWhiteSpace($env:CATALOG_AGENT_TOKEN)) {
     agentKey = $AgentKey
     enrollmentCode = $EnrollmentCode
   } | ConvertTo-Json
-  $enrollment = Invoke-RestMethod -Uri "$CatalogUrl/api/agent/enroll" -Method Post -ContentType "application/json" -Body $enrollmentPayload
+  $gatewayHeaders = @{ "OAI-Sites-Authorization" = "Bearer $SiteBypassToken" }
+  $enrollment = Invoke-RestMethod -Uri "$CatalogUrl/api/agent/enroll" -Method Post -ContentType "application/json" -Headers $gatewayHeaders -Body $enrollmentPayload
   if ([string]::IsNullOrWhiteSpace($enrollment.token)) {
     throw "Die Aktivierung hat keinen gültigen lokalen Zugang erzeugt."
   }
   $env:CATALOG_AGENT_TOKEN = $enrollment.token
   [Environment]::SetEnvironmentVariable("CATALOG_AGENT_TOKEN", $enrollment.token, "User")
+  [Environment]::SetEnvironmentVariable("CATALOG_SITE_BYPASS_TOKEN", $SiteBypassToken, "User")
   Write-Host "Status-Agent wurde für diesen Windows-Benutzer aktiviert."
 }
 
@@ -52,4 +63,4 @@ $payload = @{
   detail = $detail
 } | ConvertTo-Json -Depth 4
 
-Invoke-RestMethod -Uri "$CatalogUrl/api/agent/observe" -Method Post -ContentType "application/json" -Headers @{ Authorization = "Bearer $env:CATALOG_AGENT_TOKEN" } -Body $payload
+Invoke-RestMethod -Uri "$CatalogUrl/api/agent/observe" -Method Post -ContentType "application/json" -Headers @{ Authorization = "Bearer $env:CATALOG_AGENT_TOKEN"; "OAI-Sites-Authorization" = "Bearer $SiteBypassToken" } -Body $payload

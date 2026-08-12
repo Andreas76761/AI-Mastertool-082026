@@ -62,7 +62,9 @@ export async function POST(request: Request) {
       supabaseRest("catalog_agent_enrollments?on_conflict=agent_key", { method: "POST", headers: { Prefer: "resolution=merge-duplicates" }, body: JSON.stringify({ agent_key: body.agentKey, code_hash: await sha256(enrollmentCode), expires_at: expiresAt, redeemed_at: null, created_by: chatgpt.userId }) }),
       supabaseRest("catalog_audit_log", { method: "POST", body: JSON.stringify({ site_user_id: chatgpt.userId, action: "agent_enrollment_created", entity_type: "device_agent", entity_key: body.agentKey, detail: { deviceKey: body.deviceKey, appKey: body.appKey, port: body.port, expiresAt } }) }),
     ]);
-    return Response.json({ enrollmentCode, expiresAt, agentKey: body.agentKey });
+    const siteBypassToken = process.env.CATALOG_SITE_BYPASS_TOKEN;
+    if (!siteBypassToken) return Response.json({ error: "Der technische Zugang für den Status-Agenten ist noch nicht eingerichtet." }, { status: 503 });
+    return Response.json({ enrollmentCode, expiresAt, agentKey: body.agentKey, siteBypassToken });
   } catch (error) {
     if (error instanceof Error && error.message === "AUTH_REQUIRED") return Response.json({ error: "Anmeldung erforderlich." }, { status: 401 });
     return Response.json({ error: error instanceof Error ? error.message : "Rechner konnte nicht freigeschaltet werden." }, { status: 503 });

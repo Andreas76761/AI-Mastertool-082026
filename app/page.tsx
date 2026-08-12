@@ -683,9 +683,9 @@ export default function Home() {
     setAgentEnrollment(null);
     try {
       const response = await fetch("/api/agent/enroll", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "create", ...agentSetup, port: Number(agentSetup.port) }) });
-      const data = await response.json() as { enrollmentCode?: string; expiresAt?: string; error?: string };
-      if (!response.ok || !data.enrollmentCode || !data.expiresAt) throw new Error(data.error ?? "Einmal-Aktivierung konnte nicht erstellt werden.");
-      const command = `powershell -ExecutionPolicy Bypass -File C:\\AI-Mastertool\\scripts\\catalog-status-agent.ps1 -CatalogUrl "https://mein-app-katalog.azehn.chatgpt.site" -AgentKey "${agentSetup.agentKey}" -DeviceKey "${agentSetup.deviceKey}" -AppKey "${agentSetup.appKey}" -Port ${agentSetup.port} -EnrollmentCode "${data.enrollmentCode}"`;
+      const data = await response.json() as { enrollmentCode?: string; expiresAt?: string; siteBypassToken?: string; error?: string };
+      if (!response.ok || !data.enrollmentCode || !data.expiresAt || !data.siteBypassToken) throw new Error(data.error ?? "Einmal-Aktivierung konnte nicht erstellt werden.");
+      const command = `powershell -ExecutionPolicy Bypass -File C:\\AI-Mastertool\\scripts\\catalog-status-agent.ps1 -CatalogUrl "https://mein-app-katalog.azehn.chatgpt.site" -AgentKey "${agentSetup.agentKey}" -DeviceKey "${agentSetup.deviceKey}" -AppKey "${agentSetup.appKey}" -Port ${agentSetup.port} -EnrollmentCode "${data.enrollmentCode}" -SiteBypassToken "${data.siteBypassToken}"`;
       setAgentEnrollment({ code: data.enrollmentCode, expiresAt: data.expiresAt, command });
       setAgentNotice("Einmal-Code erstellt. Er ist 15 Minuten gültig und wird beim ersten erfolgreichen Start ungültig.");
     } catch (error) {
