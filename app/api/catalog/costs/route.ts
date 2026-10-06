@@ -37,7 +37,7 @@ async function keyFor(value: string) {
 export async function GET() {
   try {
     await requireCatalogUser();
-    const response = await supabaseRest("catalog_cost_entries?select=id,app_key,provider,transaction_date,amount,currency,description,source&order=transaction_date.asc", { headers: { Accept: "application/json" } });
+    const response = await supabaseRest("catalog_cost_entries?select=id,app_key,account_id,provider,transaction_date,amount,currency,description,source&order=transaction_date.asc", { headers: { Accept: "application/json" } });
     return Response.json({ entries: await response.json() });
   } catch (error) {
     if (error instanceof Error && error.message === "AUTH_REQUIRED") return Response.json({ error: "Anmeldung erforderlich." }, { status: 401 });

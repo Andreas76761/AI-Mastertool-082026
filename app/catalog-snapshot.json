@@ -31,7 +31,49 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "github-1349469610",
+    "title": "Adobexd_oneSCM",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Adobexd_oneSCM",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1349469610"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1349469610",
+      "repository": "Andreas76761/Adobexd_oneSCM",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "claude/artifact-website-structure-6srn98",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 461,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "perplexity-aftersales-1-predictive",
@@ -63,7 +105,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-aftersales-2-ar-technician",
@@ -95,7 +138,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-aftersales-3-ev-battery",
@@ -127,7 +171,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-aftersales-4-parts-logistics",
@@ -159,7 +204,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "business",
@@ -193,7 +239,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README und db.js"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "event",
@@ -208,7 +257,7 @@
     "source_url": "https://github.com/Andreas76761/AI_Eventorganizer",
     "archive_url": null,
     "created_on": "06.07.2026",
-    "last_checked_on": "2026-08-11",
+    "last_checked_on": "06.10.2026",
     "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
     "traffic_light": "green",
     "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
@@ -227,7 +276,17 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, cloud.js, db.js, schema.sql, vercel.json und Live-App"
     },
-    "access_profile": "Lokal ohne Login nutzbar; Cloud-Login mit Supabase-Konfiguration und MFA"
+    "access_profile": "Lokal ohne Login nutzbar; Cloud-Login mit Supabase-Konfiguration und MFA",
+    "metadata": {
+      "overlap": "AI Messe Guide",
+      "provider": "GitHub",
+      "remote_id": "1291151604",
+      "repository": "Andreas76761/AI_Eventorganizer",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 1588,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "messe",
@@ -261,7 +320,17 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, cloud.js, schema.sql, vercel.json und Live-Screen"
     },
-    "access_profile": "Live-App ohne Konto sichtbar; Cloud-Login ist erst nach Supabase-Konfiguration verfuegbar"
+    "access_profile": "Live-App ohne Konto sichtbar; Cloud-Login ist erst nach Supabase-Konfiguration verfuegbar",
+    "metadata": {
+      "hosting": "Vercel",
+      "overlap": "AI Eventorganizer",
+      "remote_id": "prj_v37PjwlalpT9XITDU8iRS0jgrEhN",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.880Z",
+      "source_updated_at": "2026-07-14T20:17:51.840Z",
+      "vercel_project_id": "prj_v37PjwlalpT9XITDU8iRS0jgrEhN",
+      "vercel_deployment_state": "READY"
+    }
   },
   {
     "app_key": "google-studio-presentation",
@@ -295,7 +364,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "overview",
@@ -329,7 +401,89 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, package.json und lokale Projektdateien"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": "Master-Tool-Vorläufer"
+    }
+  },
+  {
+    "app_key": "vercel-prj_A2OR35qwKfyXpTZnnBjzOdMtYvbR",
+    "title": "ai-eventorganizer · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Deployment-Stand: READY. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": "https://ai-eventorganizer.vercel.app",
+    "archive_url": null,
+    "created_on": "7.7.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_A2OR35qwKfyXpTZnnBjzOdMtYvbR"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_A2OR35qwKfyXpTZnnBjzOdMtYvbR",
+      "imported_at": "2026-10-06T08:29:10.881Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.881Z",
+      "source_updated_at": "2026-07-14T20:17:48.796Z",
+      "vercel_project_id": "prj_A2OR35qwKfyXpTZnnBjzOdMtYvbR",
+      "vercel_deployment_state": "READY"
+    }
+  },
+  {
+    "app_key": "github-1331167275",
+    "title": "AI-Mastertool-082026",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/AI-Mastertool-082026",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1331167275"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1331167275",
+      "repository": "Andreas76761/AI-Mastertool-082026",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 4832,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "google-studio-phasen",
@@ -363,7 +517,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-app-building",
@@ -397,7 +554,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "bau",
@@ -431,7 +591,168 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "index.html, app.js und lokale PDFs"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "vercel-prj_spVUJFXPiPy4eGAKcDzRmT8Rrhg2",
+    "title": "bau-ki-agentur-app · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Deployment-Stand: READY. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": "https://bau-ki-agentur-app.vercel.app",
+    "archive_url": null,
+    "created_on": "9.6.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_spVUJFXPiPy4eGAKcDzRmT8Rrhg2"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_spVUJFXPiPy4eGAKcDzRmT8Rrhg2",
+      "imported_at": "2026-10-06T08:29:10.882Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.882Z",
+      "source_updated_at": "2026-06-09T20:03:01.541Z",
+      "vercel_project_id": "prj_spVUJFXPiPy4eGAKcDzRmT8Rrhg2",
+      "vercel_deployment_state": "READY"
+    }
+  },
+  {
+    "app_key": "github-1297625232",
+    "title": "baudokumentation2026_V1",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/baudokumentation2026_V1",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1297625232"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1297625232",
+      "repository": "Andreas76761/baudokumentation2026_V1",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "vercel-prj_VQQKI8B27VQO2um68r8HP2bObjDa",
+    "title": "baudokumentation2026-v1 · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Deployment-Stand: READY. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": "https://baudokumentation2026-v1.vercel.app",
+    "archive_url": null,
+    "created_on": "11.7.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_VQQKI8B27VQO2um68r8HP2bObjDa"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_VQQKI8B27VQO2um68r8HP2bObjDa",
+      "imported_at": "2026-10-06T08:29:10.881Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.881Z",
+      "source_updated_at": "2026-07-11T16:57:52.216Z",
+      "vercel_project_id": "prj_VQQKI8B27VQO2um68r8HP2bObjDa",
+      "vercel_deployment_state": "READY"
+    }
+  },
+  {
+    "app_key": "github-1264353334",
+    "title": "Bauplaner_Version1",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Bauplaner_Version1",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1264353334"
+    },
+    "access_profile": "GitHub-Konto mit Repository-Zugriff erforderlich.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1264353334",
+      "repository": "Andreas76761/Bauplaner_Version1",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 133,
+      "repository_visibility": "private"
+    }
   },
   {
     "app_key": "perplexity-beispiel-balkendiagramm-zum-zeitintervall-pro-zeile-in-knime",
@@ -463,7 +784,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "benutzerhandbuch-v4-tools",
@@ -497,7 +819,10 @@
     "evidence": [
       "tools/requirements.txt"
     ],
-    "access_profile": "Lokaler Projektordner; private Quelldokumente verbleiben außerhalb des Katalogs."
+    "access_profile": "Lokaler Projektordner; private Quelldokumente verbleiben außerhalb des Katalogs.",
+    "metadata": {
+      "inventory_checked": "2026-09-19"
+    }
   },
   {
     "app_key": "perplexity-berechnung-der-vertragslaufzeit-start-2025-04-08-bis-ende-2029-04-07",
@@ -529,7 +854,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "claude-workspace-bw-bank",
@@ -563,7 +889,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "claude-workspace-app-overview",
@@ -597,7 +926,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-code-smells",
@@ -631,7 +963,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "calendar",
@@ -665,7 +1000,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "calendar.sqlite sowie CSV- und JSON-Dateien"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "codex-n8n",
@@ -699,7 +1037,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, Workflow-Archive, Ontologie- und Graph-Ordner"
     },
-    "access_profile": "Projektarchiv lokal vorhanden; keine laufende Oberfläche registriert"
+    "access_profile": "Projektarchiv lokal vorhanden; keine laufende Oberfläche registriert",
+    "metadata": {
+      "overlap": "Releaseletter · Dify Releaseletter · n8n"
+    }
   },
   {
     "app_key": "copilot-architecture-chat",
@@ -735,7 +1076,49 @@
       "client/package.json",
       "server/package.json"
     ],
-    "access_profile": "Anthropic-Schlüssel nur lokal in server/.env; kein Kennwort im Katalog."
+    "access_profile": "Anthropic-Schlüssel nur lokal in server/.env; kein Kennwort im Katalog.",
+    "metadata": {
+      "inventory_checked": "2026-09-19"
+    }
+  },
+  {
+    "app_key": "github-1305587988",
+    "title": "Dateifinder-Festplatte",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Dateifinder-Festplatte",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1305587988"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1305587988",
+      "repository": "Andreas76761/Dateifinder-Festplatte",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "claude-workspace-dateiorganizer",
@@ -769,7 +1152,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "claude-workspace-dateibetrachter",
@@ -803,7 +1189,49 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "github-1331792221",
+    "title": "Dateiverwaltung_Google_Drive",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Dateiverwaltung_Google_Drive",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1331792221"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1331792221",
+      "repository": "Andreas76761/Dateiverwaltung_Google_Drive",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "claude/file-management-artifact-s2t2ep",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 13631,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "claude-workspace-db-flow",
@@ -837,7 +1265,89 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "github-1227810584",
+    "title": "Diagramm_Builder",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Diagramm_Builder",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1227810584"
+    },
+    "access_profile": "GitHub-Konto mit Repository-Zugriff erforderlich.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1227810584",
+      "repository": "Andreas76761/Diagramm_Builder",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "claude/excel-csv-chart-app-Hkr5b",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 366,
+      "repository_visibility": "private"
+    }
+  },
+  {
+    "app_key": "vercel-prj_ffkWJ1eZxSUYLmBjoONJDp9a1Gs6",
+    "title": "diagramm-builder · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Deployment-Stand: READY. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": "https://diagramm-builder.vercel.app",
+    "archive_url": null,
+    "created_on": "10.7.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Vercel-Frameworkkonfiguration: vite",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_ffkWJ1eZxSUYLmBjoONJDp9a1Gs6"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_ffkWJ1eZxSUYLmBjoONJDp9a1Gs6",
+      "imported_at": "2026-10-06T08:29:10.881Z",
+      "vercel_framework": "vite",
+      "source_checked_at": "2026-10-06T08:29:10.881Z",
+      "source_updated_at": "2026-07-10T18:23:14.014Z",
+      "vercel_project_id": "prj_ffkWJ1eZxSUYLmBjoONJDp9a1Gs6",
+      "vercel_deployment_state": "READY"
+    }
   },
   {
     "app_key": "dify",
@@ -852,7 +1362,7 @@
     "source_url": "https://github.com/Andreas76761/Dify_Releaseletter",
     "archive_url": null,
     "created_on": "28.07.2026",
-    "last_checked_on": "2026-08-11",
+    "last_checked_on": "06.10.2026",
     "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
     "traffic_light": "gray",
     "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
@@ -871,7 +1381,57 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Dify-Workflow-DSL, n8n Bridge, Jira-Trigger-Dokumentation"
     },
-    "access_profile": "Login in Jira, n8n und Dify erforderlich; Zugangsdaten sind nicht im Repository hinterlegt"
+    "access_profile": "Login in Jira, n8n und Dify erforderlich; Zugangsdaten sind nicht im Repository hinterlegt",
+    "metadata": {
+      "overlap": "Releaseletter · n8n",
+      "provider": "GitHub",
+      "remote_id": "1314841566",
+      "repository": "Andreas76761/Dify_Releaseletter",
+      "default_branch": "claude/jira-releaseletter-dify-tool-e0v2x7",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 24,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "appgprj_6aae6488d0b4819192a6b9f2081c839e",
+    "title": "DocApp 2.2",
+    "description": "Zentrale Dokumentationsplattform für Dokumente, Releases, Themen und Verbindungen.",
+    "source": "Cloud",
+    "status": "Aktiv",
+    "category": "Dokumentation",
+    "detail": "Zentrale Dokumentationsplattform für Dokumente, Releases, Themen und Verbindungen.",
+    "builder": "ChatGPT Sites",
+    "local_path": "https://docapp-v22.azehn.chatgpt.site",
+    "source_url": "https://docapp-v22.azehn.chatgpt.site",
+    "archive_url": null,
+    "created_on": "19.9.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "React 19.2.6, TypeScript, shadcn/ui, Tailwind CSS",
+    "middleware": "Vinext / Vite; API-Routen",
+    "backend": "Cloudflare Worker; Dokument-, Datei- und Wissens-API",
+    "database_technology": "Cloudflare D1 (DB); Drizzle ORM; Dateien in R2 (BUCKET)",
+    "connections": [
+      "Connector-Verwaltung, Datei-Upload, Wissenssuche; aktive externe Verbindungen nicht verifiziert"
+    ],
+    "models": [
+      "Konkretes aktives KI-Modell nicht verifiziert"
+    ],
+    "evidence": {
+      "source": "Quellcode: package.json, hosting.json und app/api; geprüft am 06.10.2026"
+    },
+    "access_profile": "Privat; Zugriff für freigegebene Nutzer",
+    "metadata": {
+      "is_new": true,
+      "hosting": "Sites",
+      "version": "17",
+      "provider": "ChatGPT",
+      "project_id": "appgprj_6aae6488d0b4819192a6b9f2081c839e",
+      "source_checked_at": "2026-10-06T08:11:05.654Z"
+    }
   },
   {
     "app_key": "dokupress",
@@ -905,7 +1465,49 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, server.js und package.json"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": "Vertrags- und Dokumentationswerkzeuge"
+    }
+  },
+  {
+    "app_key": "github-1332025458",
+    "title": "DokuPress_Mercedes",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/DokuPress_Mercedes",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1332025458"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1332025458",
+      "repository": "Andreas76761/DokuPress_Mercedes",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "perplexity-drei-varianten-eines-wasserfall-diagramms-zur-preisaufschlusselung-in-euro",
@@ -937,7 +1539,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-drei-versionen-eines-wasserfall-diagramms-mit-preisaufbau-aus-tabelle",
@@ -969,7 +1572,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "google-studio-einnahmen",
@@ -1003,7 +1607,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-excel-sharepoint",
@@ -1037,7 +1644,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-featurewatch",
@@ -1071,7 +1681,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "funding",
@@ -1105,7 +1718,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Förderantrag LBWW.pdf"
     },
-    "access_profile": "Lokaler Dokumentenzugang"
+    "access_profile": "Lokaler Dokumentenzugang",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-gmx",
@@ -1139,7 +1755,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "studio",
@@ -1173,7 +1792,90 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google-Drive-Ordnerinhalt"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "appgprj_6a85cebca3808191a9b057eb495d5859",
+    "title": "Handbookly – IT-Handbücher",
+    "description": "Interne Arbeitsumgebung für professionelle IT-Benutzerhandbücher.",
+    "source": "Cloud",
+    "status": "Aktiv",
+    "category": "Dokumentation",
+    "detail": "Interne Arbeitsumgebung für professionelle IT-Benutzerhandbücher.",
+    "builder": "ChatGPT Sites",
+    "local_path": "https://handbookly-it-manuals.azehn.chatgpt.site",
+    "source_url": "https://handbookly-it-manuals.azehn.chatgpt.site",
+    "archive_url": null,
+    "created_on": "19.8.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "React 19.2.6 und TypeScript; Tesseract.js für OCR",
+    "middleware": "Vinext / Vite; API-Routen",
+    "backend": "Cloudflare Worker; Handbuch-, Kapitel- und Export-API",
+    "database_technology": "Cloudflare D1 (DB); Drizzle ORM; Dateien in R2 (FILES)",
+    "connections": [
+      "Quellen-, Medien- und ZIP-Verarbeitung, Handbuch-Export; externe Konten nicht verifiziert"
+    ],
+    "models": [
+      "Konkretes aktives KI-Modell nicht verifiziert"
+    ],
+    "evidence": {
+      "source": "Quellcode: package.json, hosting.json und app/api; geprüft am 06.10.2026"
+    },
+    "access_profile": "Privat; Zugriff für freigegebene Nutzer",
+    "metadata": {
+      "is_new": true,
+      "hosting": "Sites",
+      "version": "54",
+      "provider": "ChatGPT",
+      "project_id": "appgprj_6a85cebca3808191a9b057eb495d5859",
+      "source_checked_at": "2026-10-06T08:11:05.654Z"
+    }
+  },
+  {
+    "app_key": "appgprj_6ac267e0ba8c81919b74c744c01453c8",
+    "title": "HaushaltKompass – Berlin · Stuttgart",
+    "description": "Doppelte Haushaltsführung Berlin / Stuttgart für 2025–2027.",
+    "source": "Cloud",
+    "status": "Aktiv",
+    "category": "Steuer",
+    "detail": "Aktueller Projektstand aus dem Sites-Inventar.",
+    "builder": "ChatGPT Sites",
+    "local_path": "https://haushalt-kompass.azehn.chatgpt.site",
+    "source_url": "https://haushalt-kompass.azehn.chatgpt.site",
+    "archive_url": null,
+    "created_on": "4.10.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "HTML, CSS und JavaScript",
+    "middleware": "Berechnungen im Browser (calc.js)",
+    "backend": "Statische Site; kein eigener API-Server",
+    "database_technology": "LocalStorage im jeweiligen Browser",
+    "connections": [
+      "CSV-Export; keine externe Datenverbindung im geprüften Code"
+    ],
+    "models": [
+      "Keine KI-Modellaufrufe im geprüften Code"
+    ],
+    "evidence": {
+      "source": "Quellcode: dist/app.js, calc.js und hosting.json; geprüft am 06.10.2026"
+    },
+    "access_profile": "Privat; Zugriff für freigegebene Nutzer",
+    "metadata": {
+      "is_new": true,
+      "hosting": "Sites",
+      "version": "2",
+      "provider": "ChatGPT",
+      "project_id": "appgprj_6ac267e0ba8c81919b74c744c01453c8",
+      "source_checked_at": "2026-10-06T08:11:05.654Z"
+    }
   },
   {
     "app_key": "perplexity-innovation-prod",
@@ -1205,7 +1907,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-innovative-produktionsumgebung-2030-mit-menschen-intelligenten-robotern-ki-steuerung-und-n",
@@ -1237,7 +1940,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "google-studio-intellifile",
@@ -1271,7 +1975,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "n8n-excel",
@@ -1305,7 +2012,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "package.json, server.js, Excel-Dateien und Tests"
     },
-    "access_profile": "Lokaler Startpunkt vorhanden; keine Anmeldung dokumentiert"
+    "access_profile": "Lokaler Startpunkt vorhanden; keine Anmeldung dokumentiert",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-jira-release-qa",
@@ -1339,7 +2049,49 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "github-1379885273",
+    "title": "Jira_Reelaseletter",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Jira_Reelaseletter",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1379885273"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1379885273",
+      "repository": "Andreas76761/Jira_Reelaseletter",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "claude/blissful-einstein-4ngntr",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 3246,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "jira-auswertung-onescm",
@@ -1375,7 +2127,11 @@
       "requirements.txt",
       "05_dashboard/index.html"
     ],
-    "access_profile": "Private Eingabedaten bleiben lokal in Input und _private."
+    "access_profile": "Private Eingabedaten bleiben lokal in Input und _private.",
+    "metadata": {
+      "ticket_count": 1663,
+      "inventory_checked": "2026-09-19"
+    }
   },
   {
     "app_key": "google-studio-jiraextender",
@@ -1409,7 +2165,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "perplexity-ki-markt-2026-v3",
@@ -1441,7 +2200,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-ki-modell-vergleich-dashboard-2026",
@@ -1473,7 +2233,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "google-studio-kihub",
@@ -1507,7 +2268,49 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "github-1195852926",
+    "title": "KI-Hub-2026",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/KI-Hub-2026",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1195852926"
+    },
+    "access_profile": "GitHub-Konto mit Repository-Zugriff erforderlich.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1195852926",
+      "repository": "Andreas76761/KI-Hub-2026",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 81,
+      "repository_visibility": "private"
+    }
   },
   {
     "app_key": "knowledge",
@@ -1541,7 +2344,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "KnowledgeHub App.html in Google Drive"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": "AI-Artefakte Übersicht · KI-Hub"
+    }
   },
   {
     "app_key": "cost",
@@ -1575,7 +2381,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google-Drive-PDFs und Managementunterlagen"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "claude-workspace-linkedin",
@@ -1609,7 +2418,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "hackathon",
@@ -1643,7 +2455,50 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "ChatGPT-Projektregistrierung"
     },
-    "access_profile": "Projekt ist im ChatGPT-Bereich sichtbar; keine lauffaehige App belegt"
+    "access_profile": "Projekt ist im ChatGPT-Bereich sichtbar; keine lauffaehige App belegt",
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "appgprj_6a7b5f53929881919a2d99bfdb990a41",
+    "title": "Mein App-Katalog",
+    "description": "Zentrale Übersicht deiner Apps und technischen Daten.",
+    "source": "Cloud",
+    "status": "Aktiv",
+    "category": "Katalog",
+    "detail": "Aktueller Projektstand aus dem Sites-Inventar.",
+    "builder": "ChatGPT Sites",
+    "local_path": "https://mein-app-katalog.azehn.chatgpt.site",
+    "source_url": "https://mein-app-katalog.azehn.chatgpt.site",
+    "archive_url": null,
+    "created_on": "11.8.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "React 19.2.6, TypeScript und CSS",
+    "middleware": "Vinext / Vite; geschützte API-Routen",
+    "backend": "Cloudflare Worker; Supabase REST- und Storage-Anbindung",
+    "database_technology": "Supabase PostgreSQL und Storage (serverseitig konfiguriert)",
+    "connections": [
+      "Sites-Inventur vom 06.10.2026, Supabase, lokale Status-Agenten, CSV-Kostenimport"
+    ],
+    "models": [
+      "Kein KI-Modellaufruf im Katalog belegt"
+    ],
+    "evidence": {
+      "source": "Quellcode: package.json, app/api/catalog und Supabase-Servermodul; geprüft am 06.10.2026"
+    },
+    "access_profile": "Privat; Zugriff für freigegebene Nutzer",
+    "metadata": {
+      "is_new": false,
+      "hosting": "Sites",
+      "version": "36",
+      "provider": "ChatGPT",
+      "project_id": "appgprj_6a7b5f53929881919a2d99bfdb990a41",
+      "source_checked_at": "2026-10-06T08:11:05.654Z"
+    }
   },
   {
     "app_key": "perplexity-mercedes-werksplan-2030",
@@ -1675,7 +2530,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "claude-workspace-messe-explorer",
@@ -1709,7 +2565,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "claude-workspace-messe-pm",
@@ -1743,7 +2602,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "n8n-library",
@@ -1777,7 +2639,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, API-, Graph- und Workflow-Ordner"
     },
-    "access_profile": "Demo lokal nutzbar; externe Backends benoetigen eigene Secrets"
+    "access_profile": "Demo lokal nutzbar; externe Backends benoetigen eigene Secrets",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "n8n",
@@ -1811,7 +2676,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google-Drive-Workflowdatei und Releaseletter-Dokumentation"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": "Releaseletter · Dify Releaseletter"
+    }
   },
   {
     "app_key": "google-studio-n8n-support",
@@ -1845,7 +2713,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-n8n-expert",
@@ -1879,7 +2750,48 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "onescm-handbook-studio",
+    "title": "oneSCM Handbook Studio",
+    "description": "Markdown-Quellen, Draft Manual und Qualitätsprüfung für Benutzerhandbücher.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Dokumentation",
+    "detail": "Aktuelle verfügbare Paketversion: oneSCM_Handbook_Studio_v2.57.0-alpha.zip. Laufende lokale Installation wurde nicht geprüft.",
+    "builder": "Codex",
+    "local_path": "oneSCM_Handbook_Studio_v2.57.0-alpha.zip / work/md-content-studio",
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "25.09.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Web-Oberfläche; Markdown-Verarbeitung mit marked",
+    "middleware": "Express 4.21.2 und Multer",
+    "backend": "Node.js (server.js); Word- und PDF-Export",
+    "database_technology": "SQLite über better-sqlite3 12.4.1",
+    "connections": [
+      "ZIP-Import (adm-zip), Word (docx), PDF (pdfkit), Playwright-Tests"
+    ],
+    "models": [
+      "Aktives KI-Modell nicht aus package.json ersichtlich"
+    ],
+    "evidence": {
+      "source": "Aktuelles ZIP-Paket vom 25.09.2026: package.json; geprüft am 06.10.2026"
+    },
+    "access_profile": "Lokaler Start mit npm start; Betriebsstatus nicht geprüft",
+    "metadata": {
+      "is_new": true,
+      "hosting": "Lokale Node.js-Anwendung",
+      "version": "2.57.0-alpha.1",
+      "project_id": null
+    }
   },
   {
     "app_key": "contracts",
@@ -1913,7 +2825,169 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, App.jsx, package.json und vercel.json"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": "VertragsBuddy · ServiceVertrag-Dashboard · DokuPress"
+    }
+  },
+  {
+    "app_key": "appgprj_6a606744a8ac8191862a202995bd5aa7",
+    "title": "Ortsfinder · Kalender-Assistent",
+    "description": "Finde Präsenztermine außerhalb von Stuttgart.",
+    "source": "Cloud",
+    "status": "Entwurf",
+    "category": "Organisation",
+    "detail": "Finde Präsenztermine außerhalb von Stuttgart.",
+    "builder": "ChatGPT Sites",
+    "local_path": "Noch nicht veröffentlicht",
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "22.7.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht veröffentlicht",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [
+      "Noch nicht verifiziert"
+    ],
+    "models": [
+      "Noch nicht verifiziert"
+    ],
+    "evidence": {
+      "source": "Aktuelle Sites-Projektmetadaten, abgeglichen am 06.10.2026"
+    },
+    "access_profile": "Privat; Zugriff für freigegebene Nutzer",
+    "metadata": {
+      "is_new": false,
+      "hosting": "Sites",
+      "version": "0",
+      "provider": "ChatGPT",
+      "project_id": "appgprj_6a606744a8ac8191862a202995bd5aa7",
+      "source_checked_at": "2026-10-06T08:11:05.654Z"
+    }
+  },
+  {
+    "app_key": "github-1261881408",
+    "title": "Paperclip_Bau",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Paperclip_Bau",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1261881408"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1261881408",
+      "repository": "Andreas76761/Paperclip_Bau",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "vercel-prj_WANMYDDqKvKdqCJP9ilBYBAg3mdA",
+    "title": "paperclip-bau · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Deployment-Stand: Kein Deployment vorhanden. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "7.6.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_WANMYDDqKvKdqCJP9ilBYBAg3mdA"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_WANMYDDqKvKdqCJP9ilBYBAg3mdA",
+      "imported_at": "2026-10-06T08:29:10.882Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.882Z",
+      "source_updated_at": "2026-06-07T09:42:36.418Z",
+      "vercel_project_id": "prj_WANMYDDqKvKdqCJP9ilBYBAg3mdA",
+      "vercel_deployment_state": "NO_DEPLOYMENT"
+    }
+  },
+  {
+    "app_key": "vercel-prj_1L2kCa8nID1EmRkYwpEiRRHRLPfF",
+    "title": "paperclip-bau2 · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Deployment-Stand: Kein Deployment vorhanden. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "7.6.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_1L2kCa8nID1EmRkYwpEiRRHRLPfF"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_1L2kCa8nID1EmRkYwpEiRRHRLPfF",
+      "imported_at": "2026-10-06T08:29:10.882Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.882Z",
+      "source_updated_at": "2026-06-07T09:43:57.939Z",
+      "vercel_project_id": "prj_1L2kCa8nID1EmRkYwpEiRRHRLPfF",
+      "vercel_deployment_state": "NO_DEPLOYMENT"
+    }
   },
   {
     "app_key": "pc-optimizer",
@@ -1947,7 +3021,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, app-server.js, package.json und Mockup"
     },
-    "access_profile": "Lokaler Login vorhanden; keine Zugangsdaten im Katalog gespeichert oder verwendet"
+    "access_profile": "Lokaler Login vorhanden; keine Zugangsdaten im Katalog gespeichert oder verwendet",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "presentation-finder",
@@ -1981,7 +3058,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Codex-Abschlussbericht, Production-Dokumentation und Teststand"
     },
-    "access_profile": "Einzelplatzbetrieb; letzter Bericht bestaetigt lokalen Server und 9 erfolgreiche Tests"
+    "access_profile": "Einzelplatzbetrieb; letzter Bericht bestaetigt lokalen Server und 9 erfolgreiche Tests",
+    "metadata": {
+      "overlap": "Voice Präsentationstool · Presentation Designer"
+    }
   },
   {
     "app_key": "n8n-slides",
@@ -2015,7 +3095,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, server.js, client.js und package.json"
     },
-    "access_profile": "Lokale Nutzung ohne Konto; KI-Funktionen erst nach eigener API-Konfiguration"
+    "access_profile": "Lokale Nutzung ohne Konto; KI-Funktionen erst nach eigener API-Konfiguration",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "presentation",
@@ -2049,7 +3132,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README und src/services/llmService.js"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": "Thumnail_Generator"
+    }
   },
   {
     "app_key": "perplexity-produktion-innov",
@@ -2081,7 +3167,88 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
+  },
+  {
+    "app_key": "vercel-prj_NDS4dF78eVPbAJERn36bAOLfcB6c",
+    "title": "project · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Deployment-Stand: READY. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": "https://project-ivory-five-20.vercel.app",
+    "archive_url": null,
+    "created_on": "8.7.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_NDS4dF78eVPbAJERn36bAOLfcB6c"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_NDS4dF78eVPbAJERn36bAOLfcB6c",
+      "imported_at": "2026-10-06T08:29:10.881Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.881Z",
+      "source_updated_at": "2026-07-08T20:45:36.739Z",
+      "vercel_project_id": "prj_NDS4dF78eVPbAJERn36bAOLfcB6c",
+      "vercel_deployment_state": "READY"
+    }
+  },
+  {
+    "app_key": "vercel-prj_jnC6LqShA03t4mMyDSTbLqeoqola",
+    "title": "project-n66tk · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Deployment-Stand: Kein Deployment vorhanden. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "30.4.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_jnC6LqShA03t4mMyDSTbLqeoqola"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_jnC6LqShA03t4mMyDSTbLqeoqola",
+      "imported_at": "2026-10-06T08:29:10.883Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.883Z",
+      "source_updated_at": "2026-05-20T12:52:33.368Z",
+      "vercel_project_id": "prj_jnC6LqShA03t4mMyDSTbLqeoqola",
+      "vercel_deployment_state": "NO_DEPLOYMENT"
+    }
   },
   {
     "app_key": "perplexity-qa-exclusions",
@@ -2113,7 +3280,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "google-studio-release-hub",
@@ -2147,7 +3315,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "releaseletter",
@@ -2181,7 +3352,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "COMPLETE_SETUP_GUIDE und n8n-Dokumentation"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": "Dify_Releaseletter · n8n"
+    }
   },
   {
     "app_key": "google-studio-reportmonitor",
@@ -2215,7 +3389,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "perplexity-research-ki-2026",
@@ -2247,7 +3424,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-schematischer-werksplan-einer-innovativen-autofabrik-2030-mit-intelligenten-robotern-mensc",
@@ -2279,7 +3457,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-servicevertrag-dashboard",
@@ -2311,7 +3490,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-servicevertrag-dashboard-v7",
@@ -2343,7 +3523,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "contracts-hub",
@@ -2358,7 +3539,7 @@
     "source_url": "https://github.com/Andreas76761/ServiceVertrag-Dashboard",
     "archive_url": null,
     "created_on": "08.07.2026",
-    "last_checked_on": "2026-08-11",
+    "last_checked_on": "06.10.2026",
     "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
     "traffic_light": "gray",
     "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
@@ -2377,7 +3558,96 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "index.html, app.js, data.js, Export- und Filtermodule"
     },
-    "access_profile": "Ohne Anmeldung als statische Anwendung lauffaehig"
+    "access_profile": "Ohne Anmeldung als statische Anwendung lauffaehig",
+    "metadata": {
+      "overlap": "oneSCM Vertragsmanagement",
+      "provider": "GitHub",
+      "remote_id": "1294220464",
+      "repository": "Andreas76761/ServiceVertrag-Dashboard",
+      "default_branch": "master",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 1871,
+      "repository_visibility": "private"
+    }
+  },
+  {
+    "app_key": "github-1170178829",
+    "title": "Simulation_SC_V1",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Simulation_SC_V1",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1170178829"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1170178829",
+      "repository": "Andreas76761/Simulation_SC_V1",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 1,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "vercel-prj_jZklncvLVwleI22uU1is9FqGPHkX",
+    "title": "simulation-sc-v1 · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Deployment-Stand: READY. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": "https://simulation-sc-v1.vercel.app",
+    "archive_url": null,
+    "created_on": "1.3.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_jZklncvLVwleI22uU1is9FqGPHkX"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_jZklncvLVwleI22uU1is9FqGPHkX",
+      "imported_at": "2026-10-06T08:29:10.883Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.883Z",
+      "source_updated_at": "2026-05-20T11:44:57.821Z",
+      "vercel_project_id": "prj_jZklncvLVwleI22uU1is9FqGPHkX",
+      "vercel_deployment_state": "READY"
+    }
   },
   {
     "app_key": "claude-workspace-sirius",
@@ -2411,7 +3681,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "slides",
@@ -2445,7 +3718,89 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README und server.js"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "appgprj_6a6a4ea898848191892d3de798f5a5f6",
+    "title": "smartaiz — KI-Kompetenz",
+    "description": "KI-Beratung und EU AI Act Kompetenzschulung in Berlin, Stuttgart und bundesweit.",
+    "source": "Cloud",
+    "status": "Aktiv",
+    "category": "Organisation",
+    "detail": "KI-Beratung und EU AI Act Kompetenzschulung in Berlin, Stuttgart und bundesweit.",
+    "builder": "ChatGPT Sites",
+    "local_path": "https://smartaiz-ki-kompetenz.azehn.chatgpt.site",
+    "source_url": "https://smartaiz-ki-kompetenz.azehn.chatgpt.site",
+    "archive_url": null,
+    "created_on": "29.7.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Auf Sites veröffentlicht; Server-Implementierung nicht geprüft",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [
+      "Noch nicht verifiziert"
+    ],
+    "models": [
+      "Noch nicht verifiziert"
+    ],
+    "evidence": {
+      "source": "Aktuelle Sites-Projektmetadaten, abgeglichen am 06.10.2026"
+    },
+    "access_profile": "Privat; Zugriff für freigegebene Nutzer",
+    "metadata": {
+      "is_new": false,
+      "hosting": "Sites",
+      "version": "5",
+      "provider": "ChatGPT",
+      "project_id": "appgprj_6a6a4ea898848191892d3de798f5a5f6",
+      "source_checked_at": "2026-10-06T08:11:05.654Z"
+    }
+  },
+  {
+    "app_key": "github-1301504447",
+    "title": "smartaiz-module",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/smartaiz-module",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1301504447"
+    },
+    "access_profile": "GitHub-Konto mit Repository-Zugriff erforderlich.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1301504447",
+      "repository": "Andreas76761/smartaiz-module",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "private"
+    }
   },
   {
     "app_key": "google-studio-social",
@@ -2479,7 +3834,206 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "github-1384788128",
+    "title": "step2-oneSCM",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/step2-oneSCM",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1384788128"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1384788128",
+      "repository": "Andreas76761/step2-oneSCM",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "claude/serene-meitner-y4mt69",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 3531,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "github-1315431741",
+    "title": "Steuerapp_2025",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Steuerapp_2025",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1315431741"
+    },
+    "access_profile": "GitHub-Konto mit Repository-Zugriff erforderlich.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1315431741",
+      "repository": "Andreas76761/Steuerapp_2025",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "private"
+    }
+  },
+  {
+    "app_key": "github-1302581658",
+    "title": "Steuerbot_Claude0726",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Steuerbot_Claude0726",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1302581658"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1302581658",
+      "repository": "Andreas76761/Steuerbot_Claude0726",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "github-1302774010",
+    "title": "Steuerbot_Fable",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Leeres Repository. Kein lauffähiger App-Stand bestätigt.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Steuerbot_Fable",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1302774010"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1302774010",
+      "repository": "Andreas76761/Steuerbot_Fable",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 0,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "vercel-prj_CNWWoam63ETiftOC1fsx0MsmkXTL",
+    "title": "steuerbot-fable · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Entwurf",
+    "category": "KI",
+    "detail": "Deployment-Stand: Kein Deployment vorhanden. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "16.7.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_CNWWoam63ETiftOC1fsx0MsmkXTL"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_CNWWoam63ETiftOC1fsx0MsmkXTL",
+      "imported_at": "2026-10-06T08:29:10.858Z",
+      "vercel_framework": null,
+      "source_checked_at": "2026-10-06T08:29:10.858Z",
+      "source_updated_at": "2026-07-16T12:45:50.779Z",
+      "vercel_project_id": "prj_CNWWoam63ETiftOC1fsx0MsmkXTL",
+      "vercel_deployment_state": "NO_DEPLOYMENT"
+    }
   },
   {
     "app_key": "google-studio-studienbescheinigung",
@@ -2513,7 +4067,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-systemdoc",
@@ -2547,7 +4104,88 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "github-1195870763",
+    "title": "Task-Hub-2026-V1",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/Task-Hub-2026-V1",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1195870763"
+    },
+    "access_profile": "Öffentliches Repository; App-Zugang noch nicht verifiziert.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1195870763",
+      "repository": "Andreas76761/Task-Hub-2026-V1",
+      "imported_at": "2026-10-06T08:11:05.654Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 278,
+      "repository_visibility": "public"
+    }
+  },
+  {
+    "app_key": "github-1199916313",
+    "title": "TaxFlow",
+    "description": "GitHub-Projektbestand erfasst; Ziel und Hauptfunktion anhand des Quellcodes zu ergänzen.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Repository mit Dateien vorhanden. App-Start und Architektur noch zu prüfen.",
+    "builder": "Noch nicht verifiziert",
+    "local_path": null,
+    "source_url": "https://github.com/Andreas76761/TaxFlow",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "06.10.2026",
+    "performance_note": "Kein aktueller App-Benchmark; Repository-Aufruf ist kein App-Test.",
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Noch nicht verifiziert",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native GitHub-Projektinventur; Repository-ID und Dateigröße",
+      "repository_id": "1199916313"
+    },
+    "access_profile": "GitHub-Konto mit Repository-Zugriff erforderlich.",
+    "metadata": {
+      "provider": "GitHub",
+      "remote_id": "1199916313",
+      "repository": "Andreas76761/TaxFlow",
+      "imported_at": "2026-10-06T08:11:05.653Z",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.653Z",
+      "repository_size_kb": 1,
+      "repository_visibility": "private"
+    }
   },
   {
     "app_key": "google-studio-taxflow",
@@ -2581,7 +4219,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "claude-workspace-testing-guide",
@@ -2615,7 +4256,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "testing-screen",
@@ -2649,7 +4293,50 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Codex-Projektregistrierung und leerer Stammordner"
     },
-    "access_profile": "Kein App-Startpunkt vorhanden"
+    "access_profile": "Kein App-Startpunkt vorhanden",
+    "metadata": {
+      "overlap": null
+    }
+  },
+  {
+    "app_key": "vercel-prj_K2c7kwSKLqquyfWfDIhCoo8cN54v",
+    "title": "thumbnail-generator · Vercel",
+    "description": "Vercel-Projekt erfasst. Ziel, Hauptfunktion und Zuordnung zu anderen Projektständen noch zu prüfen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Deployment-Stand: ERROR. Keine vollständige Funktionsprüfung.",
+    "builder": "Ersteller nicht einzeln verifiziert",
+    "local_path": null,
+    "source_url": "https://thumbnail-generator-seven-xi.vercel.app",
+    "archive_url": null,
+    "created_on": "30.4.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "Vercel-Frameworkkonfiguration: vite",
+    "middleware": "Noch nicht verifiziert",
+    "backend": "Noch nicht verifiziert",
+    "database_technology": "Noch nicht verifiziert",
+    "connections": [],
+    "models": [],
+    "evidence": {
+      "basis": "Native Vercel-Projektinformationen",
+      "project_id": "prj_K2c7kwSKLqquyfWfDIhCoo8cN54v"
+    },
+    "access_profile": "Vercel-Konto bzw. freigegebener App-Zugang erforderlich.",
+    "metadata": {
+      "hosting": "Vercel",
+      "provider": "Vercel",
+      "remote_id": "prj_K2c7kwSKLqquyfWfDIhCoo8cN54v",
+      "imported_at": "2026-10-06T08:29:10.883Z",
+      "vercel_framework": "vite",
+      "source_checked_at": "2026-10-06T08:29:10.883Z",
+      "source_updated_at": "2026-05-15T05:02:20.303Z",
+      "vercel_project_id": "prj_K2c7kwSKLqquyfWfDIhCoo8cN54v",
+      "vercel_deployment_state": "ERROR"
+    }
   },
   {
     "app_key": "thumbnail",
@@ -2664,7 +4351,7 @@
     "source_url": "https://github.com/Andreas76761/Thumnail_Generator",
     "archive_url": null,
     "created_on": "30.04.2026",
-    "last_checked_on": "2026-08-11",
+    "last_checked_on": "06.10.2026",
     "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
     "traffic_light": "gray",
     "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
@@ -2683,7 +4370,17 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, package.json, llmService.js und databaseService.js"
     },
-    "access_profile": "Start ohne Login; KI- und Notion-Funktionen brauchen eigene API-Konfiguration"
+    "access_profile": "Start ohne Login; KI- und Notion-Funktionen brauchen eigene API-Konfiguration",
+    "metadata": {
+      "overlap": "Presentation Designer",
+      "provider": "GitHub",
+      "remote_id": "1225336259",
+      "repository": "Andreas76761/Thumnail_Generator",
+      "default_branch": "main",
+      "source_checked_at": "2026-10-06T08:11:05.654Z",
+      "repository_size_kb": 196,
+      "repository_visibility": "public"
+    }
   },
   {
     "app_key": "perplexity-ticket-durchsatz-anzahl-items-je-pi-fur-den-agile-release-train",
@@ -2715,7 +4412,48 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
+  },
+  {
+    "app_key": "appgprj_6a7c95ca32948191b7d7dfeaafbeeb91",
+    "title": "TicketBrain",
+    "description": "Private Tickets, Wissen und Prozessdokumentation.",
+    "source": "Cloud",
+    "status": "Aktiv",
+    "category": "Wissen",
+    "detail": "Aktueller Projektstand aus dem Sites-Inventar.",
+    "builder": "ChatGPT Sites",
+    "local_path": "https://ticketbrain.azehn.chatgpt.site",
+    "source_url": "https://ticketbrain.azehn.chatgpt.site",
+    "archive_url": null,
+    "created_on": "12.8.2026",
+    "last_checked_on": "06.10.2026",
+    "performance_note": null,
+    "traffic_light": null,
+    "traffic_note": null,
+    "frontend": "React 19.2.6 und TypeScript; Tesseract.js 6.0.1 für OCR",
+    "middleware": "Vinext / Vite; API-Routen",
+    "backend": "Cloudflare Worker; Ticket-, Recherche- und Notion-API",
+    "database_technology": "Cloudflare D1 (DB); Drizzle ORM; Dateien in R2 (BUCKET)",
+    "connections": [
+      "Notion API, Prozessdokumentation, Link-Recherche und PDF-Export; aktive Konten nicht verifiziert"
+    ],
+    "models": [
+      "Konkretes aktives KI-Modell nicht verifiziert"
+    ],
+    "evidence": {
+      "source": "Quellcode: package.json, hosting.json und Notion-API-Routen; geprüft am 06.10.2026"
+    },
+    "access_profile": "Privat; Zugriff für freigegebene Nutzer",
+    "metadata": {
+      "is_new": true,
+      "hosting": "Sites",
+      "version": "25",
+      "provider": "ChatGPT",
+      "project_id": "appgprj_6a7c95ca32948191b7d7dfeaafbeeb91",
+      "source_checked_at": "2026-10-06T08:11:05.654Z"
+    }
   },
   {
     "app_key": "transparency",
@@ -2749,7 +4487,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "README, Client- und Server-Workspace"
     },
-    "access_profile": "Lokale Konfiguration ueber server/.env erforderlich"
+    "access_profile": "Lokale Konfiguration ueber server/.env erforderlich",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-untitled",
@@ -2783,7 +4524,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-usecase",
@@ -2817,7 +4561,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-vibe-web",
@@ -2851,7 +4598,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "google-studio-vibe-android",
@@ -2885,7 +4635,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
     },
-    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "voice-presentation",
@@ -2919,7 +4672,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Codex-Projektregistrierung und leerer Stammordner"
     },
-    "access_profile": "Kein App-Startpunkt vorhanden"
+    "access_profile": "Kein App-Startpunkt vorhanden",
+    "metadata": {
+      "overlap": "Präsentations-Finder · Presentation Designer"
+    }
   },
   {
     "app_key": "claude-workspace-wad",
@@ -2953,7 +4709,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "perplexity-wartungsvertrag-vergleich",
@@ -2985,7 +4744,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "perplexity-wartungsvertrag-vergleich-v2",
@@ -3017,7 +4777,8 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   },
   {
     "app_key": "waterdamage",
@@ -3051,7 +4812,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Sechs lokale Protokoll- und Argumentationsdateien"
     },
-    "access_profile": "Lokaler Dokumentenzugang"
+    "access_profile": "Lokaler Dokumentenzugang",
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "claude-workspace-wasserschaden",
@@ -3085,7 +4849,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "claude-workspace-webinar-recorder",
@@ -3119,7 +4886,10 @@
       "source_catalog": "Master-App 11.08.2026",
       "detail_evidence": "Quelle noch nicht im Detail bewertet"
     },
-    "access_profile": null
+    "access_profile": null,
+    "metadata": {
+      "overlap": null
+    }
   },
   {
     "app_key": "perplexity-zukunftsbild-moderne-autofabrik-mit-menschen-und-selbstlernenden-robotern-in-rohbau-lackie",
@@ -3151,6 +4921,7 @@
     "evidence": [
       "Perplexity Artefaktseite, am 11.08.2026 geprüft"
     ],
-    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich",
+    "metadata": {}
   }
 ]

@@ -29,6 +29,17 @@ export async function supabaseRest(path: string, init: RequestInit = {}) {
   return response;
 }
 
+export async function supabaseRows<T>(path:string):Promise<T[]> {
+ const result:T[]=[];
+ for(let offset=0;offset<100000;offset+=500){
+  const response=await supabaseRest(path,{headers:{Range:`${offset}-${offset+499}`,'Range-Unit':'items',Prefer:'count=exact'}});
+  const rows=await response.json() as T[];
+  if(!Array.isArray(rows))throw new Error('Die Datenverbindung lieferte keine Tabelle.');
+  result.push(...rows);const total=Number(response.headers.get('content-range')?.split('/')[1]);if(rows.length<500||(Number.isFinite(total)&&total>0&&result.length>=total))return result;
+ }
+ throw new Error('Datenbestand zu groß für diesen Export. Bitte Zeitraum eingrenzen.');
+}
+
 export async function supabaseStorage(path: string, init: RequestInit = {}) {
   const { url, key } = config();
   const headers = new Headers(init.headers);

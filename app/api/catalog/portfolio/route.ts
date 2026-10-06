@@ -1,4 +1,4 @@
-import { isEditor, requireCatalogUser, supabaseRest } from '../../_lib/supabase-server';
+import { isEditor, requireCatalogUser, supabaseRest, supabaseRows } from '../../_lib/supabase-server';
 
 export const dynamic = 'force-dynamic';
 const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
@@ -9,14 +9,15 @@ async function accountFor(id: string, user: string) { if(!uuid.test(id)) throw n
 async function validateApps(keys: string[]) { if(keys.length>200||keys.some(k=>!appKey.test(k))) throw new Error('Bitte gültige Apps wählen.'); if(!keys.length)return; const response=await supabaseRest(`catalog_apps?app_key=in.(${keys.join(',')})&select=app_key`); const rows=await response.json() as unknown[];if(rows.length!==new Set(keys).size)throw new Error('Bitte nur Apps aus dem Katalog wählen.'); }
 
 export async function GET() {
- try { const {chatgpt,profile}=await requireCatalogUser();const [accounts,costs,tests,development,vaults]=await Promise.all([
-  supabaseRest(`catalog_accounts?created_by=eq.${encodeURIComponent(chatgpt.userId)}&select=id,provider,label,username,login_url,plan,billing_cycle,vault_reference,app_keys&order=provider,label`),
-  supabaseRest('catalog_cost_entries?select=id,app_key,account_id,provider,transaction_date,amount,currency,description,source&order=transaction_date.desc&limit=10000'),
-  supabaseRest('app_test_runs?select=app_key,outcome,http_status,duration_ms,checked_at,detail&order=checked_at.desc&limit=10000'),
-  supabaseRest('catalog_development?select=app_key,status,priority,next_step,updated_at'),
-  supabaseRest('catalog_vault_references?select=app_key,provider,vault_label,item_label,item_url,access_scope')]);
-  const [a,c,t,d,v]=await Promise.all([accounts.json(),costs.json(),tests.json(),development.json(),vaults.json()]);
-  return Response.json({accounts:a,costs:c,tests:t,development:d,vaults:v,canEdit:isEditor(profile)});
+ try { const {chatgpt,profile}=await requireCatalogUser();const [accounts,costs,tests,development,vaults,links]=await Promise.all([
+  supabaseRows(`catalog_accounts?created_by=eq.${encodeURIComponent(chatgpt.userId)}&select=id,provider,label,username,login_url,plan,billing_cycle,vault_reference,app_keys&order=provider,label`),
+  supabaseRows('catalog_cost_entries?select=id,app_key,account_id,provider,transaction_date,amount,currency,description,source&order=transaction_date.desc'),
+  supabaseRows('app_test_runs?select=app_key,outcome,http_status,duration_ms,checked_at,detail,metadata&order=checked_at.desc'),
+  supabaseRows('catalog_development?select=app_key,status,priority,next_step,updated_at'),
+  supabaseRows('catalog_vault_references?select=app_key,provider,vault_label,item_label,item_url,access_scope'),
+  supabaseRows('catalog_source_links?select=app_key,provider,source_url,remote_id,last_synced_at')]);
+  const [a,c,t,d,v,l]=[accounts,costs,tests,development,vaults,links];
+  return Response.json({accounts:a,costs:c,tests:t,development:d,vaults:v,links:l,canEdit:isEditor(profile)});
  }catch(error){return errorResponse(error);}
 }
 

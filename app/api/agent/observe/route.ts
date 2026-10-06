@@ -24,6 +24,7 @@ export async function POST(request: Request) {
       supabaseRest(`device_statuses?device_key=eq.${encodeURIComponent(body.deviceKey)}`, { method: "PATCH", body: JSON.stringify({ connection_status: "online", last_seen_at: now, detail: "Status-Agent meldet sich." }) }),
       supabaseRest(`catalog_agent_credentials?agent_key=eq.${encodeURIComponent(body.agentKey)}`, { method: "PATCH", body: JSON.stringify({ last_used_at: now }) }),
       supabaseRest("agent_observations", { method: "POST", body: JSON.stringify({ agent_key: body.agentKey, device_key: body.deviceKey, app_key: body.appKey, local_port: body.localPort ?? null, test_outcome: body.outcome ?? "unknown", http_status: body.httpStatus ?? null, duration_ms: body.durationMs ?? null, screenshot_path: body.screenshotPath ?? null, detail: body.detail ?? null }) }),
+      ...(['available','unavailable','login_required'].includes(body.outcome??'')?[supabaseRest('app_test_runs',{method:'POST',body:JSON.stringify({app_key:body.appKey,outcome:body.outcome,http_status:body.httpStatus??null,duration_ms:body.durationMs??null,detail:body.detail??'Messung durch lokalen Status-Agenten.',metadata:{kind:'local-http',agent_key:body.agentKey}})})]:[]),
     ]);
     return Response.json({ accepted: true, receivedAt: now });
   } catch (error) {

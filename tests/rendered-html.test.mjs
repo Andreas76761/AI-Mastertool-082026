@@ -32,7 +32,7 @@ test('catalog renders latest apps and new labels from the built Worker',async()=
  const html=await response.text();
  for(const title of ['HaushaltKompass','DocApp 2.2','Handbookly','TicketBrain','oneSCM Handbook Studio']) assert.ok(html.includes(title),title);
  assert.match(html,/class="new-badge"/);
- assert.equal((html.match(/data-app-id=/g)||[]).length,102);
+ assert.equal((html.match(/data-app-id=/g)||[]).length,132);
  assert.match(html,/Seitennavigation/);
  assert.match(html,/Inhaltsvergleich/);
  assert.match(html,/Konten &amp; Zugänge/);
