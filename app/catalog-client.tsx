@@ -11,6 +11,10 @@ const PortfolioView=lazy(()=>import('./portfolio-view'));
 const OptimizationView=lazy(()=>import('./optimization-view'));
 const AppRegisters=lazy(()=>import('./app-registers'));
 
+import ReviewBadge from './review-badge';
+import type {AppReview} from './app-review';
+import type {AppAnalysis,EvolutionStep} from './app-evolution';
+
 type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
@@ -43,13 +47,17 @@ type Tool = {
   hosting?: string;
   published?: boolean;
   provider?: string;
+  review?:AppReview;
+  analysis?:AppAnalysis;
+  optimizations?:EvolutionStep[];
+  evolutionStatus?:Record<string,EvolutionStep['status']>;
 };
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
 type StoredScreen = { id: string; src: string; title: string; source: string };
 type ChatRecord = { id: string; source: string; title: string; summary: string; updatedAt: string; model: string; appId?: string; appMatch: string; status: "Erfasst" | "Zugang fehlt" };
 type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number };
-export type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: unknown; models: unknown; evidence: unknown; access_profile: string | null; metadata?: { provider?:string; project_id?:string; version?:string; source_updated_at?:string; imported_at?:string; is_new?:boolean; hosting?:string }; };
+export type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: unknown; models: unknown; evidence: unknown; access_profile: string | null; metadata?: { provider?:string; project_id?:string; version?:string; source_updated_at?:string; imported_at?:string; is_new?:boolean; hosting?:string;analysis?:AppAnalysis;review?:AppReview;optimizations?:EvolutionStep[];evolution_status?:Record<string,EvolutionStep['status']> }; };
 type RemoteCatalogChat = { external_key: string; provider: string; title: string; summary: string | null; occurred_on: string | null; model: string | null; app_key: string | null; app_match: string | null; access_status: string | null };
 type CostEntry = { id: string; app_key: string | null; account_id?:string|null; provider: string; transaction_date: string; amount: number | string; currency: string; description: string | null; source: string };
 type AgentSetup = { agentKey: string; deviceKey: string; agentName: string; appKey: string; port: string };
@@ -60,7 +68,7 @@ function remoteCatalogTool(app: RemoteCatalogApp): Tool {
   const source: Source = ["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"].includes(app.source) ? app.source as Source : "Cloud";
   const status: Status = ["Aktiv", "Prüfen", "Dokumentiert", "Entwurf"].includes(app.status) ? app.status as Status : "Prüfen";
   const evidence = fieldText(app.evidence, "Kataloginventur");
-  return { provider:app.metadata?.provider, projectId:app.metadata?.project_id, version:app.metadata?.version, hosting:app.metadata?.hosting, updatedAt:app.metadata?.source_updated_at, isNew:!!app.metadata?.imported_at && Date.now()-Date.parse(app.metadata.imported_at)<14*864e5, id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined, technical: { builder: app.builder ?? "Noch nicht verifiziert", frontend: app.frontend ?? "Noch zu prüfen", middleware: app.middleware ?? "Noch zu prüfen", backend: app.backend ?? "Noch zu prüfen", database: app.database_technology ?? "Noch zu prüfen", connections: fieldText(app.connections, "Noch zu prüfen"), models: fieldText(app.models, "Noch zu prüfen"), evidence, access: app.access_profile ?? "Zugang über sicheren Verweis; keine Passwörter im Katalog" } };
+  return { review:app.metadata?.review,analysis:app.metadata?.analysis,optimizations:app.metadata?.optimizations,evolutionStatus:app.metadata?.evolution_status,provider:app.metadata?.provider, projectId:app.metadata?.project_id, version:app.metadata?.version, hosting:app.metadata?.hosting, updatedAt:app.metadata?.source_updated_at, isNew:!!app.metadata?.imported_at && Date.now()-Date.parse(app.metadata.imported_at)<14*864e5, id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined, technical: { builder: app.builder ?? "Noch nicht verifiziert", frontend: app.frontend ?? "Noch zu prüfen", middleware: app.middleware ?? "Noch zu prüfen", backend: app.backend ?? "Noch zu prüfen", database: app.database_technology ?? "Noch zu prüfen", connections: fieldText(app.connections, "Noch zu prüfen"), models: fieldText(app.models, "Noch zu prüfen"), evidence, access: app.access_profile ?? "Zugang über sicheren Verweis; keine Passwörter im Katalog" } };
 }
 
 function remoteCatalogChat(chat: RemoteCatalogChat): ChatRecord {
@@ -572,6 +580,7 @@ export default function Home({snapshot}:{snapshot:RemoteCatalogApp[]}) {
   const [testResults, setTestResults] = useState<Record<string, TestResult>>({});
   const [selectedId, setSelectedId] = useState("overview");
   const [panel, setPanel] = useState<DetailPanel>("masterdata");
+  const [openedRegister,setOpenedRegister]=useState('architecture');
   const [openedId, setOpenedId] = useState<string | null>(null);
   const [windowPosition, setWindowPosition] = useState({ x: 0, y: 0 });
   const [remoteTools, setRemoteTools] = useState<Tool[] | null>(null);
@@ -682,6 +691,7 @@ export default function Home({snapshot}:{snapshot:RemoteCatalogApp[]}) {
 
   function openTool(tool: Tool) {
     setSelectedId(tool.id);
+    setOpenedRegister('architecture');
     setOpenedId(tool.id);
     setPanel("architecture");
     setWindowPosition({ x: 0, y: 0 });
@@ -829,7 +839,7 @@ export default function Home({snapshot}:{snapshot:RemoteCatalogApp[]}) {
       </header>
 
       {(["accounts", "scores", "performance", "development", "duplicates"] as MainView[]).includes(mainView) && <Suspense fallback={<p role="status">Ansicht wird geladen …</p>}><PortfolioView mode={mainView as PortfolioMode} apps={catalogTools} detailsFor={(app) => detailsFor(app as Tool)} openApp={(app) => openTool(app as Tool)} refreshCosts={() => { void fetch("/api/catalog/costs", { cache: "no-store" }).then(async response => { const data = await response.json() as { entries?: CostEntry[] }; if (response.ok && data.entries) setCostEntries(data.entries); }).catch(() => setCostNotice("Kostenübersicht konnte nicht aktualisiert werden. Bitte erneut laden.")); }} /></Suspense>}
-      {mainView === "optimizations" && <Suspense fallback={<p role="status">Optimierungen werden geladen …</p>}><OptimizationView apps={catalogTools} costs={costEntries} openApp={(app)=>openTool(app as Tool)} openAccounts={()=>setMainView("accounts")} refresh={()=>{void refreshCatalog();void fetch("/api/catalog/costs",{cache:"no-store"}).then(async r=>{if(r.ok){const data=await r.json() as {entries?:CostEntry[]};setCostEntries(data.entries??[]);}}).catch(()=>setCostNotice("Zahlungen konnten nicht aktualisiert werden."));}} /></Suspense>}
+      {mainView === "optimizations" && <Suspense fallback={<p role="status">Optimierungen werden geladen …</p>}><OptimizationView apps={catalogTools} costs={costEntries} openApp={(app)=>{openTool(app as Tool);setOpenedRegister('optimizations');}} openAccounts={()=>setMainView("accounts")} refresh={()=>{void refreshCatalog();void fetch("/api/catalog/costs",{cache:"no-store"}).then(async r=>{if(r.ok){const data=await r.json() as {entries?:CostEntry[]};setCostEntries(data.entries??[]);}}).catch(()=>setCostNotice("Zahlungen konnten nicht aktualisiert werden."));}} /></Suspense>}
       <PerformanceProbe appKey="appgprj_6a7b5f53929881919a2d99bfdb990a41"/>
       {mainView === "catalog" && <div className="catalog-view">
       <p className={`sync-indicator sync-${catalogSync.phase}`}>{catalogSync.message}{catalogSync.syncedAt ? ` · Stand ${new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(catalogSync.syncedAt))}` : ""}</p>
@@ -871,7 +881,7 @@ export default function Home({snapshot}:{snapshot:RemoteCatalogApp[]}) {
               <span className="tool-meta">{tool.source} · {tool.category}</span>
               <span className="classification">{builderForFilter(tool)} · erstellt {createdFor(tool)}</span>
               <span className="local-port">{localHrefFor(tool) ? <a href={localHrefFor(tool) ?? undefined} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Lokal: {localPortFor(tool)}</a> : `Lokal: ${localPortFor(tool)}`}</span>
-              {tool.trafficLight && <span className={`traffic-light ${tool.trafficLight}`} title={tool.trafficNote}><i></i>{trafficLabelFor(tool)}</span>}
+              <ReviewBadge app={tool}/>
               <span className="resource-links" aria-label={`Zugänge für ${tool.title}`}>
                 <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Link</a>
                 <a href={archiveFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>Archiv</a>
@@ -957,7 +967,7 @@ export default function Home({snapshot}:{snapshot:RemoteCatalogApp[]}) {
             <div className="window-title"><span className="source-marks"><ProviderIcon tool={opened} detail /><ClaudeSurfaceBadge tool={opened} /></span><div><strong>{opened.title}</strong><small>Arbeitsfenster - verschieben am Kopf, Groesse unten rechts anpassen</small></div></div>
             <div className="window-actions"><button type="button" className="test-action" onClick={() => testApp(opened)}>App testen</button>{opened.published !== false && <a href={quickStartFor(opened)} target="_blank" rel="noreferrer">App öffnen</a>}<button type="button" onClick={() => setOpenedId(null)} aria-label="Fenster schliessen">Schliessen</button></div>
           </header>
-          <Suspense fallback={<p role="status">App-Register werden geladen …</p>}><AppRegisters key={opened.id} app={opened} details={detailsFor(opened)} screens={allScreensFor(opened)} usage={scopeFor(opened)} openAccounts={()=>{setOpenedId(null);setMainView('accounts');}} openOptimizations={()=>{setOpenedId(null);setMainView('optimizations');}} /></Suspense>
+          <Suspense fallback={<p role="status">App-Register werden geladen …</p>}><AppRegisters refresh={()=>{void refreshCatalog();}} key={opened.id} initialTab={openedRegister} app={opened} details={detailsFor(opened)} screens={allScreensFor(opened)} usage={scopeFor(opened)} openAccounts={()=>{setOpenedId(null);setMainView('accounts');}} openOptimizations={()=>{setOpenedId(null);setMainView('optimizations');}} /></Suspense>
         </section>
       </div>}
     </main>

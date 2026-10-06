@@ -7,7 +7,7 @@ import ts from 'typescript';
 import {renderToStaticMarkup} from 'react-dom/server';
 import React from 'react';
 const require=createRequire(import.meta.url),cache=new Map();
-function load(file){if(cache.has(file))return cache.get(file);const module={exports:{}};cache.set(file,module.exports);const code=ts.transpileModule(readFileSync(file,'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;runInNewContext(code,{module,exports:module.exports,require:(name)=>name.startsWith('.')?load(new URL(name+(name.includes('provider-logo')?'.tsx':'.ts'),file)):require(name),console,crypto,TextEncoder,URL,Intl});cache.set(file,module.exports);return module.exports;}
+function load(file){if(cache.has(file))return cache.get(file);const module={exports:{}};cache.set(file,module.exports);const code=ts.transpileModule(readFileSync(file,'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;runInNewContext(code,{module,exports:module.exports,require:(name)=>name.startsWith('.')?load(new URL(name+(existsSync(new URL(name+'.tsx',file))?'.tsx':'.ts'),file)):require(name),console,crypto,TextEncoder,URL,Intl});cache.set(file,module.exports);return module.exports;}
 const logic=load(new URL('../app/optimization-logic.ts',import.meta.url));
 const providers=load(new URL('../app/source-providers.ts',import.meta.url));
 

@@ -49,3 +49,6 @@ yarn-error.log*
 /build/*
 !/build/sites-vite-plugin.ts
 !/build/sites-vite-plugin.LICENSE
+
+# TypeScript incremental check cache
+*.tsbuildinfo

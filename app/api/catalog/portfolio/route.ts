@@ -5,12 +5,12 @@ const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const appKey = /^[a-zA-Z0-9_-]{1,160}$/;
 function text(value: unknown, limit=300) { if (typeof value !== 'string' || value.length > limit) throw new Error('Bitte gültige, kurze Angaben verwenden.'); return value.trim(); }
 function errorResponse(error: unknown) { const message=error instanceof Error?error.message:'Aktion fehlgeschlagen.'; return Response.json({error:message},{status:message==='AUTH_REQUIRED'?401:message.startsWith('Bitte')?400:503}); }
-async function accountFor(id: string, user: string) { if(!uuid.test(id)) throw new Error('Bitte ein gültiges Konto wählen.'); const response=await supabaseRest(`catalog_accounts?id=eq.${id}&created_by=eq.${encodeURIComponent(user)}&select=id,provider,label`); const rows=await response.json() as {id:string;provider:string;label:string}[]; if(!rows[0]) throw new Error('Bitte ein eigenes Konto wählen.'); return rows[0]; }
+async function accountFor(id: string, user: string) { if(!uuid.test(id)) throw new Error('Bitte ein gültiges Konto wählen.'); const response=await supabaseRest(`catalog_accounts?id=eq.${id}&created_by=eq.${encodeURIComponent(user)}&select=id,provider,label,username,login_url,access_status,checked_at,check_basis`); const rows=await response.json() as {id:string;provider:string;label:string;username:string;login_url:string;access_status:string;checked_at:string|null;check_basis:string}[]; if(!rows[0]) throw new Error('Bitte ein eigenes Konto wählen.'); return rows[0]; }
 async function validateApps(keys: string[]) { if(keys.length>200||keys.some(k=>!appKey.test(k))) throw new Error('Bitte gültige Apps wählen.'); if(!keys.length)return; const response=await supabaseRest(`catalog_apps?app_key=in.(${keys.join(',')})&select=app_key`); const rows=await response.json() as unknown[];if(rows.length!==new Set(keys).size)throw new Error('Bitte nur Apps aus dem Katalog wählen.'); }
 
 export async function GET() {
  try { const {chatgpt,profile}=await requireCatalogUser();const [accounts,costs,tests,development,vaults,links]=await Promise.all([
-  supabaseRows(`catalog_accounts?created_by=eq.${encodeURIComponent(chatgpt.userId)}&select=id,provider,label,username,login_url,plan,billing_cycle,vault_reference,app_keys&order=provider,label`),
+  supabaseRows(`catalog_accounts?created_by=eq.${encodeURIComponent(chatgpt.userId)}&select=id,provider,label,username,login_url,plan,billing_cycle,vault_reference,app_keys,login_method,access_status,checked_at,check_basis&order=provider,label`),
   supabaseRows('catalog_cost_entries?select=id,app_key,account_id,provider,transaction_date,amount,currency,description,source&order=transaction_date.desc'),
   supabaseRows('app_test_runs?select=app_key,outcome,http_status,duration_ms,checked_at,detail,metadata&order=checked_at.desc'),
   supabaseRows('catalog_development?select=app_key,status,priority,next_step,updated_at'),
@@ -25,13 +25,13 @@ export async function POST(request: Request) {
  try {const {chatgpt,profile}=await requireCatalogUser();if(!isEditor(profile))return Response.json({error:'Bearbeitungsrechte erforderlich.'},{status:403});
   const body=await request.json() as Record<string,unknown>;const action=body.action;
   if(action==='account') {
-   const raw=body.account as Record<string,unknown>;const allowed=['id','provider','label','username','login_url','plan','billing_cycle','vault_reference','app_keys'];
+   const raw=body.account as Record<string,unknown>;const allowed=['id','provider','label','username','login_url','plan','billing_cycle','vault_reference','app_keys','login_method'];
    if(!raw||Object.keys(raw).some(k=>!allowed.includes(k)))throw new Error('Bitte nur Kontoname, Benutzerkennung und sichere Verweise erfassen.');
    const provider=text(raw.provider,120),label=text(raw.label,160);if(!provider||!label)throw new Error('Bitte Anbieter und Kontoname angeben.');
    const login_url=text(raw.login_url??'',1000);if(login_url){let url:URL;try{url=new URL(login_url);}catch{throw new Error('Bitte eine gültige HTTPS-Login-Adresse eingeben.');}if(url.protocol!=='https:'||url.username||url.password||[...url.searchParams.keys()].some(k=>/password|token|secret|key|code/i.test(k)))throw new Error('Bitte eine HTTPS-Adresse ohne Zugangsschlüssel verwenden.');}
    const app_keys=Array.isArray(raw.app_keys)?raw.app_keys as string[]:[];await validateApps(app_keys);
-   const data={provider,label,username:text(raw.username??''),login_url,plan:text(raw.plan??'',160),billing_cycle:text(raw.billing_cycle??'Monatlich',60),vault_reference:text(raw.vault_reference??''),app_keys,updated_at:new Date().toISOString()};
-   if(raw.id){const id=text(raw.id);await accountFor(id,chatgpt.userId);await supabaseRest(`catalog_accounts?id=eq.${id}&created_by=eq.${encodeURIComponent(chatgpt.userId)}`,{method:'PATCH',body:JSON.stringify(data)});}
+   const data={provider,label,login_method:text(raw.login_method??'Noch nicht verifiziert',300),username:text(raw.username??''),login_url,plan:text(raw.plan??'',160),billing_cycle:text(raw.billing_cycle??'Noch nicht verifiziert',60),vault_reference:text(raw.vault_reference??''),app_keys,updated_at:new Date().toISOString()};
+   if(raw.id){const id=text(raw.id);const previous=await accountFor(id,chatgpt.userId);const changed=previous.provider!==provider||previous.username!==data.username||previous.login_url!==login_url;await supabaseRest(`catalog_accounts?id=eq.${id}&created_by=eq.${encodeURIComponent(chatgpt.userId)}`,{method:'PATCH',body:JSON.stringify({...data,...(changed?{access_status:'open',checked_at:null,check_basis:'Kontodaten geändert; erneute Prüfung erforderlich.'}:{})})});}
    else await supabaseRest('catalog_accounts',{method:'POST',body:JSON.stringify({...data,created_by:chatgpt.userId})});
   }else if(action==='cost'){
    const account=await accountFor(text(body.account_id),chatgpt.userId);const date=text(body.date,10),currency=text(body.currency,3).toUpperCase(),amount=Number(body.amount),requestId=text(body.request_id,36);
