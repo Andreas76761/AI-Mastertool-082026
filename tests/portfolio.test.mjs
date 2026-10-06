@@ -23,4 +23,19 @@ test('performance never invents a benchmark from historical notes or login pages
  assert.equal(performanceFor(app,[{...run,outcome:'login_required',http_status:403}],now).score,null);
  assert.equal(performanceFor(app,[{...run,checked_at:'2026-08-01'}],now).score,null);
 });
+test('failed browser runs, invalid metrics, invalid dates and expired workflows cannot produce a good score',()=>{
+ const now=Date.parse('2026-10-06T09:00:00Z'),base={app_key:'one',outcome:'available',http_status:200,duration_ms:250,checked_at:new Date(now).toISOString(),detail:'Executed steps',metadata:{kind:'browser',lcp_ms:1800,dom_ms:1000}};
+ assert.equal(performanceFor(app,[base],now).score,100);
+ assert.equal(performanceFor(app,[{...base,outcome:'unavailable'}],now).score,null);
+ assert.equal(performanceFor(app,[{...base,outcome:'login_required'}],now).score,null);
+ for(const lcp_ms of [undefined,null,0,-10,NaN,Infinity])assert.equal(performanceFor(app,[{...base,metadata:{kind:'browser',lcp_ms}}],now).score,null);
+ for(const checked_at of ['invalid',new Date(now+864e5).toISOString(),new Date(now-31*864e5).toISOString()])assert.equal(performanceFor(app,[{...base,checked_at}],now).score,null);
+ const oldWorkflow={...base,checked_at:new Date(now-31*864e5).toISOString(),metadata:{kind:'workflow'}};assert.equal(performanceFor(app,[oldWorkflow],now).label,'Messung veraltet');
+ assert.equal(performanceFor(app,[{...base,metadata:undefined,http_status:403}],now).score,null);
+ for(const duration_ms of [null,0,-1,NaN,Infinity])assert.equal(performanceFor(app,[{...base,metadata:undefined,duration_ms}],now).score,null);
+});
+test('performance chooses the newest matching test without mutating the input array',()=>{
+ const now=Date.parse('2026-10-06T09:00:00Z'),old={app_key:'one',outcome:'available',http_status:200,duration_ms:200,checked_at:new Date(now-864e5).toISOString()},latest={...old,outcome:'unavailable',http_status:500,checked_at:new Date(now).toISOString()},unrelated={...latest,app_key:'other',outcome:'available'};
+ const runs=[old,unrelated,latest];assert.equal(performanceFor(app,runs,now).score,null);assert.equal(performanceFor(app,runs,now).label,'Nicht erreichbar');assert.equal(runs[0],old);
+});
 test('known errors get priority and theme comparisons remain separate apps',()=>{assert.equal(developmentFor({...app,trafficLight:'red'},details,[]).priority,'Hoch');const groups=similarities([{...app,id:'a',title:'Wartungsvertrag Vergleich'},{...app,id:'b',title:'Wartungsvertrag Vergleich V2'},{...app,id:'c',title:'HaushaltKompass'}]);assert.equal(groups.length,1);assert.equal(groups[0].apps.length,2);});

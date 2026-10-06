@@ -9,11 +9,19 @@ export type Development={app_key:string;status:string;priority:string;next_step:
 const unverified=/noch|nicht.*(verifiziert|erfasst|identifiziert|belegt)|zu pr[üu]fen|aus repository|genau pr[üu]fen|geplant|vorgesehen/i;
 export function technicalScore(details:Technical){const fields=['frontend','middleware','backend','database','connections'] as const;const known=fields.filter(k=>details[k].trim()&&!unverified.test(details[k]));return {score:known.length*20,known:known.length,missing:fields.filter(k=>!known.includes(k))};}
 export function performanceFor(app:AppRecord,tests:TestRun[],now=Date.now()){
- const latest=tests.find(t=>t.app_key===app.id);if(latest){const stale=now-Date.parse(latest.checked_at)>30*864e5;
- if(latest.metadata?.kind==='workflow')return {score:null,label:latest.outcome==='available'?'Bedienablauf bestanden':'Bedienablauf fehlgeschlagen',basis:`${latest.detail} · ${latest.duration_ms??'–'} ms · ${latest.checked_at.slice(0,10)} · manuell dokumentiert`,measured:true};
- if(latest.metadata?.kind==='browser'){const ms=latest.metadata.lcp_ms;return {score:!stale&&ms!==undefined?(ms<=2500?100:ms<=4000?60:40):null,label:stale?'Messung veraltet':'Browser-Seitenaufbau',basis:`LCP ${ms??'–'} ms · DOM ${latest.metadata.dom_ms??'–'} ms · ${latest.checked_at.slice(0,10)}`,measured:true};}
- const score=!stale&&latest.outcome==='available'&&latest.duration_ms!==null?(latest.duration_ms<300?100:latest.duration_ms<1000?80:latest.duration_ms<2500?60:40):null;
- return {score,label:stale?'Messung veraltet':latest.outcome==='available'?'HTTP erreichbar':latest.outcome==='login_required'?'Anmeldung / Weiterleitung':'Nicht erreichbar',basis:`${latest.duration_ms??'–'} ms · HTTP ${latest.http_status??'–'} · ${latest.checked_at.slice(0,10)}`,measured:true};}
+ const own=tests.filter(t=>t.app_key===app.id);
+ const rank=(t:TestRun)=>Number.isFinite(Date.parse(t.checked_at))?Date.parse(t.checked_at):-Infinity;
+ const latest=own.reduce<TestRun|undefined>((best,t)=>!best||rank(t)>rank(best)?t:best,undefined);
+ if(latest){const time=Date.parse(latest.checked_at),invalid=!Number.isFinite(time)||time>now,stale=!invalid&&now-time>30*864e5,current=!invalid&&!stale;
+ const positive=(n:unknown):n is number=>typeof n==='number'&&Number.isFinite(n)&&n>0;
+ const dateLabel=invalid?'Messnachweis ungültig':stale?'Messung veraltet':null;
+ const outcomeLabel=latest.outcome==='login_required'?'Anmeldung / Weiterleitung':latest.outcome==='available'?null:'Nicht erreichbar';
+ const duration=positive(latest.duration_ms)?latest.duration_ms:null;
+ if(latest.metadata?.kind==='workflow')return {score:null,label:dateLabel??(latest.outcome==='available'?'Bedienablauf bestanden':latest.outcome==='login_required'?'Anmeldung / Weiterleitung':'Bedienablauf fehlgeschlagen'),basis:`${latest.detail} · ${duration??'–'} ms · ${latest.checked_at.slice(0,10)} · manuell dokumentiert`,measured:true};
+ if(latest.metadata?.kind==='browser'){const ms=positive(latest.metadata.lcp_ms)?latest.metadata.lcp_ms:null,dom=positive(latest.metadata.dom_ms)?latest.metadata.dom_ms:null;return {score:current&&latest.outcome==='available'&&ms!==null?(ms<=2500?100:ms<=4000?60:40):null,label:dateLabel??outcomeLabel??(ms===null?'Browser-Seitenaufbau · LCP offen':'Browser-Seitenaufbau'),basis:`LCP ${ms??'–'} ms · DOM ${dom??'–'} ms · ${latest.checked_at.slice(0,10)}`,measured:true};}
+ const reachable=latest.outcome==='available'&&latest.http_status!==null&&latest.http_status>=200&&latest.http_status<300;
+ const score=current&&reachable&&duration!==null?(duration<300?100:duration<1000?80:duration<2500?60:40):null;
+ return {score,label:dateLabel??outcomeLabel??(reachable?'HTTP erreichbar':'HTTP-Ergebnis offen'),basis:`${duration??'–'} ms · HTTP ${latest.http_status??'–'} · ${latest.checked_at.slice(0,10)}`,measured:true};}
  return {score:null,label:app.trafficLight==='red'?'Historisch gestört':app.performance?'Historischer Hinweis':'Nicht gemessen',basis:app.performance??'Keine Laufzeitmessung vorhanden.',measured:false};
 }
 export function developmentFor(app:AppRecord,details:Technical,tests:TestRun[]){

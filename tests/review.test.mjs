@@ -5,7 +5,20 @@ import {runInNewContext} from 'node:vm';
 import ts from 'typescript';
 const module={exports:{}};
 runInNewContext(ts.transpileModule(readFileSync(new URL('../app/app-review.ts',import.meta.url),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText,{module,exports:module.exports,Date});
-const {reviewPlan,reviewLight,nextReviewStep}=module.exports,now=Date.parse('2026-10-06T09:00:00Z');
+const {reviewPlan,reviewLight,nextReviewStep,reviewCheckState}=module.exports,now=Date.parse('2026-10-06T09:00:00Z');
+test('review steps, counter, next step and traffic light agree on expiry and missing proof',()=>{
+ const checked_at=new Date(now).toISOString(),check={status:'passed',proof:'Recorded test steps and their results',checked_at};
+ assert.equal(reviewCheckState(check,now),'passed');
+ assert.equal(reviewCheckState({...check,checked_at:new Date(now-31*864e5).toISOString()},now),'stale');
+ assert.equal(reviewCheckState({...check,checked_at:new Date(now+1).toISOString()},now),'invalid');
+ assert.equal(reviewCheckState({...check,proof:'ok'},now),'invalid');
+ assert.equal(reviewCheckState({...check,status:'verified'},now),'invalid');
+ assert.equal(reviewCheckState({...check,status:'failed',checked_at:new Date(now-31*864e5).toISOString()},now),'failed');
+ const review={checks:Object.fromEntries(reviewPlan.map(s=>[s.id,{...check}]))};review.checks.architecture.checked_at=new Date(now-31*864e5).toISOString();
+ assert.equal(reviewPlan.filter(s=>reviewCheckState(review.checks[s.id],now)==='passed').length,5);
+ assert.equal(nextReviewStep(review,now).id,'architecture');assert.equal(reviewLight({review},now).color,'yellow');
+ review.checks.architecture.checked_at=new Date(now+1).toISOString();assert.equal(nextReviewStep(review,now).id,'architecture');
+});
 test('review traffic light requires every evidenced current step and never treats an editor as a functional test',()=>{
  assert.equal(reviewLight({analysis:{status:'partial',summary:'Editor opened',evidence:[]}},now).color,'yellow');
  assert.equal(reviewLight({analysis:{status:'live',summary:'Dashboard opened',evidence:[]}},now).color,'yellow');

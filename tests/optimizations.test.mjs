@@ -43,6 +43,14 @@ test('every app detail has four left registers and explicit architecture fields'
  for(const name of ['Ziel &amp; Verwendung','Architektur &amp; Zugänge','Optimierungen','Sonstiges','Frontend','Middleware','Backend','Zugangsdaten'])assert.ok(html.includes(name),name);
  assert.match(html,/noch kein konkretes Konto zugeordnet/);assert.doesNotMatch(html,/type="password"/);
 });
+test('expired evidence renders as requiring review and is excluded from the confirmed step count',()=>{
+ const {default:ReviewPanel}=load(new URL('../app/review-panel.tsx',import.meta.url));
+ const {reviewPlan}=load(new URL('../app/app-review.ts',import.meta.url));
+ const checked_at=new Date(Date.now()-31*864e5).toISOString();
+ const review={active:false,finished_at:checked_at,checks:Object.fromEntries(reviewPlan.map(s=>[s.id,{status:'passed',proof:'Recorded test and observed result',checked_at}]))};
+ const html=renderToStaticMarkup(React.createElement(ReviewPanel,{apps:[{id:'app',title:'Demo',review}],appKey:'app'}));
+ assert.match(html,/0\/6 Schritte bestätigt/);assert.equal((html.match(/class="stale"/g)||[]).length,6);assert.match(html,/Erneute Prüfung nötig/);assert.match(html,/Gelb/);
+});
 
 const analytics=load(new URL('../app/catalog-analytics.ts',import.meta.url));
 test('browser and workflow measurements never masquerade as HTTP benchmarks',()=>{
