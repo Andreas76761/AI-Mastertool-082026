@@ -9,8 +9,8 @@ const {mergeCatalog}=await import('data:text/javascript;base64,'+Buffer.from(com
 
 test('central data does not hide new inventory or existing local apps',()=>{
  const old=[{id:'local',title:'Local app'},{id:'hosted',title:'DocApp',url:'https://docapp.example/'}];
- const remote=[{id:'db-doc',title:'DocApp',url:'https://docapp.example',description:'Database description'}];
- const snapshot=[{id:'site-doc',projectId:'site-doc',title:'DocApp',url:'https://docapp.example',version:'17',isNew:true},{id:'ticket',title:'TicketBrain',isNew:true}];
+ const remote=[{id:'hosted',title:'DocApp',url:'https://docapp.example',description:'Database description'}];
+ const snapshot=[{id:'hosted',projectId:'site-doc',title:'DocApp',url:'https://docapp.example',version:'17',isNew:true},{id:'ticket',title:'TicketBrain',isNew:true}];
  const rows=mergeCatalog(old,remote,snapshot);
  assert.equal(rows.length,3);
  assert.equal(rows.find(r=>r.title==='DocApp').id,'hosted');
@@ -32,6 +32,18 @@ test('catalog renders latest apps and new labels from the built Worker',async()=
  const html=await response.text();
  for(const title of ['HaushaltKompass','DocApp 2.2','Handbookly','TicketBrain','oneSCM Handbook Studio']) assert.ok(html.includes(title),title);
  assert.match(html,/class="new-badge"/);
+ assert.equal((html.match(/data-app-id=/g)||[]).length,102);
+ assert.match(html,/Seitennavigation/);
+ assert.match(html,/Inhaltsvergleich/);
+ assert.match(html,/Konten &amp; Zugänge/);
+ assert.ok(html.includes('Aftersales 4 Parts Logistics'));
+ assert.ok(html.includes('Wartungsvertrag Vergleich V2')); 
  assert.match(html,/App-Abgleich:.*06\.10\.2026/);
  assert.doesNotMatch(html,/Building your site|Your site is taking shape/);
+});
+
+
+test('shared overview URLs and titles never collapse separate app identities',()=>{
+ const rows=mergeCatalog([{id:'one',title:'App',url:'https://www.perplexity.ai/computer/artifacts'},{id:'two',title:'App',url:'https://www.perplexity.ai/computer/artifacts'}]);
+ assert.equal(rows.length,2);
 });

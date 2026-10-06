@@ -5,9 +5,7 @@ export function mergeCatalog<T extends CatalogEntry>(...sources: T[][]): T[] {
   const result: T[] = [];
   for (const source of sources) for (const entry of source) {
     const index = result.findIndex((item) => item.id === entry.id ||
-      (!!entry.projectId && item.projectId === entry.projectId) ||
-      (!!entry.url && item.url?.replace(/\/$/, "") === entry.url.replace(/\/$/, "")) ||
-      item.title.trim().toLocaleLowerCase("de") === entry.title.trim().toLocaleLowerCase("de"));
+      (!!entry.projectId && item.projectId === entry.projectId));
     if (index < 0) result.push(entry);
     else result[index] = { ...result[index], ...entry, id: result[index].id };
   }

@@ -1,0 +1,3156 @@
+[
+  {
+    "app_key": "claude-workspace-1e9",
+    "title": "1E9 2026",
+    "description": "Claude-Projekt mit Python-, Bild- und Präsentationsartefakten.",
+    "source": "Lokaler Rechner",
+    "status": "Prüfen",
+    "category": "Katalog",
+    "detail": "Projektordner mit Python-Skripten, JSON-Daten, Bildern und PPTX-Dateien; Web-Startpunkt noch nicht verifiziert.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\1E9_2026",
+    "source_url": "file:///C:/2026/Claude/1E9_2026",
+    "archive_url": null,
+    "created_on": "03.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "perplexity-aftersales-1-predictive",
+    "title": "Aftersales 1 Predictive",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "After Sales",
+    "detail": "Aftersales-Zukunftsbild mit Predictive Maintenance, digitalem Zwilling, AR-Technik, Hochvolt-Batterieservice und automatisierter Teilelogistik.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/tasks/182a2eea-a036-4c99-b285-1a8d26b447bf",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Live-Sitzung am 11.08.2026 geoeffnet; Artefakte und 39 Quellen sichtbar.",
+    "traffic_light": "green",
+    "traffic_note": "Live-Sitzung erreichbar; Inhalte und Bilder geladen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-aftersales-2-ar-technician",
+    "title": "Aftersales 2 Ar Technician",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "After Sales",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-aftersales-3-ev-battery",
+    "title": "Aftersales 3 Ev Battery",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "After Sales",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-aftersales-4-parts-logistics",
+    "title": "Aftersales 4 Parts Logistics",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "After Sales",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "business",
+    "title": "AI Business Berater",
+    "description": "Vergleichsportal für Datenbanken und Bildspeicher.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Beratung",
+    "detail": "Lokale Codex-App mit Startdokumentation und eigenem Projektordner.",
+    "builder": "Codex",
+    "local_path": "C:\\2026\\Codex\\AI Business Berater",
+    "source_url": "file:///C:/2026/Codex/AI Business Berater",
+    "archive_url": null,
+    "created_on": "05.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Lokaler Start geprüft: HTTP 200 auf Port 4173 (8.997 Bytes).",
+    "traffic_light": "green",
+    "traffic_note": null,
+    "frontend": "Statisches Web-Frontend",
+    "middleware": "Node HTTP-Server mit API und Exporten",
+    "backend": "Node.js",
+    "database_technology": "SQLite: storage/catalog.sqlite",
+    "connections": [
+      "Lokale API, gespeicherte Produkt- und Preisquellen"
+    ],
+    "models": [
+      "Kein Modellaufruf im Code belegt"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README und db.js"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "event",
+    "title": "AI Eventorganizer",
+    "description": "Event- und Messe-Organisation mit KI.",
+    "source": "GitHub",
+    "status": "Aktiv",
+    "category": "Organisation",
+    "detail": "Öffentliches Repository; korrespondierender lokaler AI-Messe-Guide enthält eine Vercel-Konfiguration.",
+    "builder": "Claude",
+    "local_path": "Andreas76761/AI_Eventorganizer",
+    "source_url": "https://github.com/Andreas76761/AI_Eventorganizer",
+    "archive_url": null,
+    "created_on": "06.07.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "green",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "Statisches HTML, CSS und JavaScript als Progressive Web App",
+    "middleware": "Optionales Supabase Cloud-Modul",
+    "backend": "Supabase Auth, Synchronisierung und Konto-Loeschung optional",
+    "database_technology": "Supabase PostgreSQL optional; sonst LocalStorage und IndexedDB",
+    "connections": [
+      "GitHub zu Vercel, Supabase MFA, Google-Kalender-Links, ICS-Export und EZB-Wechselkurse"
+    ],
+    "models": [
+      "Kein LLM im App-Code belegt"
+    ],
+    "evidence": {
+      "overlap": "AI Messe Guide",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, cloud.js, db.js, schema.sql, vercel.json und Live-App"
+    },
+    "access_profile": "Lokal ohne Login nutzbar; Cloud-Login mit Supabase-Konfiguration und MFA"
+  },
+  {
+    "app_key": "messe",
+    "title": "AI Messe Guide",
+    "description": "Dashboard fuer KI-Messen, Konferenzen und Reisen.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Organisation",
+    "detail": "Verwaltungs-App mit lokalem Modus sowie optionalem Cloud-Login, MFA und Synchronisierung.",
+    "builder": "Claude",
+    "local_path": "C:\\2026\\Claude\\AI_Messe_Guide",
+    "source_url": "https://ai-messe-guide.vercel.app",
+    "archive_url": null,
+    "created_on": "06.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Live-Zugang im Browser geprüft; Oberfläche und Inhalte wurden geladen",
+    "traffic_light": "green",
+    "traffic_note": null,
+    "frontend": "Statisches HTML, CSS und JavaScript",
+    "middleware": "Optionales Supabase Cloud-Modul",
+    "backend": "Supabase Auth, Sync und Konto-Loeschung",
+    "database_technology": "Supabase PostgreSQL optional; lokal LocalStorage und IndexedDB",
+    "connections": [
+      "GitHub zu Vercel Deployment, Supabase MFA, Cloud-Sync und Row-Level Security"
+    ],
+    "models": [
+      "Kein LLM im App-Code dokumentiert"
+    ],
+    "evidence": {
+      "overlap": "AI Eventorganizer",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, cloud.js, schema.sql, vercel.json und Live-Screen"
+    },
+    "access_profile": "Live-App ohne Konto sichtbar; Cloud-Login ist erst nach Supabase-Konfiguration verfuegbar"
+  },
+  {
+    "app_key": "google-studio-presentation",
+    "title": "AI Presentation Builder",
+    "description": "Präsentationen per Spracheingabe, mit drei Designstilen, Architekturdiagrammen und KI-Bildern.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Präsentation",
+    "detail": "Google-AI-Studio-App für KI-gestützte Präsentationen.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/1827120f-0923-4b06-8fee-65cdb23838d5?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "13.03.2026",
+    "last_checked_on": "29.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "overview",
+    "title": "AI-Artefakte Übersicht",
+    "description": "Bestehender plattformübergreifender Projektkatalog.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Katalog",
+    "detail": "Der klarste Vorgänger des neuen Master-Tools. Er soll als Grundlage geprüft und gezielt erweitert werden.",
+    "builder": "Claude Code",
+    "local_path": "C:\\2026\\Claude\\Übersicht",
+    "source_url": "file:///C:/2026/Claude/Übersicht",
+    "archive_url": null,
+    "created_on": "26.06.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Lokaler Start geprüft: HTTP 200 auf Port 8000 (26.110 Bytes).",
+    "traffic_light": "green",
+    "traffic_note": null,
+    "frontend": "HTML, CSS und JavaScript",
+    "middleware": "Python Dashboard-Service optional",
+    "backend": "Lokale JSON-Dateien und Browser-Speicher",
+    "database_technology": "Keine zentrale Datenbank; Admin-Entscheidungen lokal im Browser",
+    "connections": [
+      "Lokale Projektpfade, GitHub-Links, optional lokaler HTTP-Server"
+    ],
+    "models": [
+      "Kein Modellaufruf im Dashboard belegt"
+    ],
+    "evidence": {
+      "overlap": "Master-Tool-Vorläufer",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, package.json und lokale Projektdateien"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "google-studio-phasen",
+    "title": "AI-Phasen Projektmanager",
+    "description": "Projektplaner für KI-Entwicklung auf Basis eines 7-Phasen-Modells.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Organisation",
+    "detail": "Google-AI-Studio-App für KI-Projektplanung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/9d9c831f-05a4-471b-8be1-610944156700?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "18.04.2026",
+    "last_checked_on": "16.06.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-app-building",
+    "title": "APP Building V.1.0",
+    "description": "Leitfaden und Template für Apps in Gemini AI Studio, mit zwölf Kernbausteinen von Authentifizierung bis Export.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "KI",
+    "detail": "Google-AI-Studio-App für standardisierte App-Erstellung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/b30c0a26-ffb4-441f-9b61-e1d9e9269de1?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "26.04.2026",
+    "last_checked_on": "28.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "bau",
+    "title": "Bau Slowakei",
+    "description": "Projektseite mit Vertrags- und Baudokumenten.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Bau",
+    "detail": "Eigenständige Web-App mit HTML, CSS, JavaScript und verknüpften PDF-Dokumenten.",
+    "builder": "Codex",
+    "local_path": "C:\\2026\\Codex\\Bau Slowakei",
+    "source_url": "file:///C:/2026/Codex/Bau Slowakei",
+    "archive_url": null,
+    "created_on": "19.07.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "green",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "HTML, CSS und JavaScript",
+    "middleware": "Keine separate Schicht",
+    "backend": "Lokale Dateien und PDF-Dokumente",
+    "database_technology": "Keine Datenbank erfasst",
+    "connections": [
+      "Lokale Vertrags- und Baudokumente"
+    ],
+    "models": [
+      "Kein Modellbezug erfasst"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "index.html, app.js und lokale PDFs"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "perplexity-beispiel-balkendiagramm-zum-zeitintervall-pro-zeile-in-knime",
+    "title": "Beispiel Balkendiagramm Zum Zeitintervall Pro Zeile In KNIME",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2025-10-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "benutzerhandbuch-v4-tools",
+    "title": "Benutzerhandbuch V4 – Werkzeugset",
+    "description": "Lokale Werkzeuge zur Erstellung und Pflege von Benutzerhandbüchern sowie Office- und PDF-Artefakten.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Dokumentation",
+    "detail": "Python-basiertes Werkzeugset für Word, PowerPoint, Excel, PDF und Bildverarbeitung.",
+    "builder": "Claude Desktop",
+    "local_path": "C:\\\\2026\\\\Claude\\\\Benutzerhandbuch Version4",
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "2026-09-06",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "Abhängigkeitsdatei geprüft; Werkzeugset vorhanden.",
+    "traffic_light": "gray",
+    "traffic_note": "Keine eigenständige Web-App gestartet.",
+    "frontend": "Keine Web-Oberfläche verifiziert",
+    "middleware": "Python-Tools",
+    "backend": "Python",
+    "database_technology": "Lokale Dateien",
+    "connections": [
+      "DOCX",
+      "PPTX",
+      "XLSX",
+      "PDF",
+      "Bilddateien"
+    ],
+    "models": [],
+    "evidence": [
+      "tools/requirements.txt"
+    ],
+    "access_profile": "Lokaler Projektordner; private Quelldokumente verbleiben außerhalb des Katalogs."
+  },
+  {
+    "app_key": "perplexity-berechnung-der-vertragslaufzeit-start-2025-04-08-bis-ende-2029-04-07",
+    "title": "Berechnung Der Vertragslaufzeit (Start 2025 04 08 Bis Ende 2029 04 07)",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Verträge",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2025-10-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "claude-workspace-bw-bank",
+    "title": "BW Bank Kreditkarten-App",
+    "description": "Lokale Kreditkartenübersicht auf Basis von Abrechnungen und Excel-Dateien.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "HTML-App mit zugehörigen Kreditkartenabrechnungen und Tabellen.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\BW Bank 2025 2026\\BW_Bank_Kreditkarte_App.html",
+    "source_url": "file:///C:/2026/Claude/BW Bank 2025 2026/BW_Bank_Kreditkarte_App.html",
+    "archive_url": null,
+    "created_on": "28.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "claude-workspace-app-overview",
+    "title": "Claude App Übersicht",
+    "description": "Lokale Übersicht bereits angelegter Anwendungen.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Katalog",
+    "detail": "Statische HTML-Übersicht aus dem Claude-Arbeitsbereich.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\-Übersicht Apps\\app-uebersicht.html",
+    "source_url": "file:///C:/2026/Claude/-Übersicht Apps/app-uebersicht.html",
+    "archive_url": null,
+    "created_on": "24.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "google-studio-code-smells",
+    "title": "Clean Code Smells Guide",
+    "description": "Interaktive Referenz-App für Code Smells mit Erklärungen, Tipps und Empfehlungen auf Deutsch.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "KI",
+    "detail": "Google-AI-Studio-App für Code-Qualität.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/6ff17327-92a1-499d-a950-8f389bea8168?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "05.07.2026",
+    "last_checked_on": "05.07.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "calendar",
+    "title": "Codex Calendar",
+    "description": "Lokale Kalenderauswertung und Terminfilter.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Organisation",
+    "detail": "Enthält Kalenderdaten, CSV-Auswertungen und gespeicherte Filter.",
+    "builder": "Codex",
+    "local_path": "C:\\2026\\Codex\\Codex Calendar",
+    "source_url": "file:///C:/2026/Codex/Codex Calendar",
+    "archive_url": null,
+    "created_on": "22.07.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "Lokale Kalenderauswertung",
+    "middleware": "Lokale Filter und Auswertung",
+    "backend": "Lokale Kalenderdaten",
+    "database_technology": "SQLite: calendar.sqlite",
+    "connections": [
+      "CSV- und JSON-Exporte"
+    ],
+    "models": [
+      "Kein Modellbezug erfasst"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "calendar.sqlite sowie CSV- und JSON-Dateien"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "codex-n8n",
+    "title": "Codex N8N Releaseletter-System",
+    "description": "Multi-Agent-Grundgeruest fuer Releaseletter, Freigaben und Ausspielung.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "Codex-Projekt mit Workflow-, Ontologie-, Graph- und Infrastrukturartefakten.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\Codex N8N",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/Codex N8N",
+    "archive_url": null,
+    "created_on": "14.04.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Quellcode und Archive vorhanden; keine laufende Web-App gestartet",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Control-Center Frontend-Skelett",
+    "middleware": "n8n Orchestrierungs- und Freigabe-Workflows",
+    "backend": "Docker-Compose und Agenten-Infrastruktur",
+    "database_technology": "Graphdatenbank als Zielarchitektur",
+    "connections": [
+      "Jira, Confluence, Mural, Excel, Teams und SharePoint"
+    ],
+    "models": [
+      "Agentenmodell vorgesehen; konkrete Modelle noch offen"
+    ],
+    "evidence": {
+      "overlap": "Releaseletter · Dify Releaseletter · n8n",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, Workflow-Archive, Ontologie- und Graph-Ordner"
+    },
+    "access_profile": "Projektarchiv lokal vorhanden; keine laufende Oberfläche registriert"
+  },
+  {
+    "app_key": "copilot-architecture-chat",
+    "title": "Copilot Chat & IT-Architektur-Assistent",
+    "description": "Importiert Copilot-PDF-Verläufe, bereitet sie chronologisch auf und beantwortet IT-Architekturfragen mit Claude-Unterstützung.",
+    "source": "Lokaler Rechner",
+    "status": "Prüfen",
+    "category": "Dokumentation",
+    "detail": "Lokaler React/Vite-Client mit Express-Backend, PDF-Parser und Browser-Sprachausgabe.",
+    "builder": "Claude Desktop",
+    "local_path": "C:\\\\2026\\\\Claude\\\\Doku Sharepoint Chat",
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "2026-09-18",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "Quellcode geprüft; Client und Server vorhanden. Nicht gestartet.",
+    "traffic_light": "gray",
+    "traffic_note": "Lokale Ausführung noch nicht getestet.",
+    "frontend": "React / Vite",
+    "middleware": "CORS / Express",
+    "backend": "Node.js / Express",
+    "database_technology": "Lokale JSON-Zwischenspeicherung",
+    "connections": [
+      "PDF-Import",
+      "Claude API",
+      "Web Speech API"
+    ],
+    "models": [
+      "Claude API"
+    ],
+    "evidence": [
+      "README.md",
+      "client/package.json",
+      "server/package.json"
+    ],
+    "access_profile": "Anthropic-Schlüssel nur lokal in server/.env; kein Kennwort im Katalog."
+  },
+  {
+    "app_key": "claude-workspace-dateiorganizer",
+    "title": "Dateiorganizer",
+    "description": "Lokales Explorer-Dashboard mit Analyse, Duplikatensuche und Automatisierungsskripten.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "HTML-Dashboards sowie PowerShell- und Batch-Werkzeuge für die Dateiorganisation.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\Dateiorganizer\\00_Explorer_Dashboard.html",
+    "source_url": "file:///C:/2026/Claude/Dateiorganizer/00_Explorer_Dashboard.html",
+    "archive_url": null,
+    "created_on": "28.06.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "claude-workspace-dateibetrachter",
+    "title": "Dateiverwaltung",
+    "description": "Dateibetrachter mit Vorschauen für Bilder, PDFs und Präsentationen.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Katalog",
+    "detail": "Lokale HTML- und Python-App mit Vorschau- und Index-Pipeline.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\Dateibetrachter neu\\Dateiverwaltung.html",
+    "source_url": "file:///C:/2026/Claude/Dateibetrachter neu/Dateiverwaltung.html",
+    "archive_url": null,
+    "created_on": "19.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "claude-workspace-db-flow",
+    "title": "Deckungsbeitragsflussrechnung",
+    "description": "Abweichungsanalyse für Deckungsbeiträge und Finanzkennzahlen.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Lokale Fable/Claude-HTML-App mit Chart-Studio und Finanzanalyse.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\Fable\\Deckungsbeitragflussrechnung\\app\\index.html",
+    "source_url": "file:///C:/2026/Claude/Fable/Deckungsbeitragflussrechnung/app/index.html",
+    "archive_url": null,
+    "created_on": "08.07.2026",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "Projektordner und Git-Repository lokal bestätigt; statische Anwendung nicht neu gestartet.",
+    "traffic_light": "gray",
+    "traffic_note": "Lokale Projektdateien vorhanden; aktueller Laufzeitstatus nicht getestet.",
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "dify",
+    "title": "Dify Releaseletter",
+    "description": "GitHub-Projekt für automatisierte Release-Briefe.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "Kommunikation",
+    "detail": "Repository mit separatem Entwicklungszweig; fachlich wahrscheinlich mit dem lokalen Releaseletter verbunden.",
+    "builder": "Dify und n8n",
+    "local_path": "Andreas76761/Dify_Releaseletter",
+    "source_url": "https://github.com/Andreas76761/Dify_Releaseletter",
+    "archive_url": null,
+    "created_on": "28.07.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "Dify Workflow-Oberflaeche",
+    "middleware": "n8n Jira-Trigger und Python-Code-Nodes",
+    "backend": "Dify Workflow-Run-API",
+    "database_technology": "Keine Datenbank im exportierten Workflow belegt",
+    "connections": [
+      "Jira Cloud oder Jira Automation, n8n und Dify API"
+    ],
+    "models": [
+      "GPT-4o ist als DSL-Platzhalter eingetragen; in Dify muss ein freigegebenes Modell gewaehlt werden"
+    ],
+    "evidence": {
+      "overlap": "Releaseletter · n8n",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Dify-Workflow-DSL, n8n Bridge, Jira-Trigger-Dokumentation"
+    },
+    "access_profile": "Login in Jira, n8n und Dify erforderlich; Zugangsdaten sind nicht im Repository hinterlegt"
+  },
+  {
+    "app_key": "dokupress",
+    "title": "DokuPress",
+    "description": "Backend für Benutzerhandbücher und Dokumentation.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Dokumentation",
+    "detail": "PostgreSQL-Backend mit Mandantentrennung für Dokumentationsprozesse.",
+    "builder": "Claude und Fable",
+    "local_path": "C:\\2026\\Claude\\Fable\\DTP für Usermanual\\dokupress-backend",
+    "source_url": "file:///C:/2026/Claude/Fable/DTP für Usermanual/dokupress-backend",
+    "archive_url": null,
+    "created_on": "01.08.2026",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "Projektordner und Git-Repository lokal bestätigt; Dienst nicht neu gestartet.",
+    "traffic_light": "gray",
+    "traffic_note": "Lokale Projektdateien vorhanden; aktueller Laufzeitstatus nicht getestet.",
+    "frontend": "Redaktions-Frontend",
+    "middleware": "Node.js und Express API",
+    "backend": "Node.js mit Import, Export und Webhooks",
+    "database_technology": "PostgreSQL mit RLS-Mandantentrennung",
+    "connections": [
+      "Jira, Confluence, LibreTranslate, llama.cpp, ffmpeg und Medien-API"
+    ],
+    "models": [
+      "Qwen2.5 1.5B Instruct Q4 lokal ueber llama.cpp"
+    ],
+    "evidence": {
+      "overlap": "Vertrags- und Dokumentationswerkzeuge",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, server.js und package.json"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "perplexity-drei-varianten-eines-wasserfall-diagramms-zur-preisaufschlusselung-in-euro",
+    "title": "Drei Varianten Eines Wasserfall Diagramms Zur PreisaufschlüSselung In Euro",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2025-12-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-drei-versionen-eines-wasserfall-diagramms-mit-preisaufbau-aus-tabelle",
+    "title": "Drei Versionen Eines Wasserfall Diagramms Mit Preisaufbau Aus Tabelle",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2025-12-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "google-studio-einnahmen",
+    "title": "Einnahmen Treppendiagramm",
+    "description": "Interaktives Treppendiagramm für Einnahmen auf Basis einer editierbaren Datentabelle.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Google-AI-Studio-App zur Einnahmenvisualisierung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/b7db094b-6032-4beb-b9c8-2ebe9d41dd8c?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "28.02.2026",
+    "last_checked_on": "29.03.2026",
+    "performance_note": "Einzeltest 11.08.2026: Direkter Link nicht vorhanden.",
+    "traffic_light": "red",
+    "traffic_note": "Google AI Studio liefert „Seite nicht gefunden“.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-excel-sharepoint",
+    "title": "Excel to SharePoint List Converter",
+    "description": "Automatisierter SharePoint-Listen-Generator aus Excel-Dateien mit PnP PowerShell, Power Automate und Python.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "Google-AI-Studio-App für Excel-zu-SharePoint-Listen.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/94a343a5-7476-4851-ac06-1174cb1d6d98?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "07.08.2026",
+    "last_checked_on": "07.08.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-featurewatch",
+    "title": "FeatureWatch",
+    "description": "Agile Feature- und Aufgabenplanung für Teams",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Organisation",
+    "detail": "Google-AI-Studio-App für Feature-Planung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/49e68d5b-aa1a-4c65-abbb-fef1ecba24ac?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "19.04.2026",
+    "last_checked_on": "20.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini 3.6 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "funding",
+    "title": "Förderantrag",
+    "description": "Codex-Projekt mit Antragunterlagen.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Im Projektordner liegt derzeit eine PDF-Antragsunterlage.",
+    "builder": "Codex",
+    "local_path": "C:\\2026\\Codex\\Förderantrag",
+    "source_url": "file:///C:/2026/Codex/Förderantrag",
+    "archive_url": null,
+    "created_on": "17.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Dokumentenbestand vorhanden; keine Web-App",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "PDF-Unterlage",
+    "middleware": "Keine",
+    "backend": "Lokaler Dokumentenbestand",
+    "database_technology": "Keine",
+    "connections": [
+      "Keine belegt"
+    ],
+    "models": [
+      "Kein Modellbezug belegt"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Förderantrag LBWW.pdf"
+    },
+    "access_profile": "Lokaler Dokumentenzugang"
+  },
+  {
+    "app_key": "google-studio-gmx",
+    "title": "GMX Mail Importer",
+    "description": "Import, Filter und Export von GMX-E-Mails inklusive Anhängen",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Kommunikation",
+    "detail": "Google-AI-Studio-App für GMX-Mail-Verarbeitung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/9178a5d0-a2a0-490f-934a-a9002d98bfdf?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "11.07.2026",
+    "last_checked_on": "15.07.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor sowie Vorschau erfolgreich geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Editor und echte Vorschau laden bis zum MailArchive-Pro-Login.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini 3.5 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "studio",
+    "title": "Google AI Studio",
+    "description": "KI-Experimente, Videoerzeugung und Vertragsbilder.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "KI",
+    "detail": "Drive-Ordner mit Video-Artefakten, Zugriffshistorie, Vergleichsdokument und Vertrags-Visualisierungen.",
+    "builder": "Google AI Studio",
+    "local_path": "Google Drive / Meine Ablage / Google AI Studio",
+    "source_url": "file:///Google Drive / Meine Ablage / Google AI Studio",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "Google AI Studio Artefakte",
+    "middleware": "Google Plattform",
+    "backend": "Google Drive Ablage",
+    "database_technology": "Google Drive als Artefaktablage",
+    "connections": [
+      "Google Drive, Video- und Bildartefakte"
+    ],
+    "models": [
+      "Gemini-Modellname in den abgelegten Artefakten noch nicht verifiziert"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google-Drive-Ordnerinhalt"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "perplexity-innovation-prod",
+    "title": "Innovation Prod",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Produktion",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-innovative-produktionsumgebung-2030-mit-menschen-intelligenten-robotern-ki-steuerung-und-n",
+    "title": "Innovative Produktionsumgebung 2030 Mit Menschen, Intelligenten Robotern, KI Steuerung Und Nachhaltigen LöSungen",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Produktion",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2025-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "google-studio-intellifile",
+    "title": "IntelliFile Organizer",
+    "description": "KI-gestützte Dateiverwaltung und Bildersuche",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Katalog",
+    "detail": "Google-AI-Studio-App zur Datei- und Bildorganisation.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/0458f263-b472-4f20-b580-9ea40302177d?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "28.06.2026",
+    "last_checked_on": "15.07.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "n8n-excel",
+    "title": "Investitions-Dashboard",
+    "description": "Web-App fuer Investitionsentscheidungen auf Basis von Excel-Auswertungen.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Analyse",
+    "detail": "Node-Anwendung mit Excel-Quellen, Tests und Vercel-Konfiguration.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Excel Erweiterung",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/N8N Excel Erweiterung",
+    "archive_url": null,
+    "created_on": "15.04.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Lokaler Start geprüft: HTTP 200 auf Port 3110 (4.587 Bytes). Die Startseite trägt aktuell den Titel „Releaseletter App“; Zuordnung im Projekt weiter prüfen.",
+    "traffic_light": "green",
+    "traffic_note": null,
+    "frontend": "Web-Dashboard",
+    "middleware": "Node.js Server",
+    "backend": "Excel-Auswertung und Reporting-Skripte",
+    "database_technology": "Excel-Arbeitsmappen als Quelldaten",
+    "connections": [
+      "Vercel-Konfiguration; lokale Excel-, XLSM- und Reportingdateien"
+    ],
+    "models": [
+      "Kein Modellbezug im package.json belegt"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "package.json, server.js, Excel-Dateien und Tests"
+    },
+    "access_profile": "Lokaler Startpunkt vorhanden; keine Anmeldung dokumentiert"
+  },
+  {
+    "app_key": "google-studio-jira-release-qa",
+    "title": "Jira & Release Letter QA Studio",
+    "description": "KI-gestützte QA für Jira Tickets und deutsche/englische Releaseletter, mit Word-Export und Screenshots.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Kommunikation",
+    "detail": "Google-AI-Studio-App für Inhalts- und Übersetzungsprüfung von Releaselettern.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/5c3df07f-c925-40cc-8a70-6967380f14d1?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "04.08.2026",
+    "last_checked_on": "04.08.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "jira-auswertung-onescm",
+    "title": "Jira-Auswertung oneSCM",
+    "description": "Lokale Pipeline zur Anonymisierung, Analyse und Dashboard-Auswertung von Jira-Epics und Tickets.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "1663 eindeutige Tickets; offline Dashboard und wiederholbare Python-Verarbeitungskette.",
+    "builder": "Claude Desktop",
+    "local_path": "C:\\\\2026\\\\Claude\\\\Jira_30082026",
+    "source_url": null,
+    "archive_url": null,
+    "created_on": "2026-08-30",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "README und Ergebnisstruktur geprüft; Offline-Dashboard vorhanden, nicht neu gestartet.",
+    "traffic_light": "gray",
+    "traffic_note": "Quell- und Ergebnisartefakte vorhanden.",
+    "frontend": "Statisches HTML-Dashboard",
+    "middleware": "Python-Pipeline",
+    "backend": "Python",
+    "database_technology": "CSV / XLSX / JSON",
+    "connections": [
+      "Word-Import",
+      "PDF-Export",
+      "Anthropic API optional"
+    ],
+    "models": [
+      "Claude / Anthropic optional"
+    ],
+    "evidence": [
+      "README.md",
+      "requirements.txt",
+      "05_dashboard/index.html"
+    ],
+    "access_profile": "Private Eingabedaten bleiben lokal in Input und _private."
+  },
+  {
+    "app_key": "google-studio-jiraextender",
+    "title": "JiraExtender - IT Ticket Management",
+    "description": "Jira-Tickets importieren, klassifizieren und verwalten, inklusive Admin, Nutzerbereichen, Bild- und Dokumentarchiv.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "Google-AI-Studio-App für Jira-Ticket-Management.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/2c38d148-1924-444a-91bc-c5c52a124cb8?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "10.03.2026",
+    "last_checked_on": "28.06.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "perplexity-ki-markt-2026-v3",
+    "title": "Ki Markt 2026 V3",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-ki-modell-vergleich-dashboard-2026",
+    "title": "KI Modell Vergleich Dashboard 2026",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Vergleichs-Dashboard fuer ChatGPT, Claude, Gemini, Llama, Mistral und Grok mit Preis-, EU-AI-Act- und Akzeptanzfiltern. Im Live-Check waren 112 Quellen und ein vierwoechentlicher Aktualisierungsplan sichtbar.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/tasks/ce28cde0-4dae-4de7-93a3-29e1dfa5d977",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Live-Sitzung am 11.08.2026 geoeffnet; Perplexity-Seite und Dashboard-Vorschau erfolgreich geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Live-Sitzung erreichbar; 112 Quellen sichtbar.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "google-studio-kihub",
+    "title": "KI-Hub 2026",
+    "description": "Zentrale Plattform für KI-gestützte Produktivität und Zusammenarbeit",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Katalog",
+    "detail": "Google-AI-Studio-App als KI-Produktivitäts-Hub.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/c51f32f9-c21a-4290-ae4b-7f7e70e544eb?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "12.03.2026",
+    "last_checked_on": "13.06.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "knowledge",
+    "title": "KnowledgeHub",
+    "description": "Cloud-basierte Wissens- und Tool-Übersicht.",
+    "source": "Google Drive",
+    "status": "Prüfen",
+    "category": "Katalog",
+    "detail": "Als HTML-Artefakt in Google Drive vorhanden; wird gegen den lokalen Übersichtsvorläufer geprüft.",
+    "builder": "Noch zu pruefen",
+    "local_path": "Google Drive / KnowledgeHub App.html",
+    "source_url": "file:///Google Drive / KnowledgeHub App.html",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "HTML-Artefakt",
+    "middleware": "Noch zu pruefen",
+    "backend": "Google Drive Ablage",
+    "database_technology": "Keine Datenbank erfasst",
+    "connections": [
+      "Google Drive"
+    ],
+    "models": [
+      "Noch zu pruefen"
+    ],
+    "evidence": {
+      "overlap": "AI-Artefakte Übersicht · KI-Hub",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "KnowledgeHub App.html in Google Drive"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "cost",
+    "title": "Kostenkurven-Simulator",
+    "description": "Modell- und Managementdokumentation zur Kostenanalyse.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Mehrere PDF-Unterlagen und Management-Zusammenfassungen in Google Drive.",
+    "builder": "Noch zu pruefen",
+    "local_path": "Google Drive / Benutzerhandbuch_KostenkurvenSimulator.pdf",
+    "source_url": "file:///Google Drive / Benutzerhandbuch_KostenkurvenSimulator.pdf",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "Dokument- und Analyseartefakte",
+    "middleware": "Noch zu pruefen",
+    "backend": "Google Drive Ablage",
+    "database_technology": "Keine Datenbank erfasst",
+    "connections": [
+      "Google Drive und PDF-Unterlagen"
+    ],
+    "models": [
+      "Kein Modellbezug verifiziert"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google-Drive-PDFs und Managementunterlagen"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "claude-workspace-linkedin",
+    "title": "LinkedIn Dashboard",
+    "description": "Lokales Dashboard und Skripte für LinkedIn-Datenexporte.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "HTML-Dashboard mit lokalen JavaScript-Hilfsprogrammen und Exportbestand.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\LinkedIn\\linkedin-dashboard.html",
+    "source_url": "file:///C:/2026/Claude/LinkedIn/linkedin-dashboard.html",
+    "archive_url": null,
+    "created_on": "17.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "hackathon",
+    "title": "MB AI Hackathon",
+    "description": "ChatGPT-Projekt, fachliche Umsetzung noch zu erfassen.",
+    "source": "Cloud",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Als ChatGPT-Projekt registriert; es liegt noch keine technische Projektakte im lokalen Katalog vor.",
+    "builder": "ChatGPT",
+    "local_path": "ChatGPT Projekt / MB AI Hackathon",
+    "source_url": "file:///ChatGPT Projekt / MB AI Hackathon",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Zugang zur Projektübersicht vorhanden; keine lauffaehige App identifiziert",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Noch nicht identifiziert",
+    "middleware": "Noch nicht identifiziert",
+    "backend": "Noch nicht identifiziert",
+    "database_technology": "Noch nicht identifiziert",
+    "connections": [
+      "ChatGPT-Projektbereich"
+    ],
+    "models": [
+      "Noch nicht identifiziert"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "ChatGPT-Projektregistrierung"
+    },
+    "access_profile": "Projekt ist im ChatGPT-Bereich sichtbar; keine lauffaehige App belegt"
+  },
+  {
+    "app_key": "perplexity-mercedes-werksplan-2030",
+    "title": "Mercedes Werksplan 2030",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Produktion",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "claude-workspace-messe-explorer",
+    "title": "Messe Explorer Designauswahl",
+    "description": "Vier Designrichtungen für eine Messe-Explorer-Vorlage.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Organisation",
+    "detail": "Statische HTML-Designvarianten für den Messe-Explorer.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\Artefact_Messe\\design-varianten\\index.html",
+    "source_url": "file:///C:/2026/Claude/Artefact_Messe/design-varianten/index.html",
+    "archive_url": null,
+    "created_on": "05.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "claude-workspace-messe-pm",
+    "title": "Messe PM Planungsartefakt",
+    "description": "Excel- und JSON-Artefakt zur Messeplanung.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Organisation",
+    "detail": "Kleiner lokaler Planungsbestand mit Excel-Arbeitsmappe und JSON-Datei; keine Web-App erkannt.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\Messe PM",
+    "source_url": "file:///C:/2026/Claude/Messe PM",
+    "archive_url": null,
+    "created_on": "05.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "n8n-library",
+    "title": "n8n Bibliothek Dashboard",
+    "description": "Durchsuchbare Workflow-Bibliothek mit Graph Memory und Integrationsstatus.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "Statisches Dashboard mit 200 Workflows, API-Handlern und Graph-Backends.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Bibliothek",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/N8N Bibliothek",
+    "archive_url": null,
+    "created_on": "14.04.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Dokumentierte API- und UI-Checks erfolgreich; keine laufende Instanz getestet",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "React, TypeScript und Vite",
+    "middleware": "API-Handler, n8n Workflows und Graph API",
+    "backend": "Graph Backends: JSON, Neo4j, Cognee oder Notion",
+    "database_technology": "JSON-Fallback oder Neo4j; Notion optional",
+    "connections": [
+      "Notion, GitHub, Vercel und n8n"
+    ],
+    "models": [
+      "Kein konkreter LLM-Aufruf im README belegt"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, API-, Graph- und Workflow-Ordner"
+    },
+    "access_profile": "Demo lokal nutzbar; externe Backends benoetigen eigene Secrets"
+  },
+  {
+    "app_key": "n8n",
+    "title": "n8n Releaseletter-Abgleich",
+    "description": "Workflow-Vergleich für Jira und Releaseletter.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "Als JSON-Workflow in Google Drive gefunden; wird dem Releaseletter-Cluster zugeordnet.",
+    "builder": "n8n",
+    "local_path": "Google Drive / n8n_workflow_jira_releaseletter_vergleich.json",
+    "source_url": "file:///Google Drive / n8n_workflow_jira_releaseletter_vergleich.json",
+    "archive_url": null,
+    "created_on": null,
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "n8n Editor",
+    "middleware": "n8n Workflow",
+    "backend": "Jira- und Releaseletter-Verarbeitung",
+    "database_technology": "Keine Datenbank im exportierten Workflow belegt",
+    "connections": [
+      "Jira und Releaseletter-Webhook"
+    ],
+    "models": [
+      "Kein Modellbezug im exportierten Workflow verifiziert"
+    ],
+    "evidence": {
+      "overlap": "Releaseletter · Dify Releaseletter",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google-Drive-Workflowdatei und Releaseletter-Dokumentation"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "google-studio-n8n-support",
+    "title": "n8n Support Ticket Automator",
+    "description": "n8n-Workflow und Leitfaden für KI-Zusammenfassungen von Supporttickets nach Slack.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "Google-AI-Studio-App für Supportticket-Automatisierung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/3a8e489c-2b8a-4433-b855-8146cf968487?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "22.04.2026",
+    "last_checked_on": "30.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-n8n-expert",
+    "title": "N8N Workflow Expert",
+    "description": "n8n-Workflows mit Gemini AI interpretieren, analysieren und archivieren.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Automatisierung",
+    "detail": "Google-AI-Studio-App für n8n-Workflow-Analyse.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/a494e7d4-f2c9-43f6-97ff-2f7f4d48a221?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "18.04.2026",
+    "last_checked_on": "20.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Editor geöffnet; Preview-Steuerung wegen wiederholtem Provider-Fehler deaktiviert.",
+    "traffic_light": "gray",
+    "traffic_note": "Editor lädt, aber ein Modellanbieter-Fehler blockiert die Vorschau.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini 3.6 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "contracts",
+    "title": "oneSCM Vertragsmanagement",
+    "description": "Multi-Agent-System für Vertragsarbeit.",
+    "source": "Lokaler Rechner",
+    "status": "Prüfen",
+    "category": "Verträge",
+    "detail": "Umfangreiches System für Vertragsmanagement mit Workflows und Datenbankmodell.",
+    "builder": "Claude",
+    "local_path": "C:\\2026\\Claude\\Test2\\files",
+    "source_url": "file:///C:/2026/Claude/Test2/files",
+    "archive_url": null,
+    "created_on": "01.05.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "React 18 und Vite",
+    "middleware": "n8n Agent-Workflows",
+    "backend": "In der aktuellen App Frontend-Demo; Produktion ueber n8n",
+    "database_technology": "PostgreSQL geplant: 25 Tabellen",
+    "connections": [
+      "n8n Webhooks, OpenAI Credentials, Vercel-Konfiguration"
+    ],
+    "models": [
+      "OpenAI GPT-4o; produktive Credentials noch nicht eingebunden"
+    ],
+    "evidence": {
+      "overlap": "VertragsBuddy · ServiceVertrag-Dashboard · DokuPress",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, App.jsx, package.json und vercel.json"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "pc-optimizer",
+    "title": "PC Optimizer Dashboard",
+    "description": "Browser-App zur Windows- und Programmanalyse.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Analyse",
+    "detail": "Express-Dashboard mit Programmkatalog, JSON-Datenbank und lokalen Windows-Analysen.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\Codex PC analyse",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/Codex PC analyse",
+    "archive_url": null,
+    "created_on": "14.04.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Lokaler Start geprüft: HTTP 200 auf Port 3080 (23.679 Bytes). Anmeldung wurde nicht ausgeführt.",
+    "traffic_light": "green",
+    "traffic_note": null,
+    "frontend": "Browser-Dashboard mit sieben Registern",
+    "middleware": "Express",
+    "backend": "Windows Registry- und Prozessanalyse per PowerShell",
+    "database_technology": "Dateibasierte JSON-Datenbank: data/optimizer.db.json",
+    "connections": [
+      "Lokale Windows-Registry und laufende Prozesse"
+    ],
+    "models": [
+      "Kein Modellbezug im README belegt"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, app-server.js, package.json und Mockup"
+    },
+    "access_profile": "Lokaler Login vorhanden; keine Zugangsdaten im Katalog gespeichert oder verwendet"
+  },
+  {
+    "app_key": "presentation-finder",
+    "title": "Präsentations-Finder",
+    "description": "Einzelplatz-App mit Sprachsuche, Folien-Thumbnails und lokalen Sicherungen.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Präsentation",
+    "detail": "Codex-Projekt mit lokalem Dienst, Eigentümermodus, Hintergrundaufträgen und SQLite-Sicherung.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\Documents\\Codex\\2026-07-30\\realtime-voice-chat",
+    "source_url": "file:///C:/Users/andre/Documents/Codex/2026-07-30/realtime-voice-chat",
+    "archive_url": null,
+    "created_on": "30.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Laut letzter Codex-Prüfung: Build, Lint und 9 Tests erfolgreich; lokaler Server auf Port 4310 geprüft",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokale Desktop-nahe Web-Oberflaeche",
+    "middleware": "Lokaler Dienst auf 127.0.0.1",
+    "backend": "Persistente Hintergrundauftraege fuer Video und Sicherungen",
+    "database_technology": "SQLite mit Medien, Vorschaubildern, Exporten und Sicherungsarchiv",
+    "connections": [
+      "Lokale Dateien, Fotos, Praesentationen und PDFs"
+    ],
+    "models": [
+      "Sprachsuche vorgesehen; konkretes Modell nicht aus dem Abschlussbericht belegt"
+    ],
+    "evidence": {
+      "overlap": "Voice Präsentationstool · Presentation Designer",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Codex-Abschlussbericht, Production-Dokumentation und Teststand"
+    },
+    "access_profile": "Einzelplatzbetrieb; letzter Bericht bestaetigt lokalen Server und 9 erfolgreiche Tests"
+  },
+  {
+    "app_key": "n8n-slides",
+    "title": "Präsentationsfolien Studio",
+    "description": "Lokale Web-App fuer Briefing, Folienentwurf, Bilder und PPTX-Export.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Präsentation",
+    "detail": "Node-App mit SQLite, KI-Konfigurationscheck und überprüftem PPTX-Export.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Präsentationsfolien",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/N8N Präsentationsfolien",
+    "archive_url": null,
+    "created_on": "15.04.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Lokaler Start geprüft: HTTP 200 auf Port 3010 (41.276 Bytes). Dokumentierter Bildvorschlags-Test: 152 ms.",
+    "traffic_light": "green",
+    "traffic_note": null,
+    "frontend": "HTML, CSS und clientseitiges JavaScript",
+    "middleware": "Node.js API",
+    "backend": "Node.js, SQLite und PPTX-Export",
+    "database_technology": "SQLite: presentation-studio.db im lokalen AppData",
+    "connections": [
+      "Lokale Browser-Speicherung fuer KI-Zugangsdaten; PPTX-Export"
+    ],
+    "models": [
+      "Modelle waehlen und testen; konkrete Providerkonfiguration lokal"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, server.js, client.js und package.json"
+    },
+    "access_profile": "Lokale Nutzung ohne Konto; KI-Funktionen erst nach eigener API-Konfiguration"
+  },
+  {
+    "app_key": "presentation",
+    "title": "Presentation Designer",
+    "description": "PowerPoint-Archiv und Designsystem mit KI-Einblicken.",
+    "source": "Lokaler Rechner",
+    "status": "Prüfen",
+    "category": "Präsentation",
+    "detail": "Lokale App unter dem Arbeitstitel Thumbnail; Abgleich mit GitHub-Generator nötig.",
+    "builder": "Claude",
+    "local_path": "C:\\2026\\Claude\\Thumbnail",
+    "source_url": "file:///C:/2026/Claude/Thumbnail",
+    "archive_url": null,
+    "created_on": "29.04.2026",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "Projektordner und Git-Repository lokal bestätigt; Anwendung nicht neu gestartet.",
+    "traffic_light": "gray",
+    "traffic_note": "Lokale Projektdateien vorhanden; aktueller Laufzeitstatus nicht getestet.",
+    "frontend": "React und Vite",
+    "middleware": "LLM-Service im Browser",
+    "backend": "Externe KI-APIs und Notion-Sync",
+    "database_technology": "Keine eigene Datenbank; Notion als Cloud-Sync",
+    "connections": [
+      "Anthropic, OpenAI, Google Gemini, Notion, Web Speech und Canvas API"
+    ],
+    "models": [
+      "Claude 3.5 Sonnet, GPT-4 Turbo und Gemini Pro"
+    ],
+    "evidence": {
+      "overlap": "Thumnail_Generator",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README und src/services/llmService.js"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "perplexity-produktion-innov",
+    "title": "Produktion Innov",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Produktion",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-qa-exclusions",
+    "title": "Qa Exclusions",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-06-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "google-studio-release-hub",
+    "title": "Release Hub oneSCM",
+    "description": "Plattform zum Veröffentlichen und Verwalten mehrsprachiger Release Notes und Briefe.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Kommunikation",
+    "detail": "Google-AI-Studio-App für Release-Kommunikation.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/2062e7c5-6993-4a45-8a35-9c11f53f27b3?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "28.02.2026",
+    "last_checked_on": "16.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Editor erreichbar; Modell-/Projektliste durch Google-Quota blockiert.",
+    "traffic_light": "gray",
+    "traffic_note": "App vorhanden, aber Google meldet eine überschrittene Projekt-Quota.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "releaseletter",
+    "title": "Releaseletter",
+    "description": "Lokaler Workflow für Release-Kommunikation.",
+    "source": "Lokaler Rechner",
+    "status": "Prüfen",
+    "category": "Kommunikation",
+    "detail": "Lokale Anwendung; Abgleich mit n8n-Workflow und Dify-Repository vorgesehen.",
+    "builder": "Claude",
+    "local_path": "C:\\2026\\Claude\\Releaseletter",
+    "source_url": "file:///C:/2026/Claude/Releaseletter",
+    "archive_url": null,
+    "created_on": "08.05.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "Word- und Dokumentvorlagen",
+    "middleware": "Python und n8n Workflow",
+    "backend": "Jira-Import und Dokumenterzeugung",
+    "database_technology": "Keine Datenbank im aktuellen Setup; Logging optional",
+    "connections": [
+      "Jira, n8n Webhook, Word- und PDF-Export"
+    ],
+    "models": [
+      "Kein Modellbezug im aktuellen Workflow dokumentiert"
+    ],
+    "evidence": {
+      "overlap": "Dify_Releaseletter · n8n",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "COMPLETE_SETUP_GUIDE und n8n-Dokumentation"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "google-studio-reportmonitor",
+    "title": "ReportMonitor",
+    "description": "Gesamtdokumentation und Monitoring-Dashboard für Geschäfts-, Prozess- und Steuerungskennzahlen.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Google-AI-Studio-App für Monitoring und Dokumentation.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/4bc99f33-f10e-498f-a99a-a57e79feebec?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "20.03.2026",
+    "last_checked_on": "11.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Editor erreichbar; Modellliste durch Google-Quota blockiert.",
+    "traffic_light": "gray",
+    "traffic_note": "App vorhanden, aber Google meldet eine überschrittene Modell-Quota.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "perplexity-research-ki-2026",
+    "title": "Research Ki 2026",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-schematischer-werksplan-einer-innovativen-autofabrik-2030-mit-intelligenten-robotern-mensc",
+    "title": "Schematischer Werksplan Einer Innovativen Autofabrik 2030 Mit Intelligenten Robotern, Menschen, KI Systemen In Rohbau, Lackiererei Und Montage",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Produktion",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2025-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-servicevertrag-dashboard",
+    "title": "ServiceVertrag Dashboard",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Verträge",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-03-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-servicevertrag-dashboard-v7",
+    "title": "ServiceVertrag Dashboard V7",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Verträge",
+    "detail": "Servicevertrag-Dashboard v7.6 fuer deutsche Marken mit KI-Assistent, Preis-, LCC/ROI-, KPI-, Ausschluss- und Markt-Analysen.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/tasks/b3d11565-f2d7-4bd0-8df1-5d168da83ca7",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Live-Sitzung am 11.08.2026 geoeffnet; v7.6 Preview geladen, 719 Quellen und 3:56:23 dokumentierte Nutzung sichtbar.",
+    "traffic_light": "green",
+    "traffic_note": "Live-Sitzung erreichbar; v7.6 Preview geladen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "contracts-hub",
+    "title": "ServiceVertrag-Dashboard",
+    "description": "GitHub-Projekt für Serviceverträge.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "Verträge",
+    "detail": "Privates GitHub-Repository; wird gegen die lokalen Vertragswerkzeuge abgegrenzt.",
+    "builder": "Repository-Projekt; Ursprung nicht dokumentiert",
+    "local_path": "Andreas76761/ServiceVertrag-Dashboard",
+    "source_url": "https://github.com/Andreas76761/ServiceVertrag-Dashboard",
+    "archive_url": null,
+    "created_on": "08.07.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "Statisches HTML, CSS und JavaScript",
+    "middleware": "Keine separate Middleware",
+    "backend": "Clientseitiges Dashboard mit eingebetteten Daten",
+    "database_technology": "Keine Datenbank im Repository belegt",
+    "connections": [
+      "Google Fonts; lokale Daten-, Filter-, Galerie- und Exportmodule"
+    ],
+    "models": [
+      "Kein Modellbezug im Code belegt"
+    ],
+    "evidence": {
+      "overlap": "oneSCM Vertragsmanagement",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "index.html, app.js, data.js, Export- und Filtermodule"
+    },
+    "access_profile": "Ohne Anmeldung als statische Anwendung lauffaehig"
+  },
+  {
+    "app_key": "claude-workspace-sirius",
+    "title": "SIRIUS oneSCM Dokumentation",
+    "description": "Benutzerhandbuch, Chatbot, Knowledge Graph und Vertragsanlagen für SIRIUS.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Dokumentation",
+    "detail": "Mehrere lokale HTML-Anwendungen mit Bilddatenbank und Benutzerhandbuch.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\oneSCM Doku\\SIRIUS_Chatbot_App.html",
+    "source_url": "file:///C:/2026/Claude/oneSCM Doku/SIRIUS_Chatbot_App.html",
+    "archive_url": null,
+    "created_on": "23.06.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "slides",
+    "title": "Sketch-to-Slide",
+    "description": "Bild oder Skizze in professionelle PowerPoint-Folien überführen.",
+    "source": "Lokaler Rechner",
+    "status": "Aktiv",
+    "category": "Präsentation",
+    "detail": "Lokale Anwendung mit Bild-Upload, KI-Inhalt und PowerPoint-Export.",
+    "builder": "Claude",
+    "local_path": "C:\\2026\\Claude\\PPT Bilderstellung\\sketch-to-slide",
+    "source_url": "file:///C:/2026/Claude/PPT Bilderstellung/sketch-to-slide",
+    "archive_url": null,
+    "created_on": "24.07.2026",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "Projektordner und Paketdefinition lokal bestätigt; Anwendung nicht neu gestartet.",
+    "traffic_light": "gray",
+    "traffic_note": "Lokale Projektdateien vorhanden; aktueller Laufzeitstatus nicht getestet.",
+    "frontend": "Lokale Upload- und Folienoberflaeche",
+    "middleware": "Node.js Server",
+    "backend": "Claude Vision Analyse und PowerPoint-Export",
+    "database_technology": "Keine Datenbank dokumentiert",
+    "connections": [
+      "Anthropic API und PPTX-Export"
+    ],
+    "models": [
+      "Claude Opus 4.8 Vision"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README und server.js"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "google-studio-social",
+    "title": "Social Media Content Generator",
+    "description": "Maßgeschneiderte Posts und Bilder für LinkedIn, Twitter und Instagram erzeugen.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Kommunikation",
+    "detail": "Google-AI-Studio-App für Social-Media-Inhalte.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/d242ae67-d15b-4807-89c6-913100c85f80?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "12.03.2026",
+    "last_checked_on": "12.03.2026",
+    "performance_note": "Einzeltest 11.08.2026: Editor erreichbar; Modellliste durch Google-Quota blockiert.",
+    "traffic_light": "gray",
+    "traffic_note": "App vorhanden, aber Google meldet eine überschrittene Modell-Quota.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-studienbescheinigung",
+    "title": "Studienbescheinigung 2026",
+    "description": "Digitale Immatrikulationsbescheinigung mit dynamischer Semesterauswahl und Druckfunktion.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Organisation",
+    "detail": "Google-AI-Studio-App zur digitalen Studienbescheinigung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/85c39714-7a3e-4066-93e8-01066d7be8b9?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "28.06.2026",
+    "last_checked_on": "01.07.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-systemdoc",
+    "title": "SystemDOC",
+    "description": "Enterprise-Systemdokumentation und Lineage-Tool mit Mandantenfähigkeit.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Dokumentation",
+    "detail": "Google-AI-Studio-App für Systemdokumentation.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/bf171343-5d4a-4e95-8662-2d9a9807869e?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "13.03.2026",
+    "last_checked_on": "17.04.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-taxflow",
+    "title": "TaxFlow",
+    "description": "Buchhaltungssystem mit KI-Steuerberater, Belegen, Reisekosten und DATEV-kompatiblem Export.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Google-AI-Studio-App für Buchhaltung und Steuerprozesse.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/1a9c516d-4656-4333-8309-22368ef85b1d?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "14.03.2026",
+    "last_checked_on": "15.07.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "claude-workspace-testing-guide",
+    "title": "Testing Guide",
+    "description": "Angelegter Claude-Projektordner ohne gegenwärtigen Inhalt.",
+    "source": "Lokaler Rechner",
+    "status": "Entwurf",
+    "category": "Dokumentation",
+    "detail": "Projektordner ist vorhanden, enthält bei der lokalen Prüfung aber keine Dateien oder App-Artefakte.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\Testing_Guide",
+    "source_url": "file:///C:/2026/Claude/Testing_Guide",
+    "archive_url": null,
+    "created_on": "06.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "testing-screen",
+    "title": "Testing Screen Tool",
+    "description": "Als Codex-Projekt registriertes Testwerkzeug.",
+    "source": "Lokaler Rechner",
+    "status": "Prüfen",
+    "category": "Katalog",
+    "detail": "Projektordner ist registriert, enthält im Stammordner aber noch keine identifizierbare Anwendung.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\Testing Screen Tool",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/Testing Screen Tool",
+    "archive_url": null,
+    "created_on": "10.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Kein Startpunkt im Projektordner gefunden",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Noch nicht identifiziert",
+    "middleware": "Noch nicht identifiziert",
+    "backend": "Noch nicht identifiziert",
+    "database_technology": "Noch nicht identifiziert",
+    "connections": [
+      "Noch nicht identifiziert"
+    ],
+    "models": [
+      "Noch nicht identifiziert"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Codex-Projektregistrierung und leerer Stammordner"
+    },
+    "access_profile": "Kein App-Startpunkt vorhanden"
+  },
+  {
+    "app_key": "thumbnail",
+    "title": "Thumnail Generator",
+    "description": "GitHub-Projekt für visuelle Generierung.",
+    "source": "GitHub",
+    "status": "Prüfen",
+    "category": "Präsentation",
+    "detail": "Öffentliches Repository, vermutlich funktional nah am lokalen Presentation Designer.",
+    "builder": "Claude",
+    "local_path": "Andreas76761/Thumnail_Generator",
+    "source_url": "https://github.com/Andreas76761/Thumnail_Generator",
+    "archive_url": null,
+    "created_on": "30.04.2026",
+    "last_checked_on": "2026-08-11",
+    "performance_note": "Kataloginventur am 11.08.2026 geprüft; erneuter Live-Test erfolgt über die Status-Agenten.",
+    "traffic_light": "gray",
+    "traffic_note": "Metadaten geprüft am 11.08.2026; Live-Status wird separat überwacht.",
+    "frontend": "React 18, Tailwind CSS und Vite",
+    "middleware": "Browser-Services, Web Worker und Service-Module",
+    "backend": "Direkte Browser-Aufrufe an optionale KI- und Notion-Schnittstellen",
+    "database_technology": "LocalStorage; Notion-Datenbank optional fuer Cloud-Sync",
+    "connections": [
+      "Anthropic, OpenAI, Google Gemini, Notion, JSZip, Tesseract OCR, Canvas, Web Speech und PPTX-Worker"
+    ],
+    "models": [
+      "Claude 3.5 Sonnet, GPT-4 Turbo, Gemini Pro; Llama nur als Platzhalter"
+    ],
+    "evidence": {
+      "overlap": "Presentation Designer",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, package.json, llmService.js und databaseService.js"
+    },
+    "access_profile": "Start ohne Login; KI- und Notion-Funktionen brauchen eigene API-Konfiguration"
+  },
+  {
+    "app_key": "perplexity-ticket-durchsatz-anzahl-items-je-pi-fur-den-agile-release-train",
+    "title": "Ticket Durchsatz (Anzahl Items) Je PI FüR Den Agile Release Train",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-02-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "transparency",
+    "title": "Transparenz Hub",
+    "description": "Analyse- und Bearbeitungsplattform fuer Dateien, Bilder und Office-Dokumente.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Katalog",
+    "detail": "React- und Express-System fuer Explorer, Preview, Duplikate und Job-Monitor.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\N8N Bildbetrachter",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/N8N Bildbetrachter",
+    "archive_url": null,
+    "created_on": "14.04.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "MVP-Quellcode und Testdaten vorhanden; Anwendung noch nicht in dieser Sitzung gestartet",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "React und Vite",
+    "middleware": "Express mit Sicherheits-Middleware",
+    "backend": "Lokale Datei- und Preview-Pipeline",
+    "database_technology": "SQLite im lokalen AppData-Bereich",
+    "connections": [
+      "Lokale Laufwerke, SharePoint- und Cloud-Connectoren vorbereitet, Office COM"
+    ],
+    "models": [
+      "KI-Reorganisationsplaene vorhanden; konkretes Modell noch nicht belegt"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "README, Client- und Server-Workspace"
+    },
+    "access_profile": "Lokale Konfiguration ueber server/.env erforderlich"
+  },
+  {
+    "app_key": "google-studio-untitled",
+    "title": "Untitled",
+    "description": "Keine Beschreibung in Google AI Studio hinterlegt.",
+    "source": "Google Drive",
+    "status": "Prüfen",
+    "category": "KI",
+    "detail": "Unbenannte Google-AI-Studio-App; fachliche Einordnung steht aus.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/7712247a-b2df-4176-95b7-ef5ef10a4b18?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "12.05.2026",
+    "last_checked_on": "16.06.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-usecase",
+    "title": "Use-Case Manager Pro",
+    "description": "Business-Use-Cases entdecken, priorisieren und mit RICE sowie ROI bewerten.",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Beratung",
+    "detail": "Google-AI-Studio-App für Use-Case-Priorisierung.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/34431d08-f200-4533-a46d-556028855017?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "20.03.2026",
+    "last_checked_on": "13.06.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-vibe-web",
+    "title": "Vibe Evaluator",
+    "description": "IT Stack und MVP Use Case Evaluator für Konzernumgebungen",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Google-AI-Studio-App zur Bewertung von IT-Stack und MVP-Use-Cases.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/68504720-64f6-456b-97af-3afec59064ea?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "07.08.2026",
+    "last_checked_on": "10.08.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "google-studio-vibe-android",
+    "title": "Vibe Evaluator Android",
+    "description": "IT Stack Evaluator für Rapid Prototyping in DAX-Konzernen",
+    "source": "Google Drive",
+    "status": "Dokumentiert",
+    "category": "Analyse",
+    "detail": "Android-Variante des Vibe Evaluators in Google AI Studio.",
+    "builder": "Google AI Studio",
+    "local_path": "Google AI Studio / My apps",
+    "source_url": "https://aistudio.google.com/apps/c4c56c76-bf5a-4e09-ab4c-ae8c25f12485?showPreview=true&showAssistant=true",
+    "archive_url": null,
+    "created_on": "07.08.2026",
+    "last_checked_on": "07.08.2026",
+    "performance_note": "Einzeltest 11.08.2026: Google-AI-Studio-Editor geladen.",
+    "traffic_light": "green",
+    "traffic_note": "Google AI Studio lädt; Editor und Preview vorhanden.",
+    "frontend": "Google AI Studio App",
+    "middleware": "Google AI Studio Plattform",
+    "backend": "Google Cloud verwaltet",
+    "database_technology": "Nicht in der App-Übersicht verifiziert",
+    "connections": [
+      "Google AI Studio; weitere Verbindungen pro App noch prüfen"
+    ],
+    "models": [
+      "Gemini in Google AI Studio; konkretes Modell noch nicht einzeln geprüft"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Google AI Studio / My apps, am 11.08.2026 geprüft"
+    },
+    "access_profile": "Öffnet im angemeldeten Google-AI-Studio-Konto"
+  },
+  {
+    "app_key": "voice-presentation",
+    "title": "Voice Präsentationstool",
+    "description": "Codex-Projekt fuer sprachgesteuerte Präsentationssuche.",
+    "source": "Lokaler Rechner",
+    "status": "Entwurf",
+    "category": "Präsentation",
+    "detail": "Projektordner wurde im Codex gefunden; im Stammordner liegt noch keine lauffaehige Anwendung.",
+    "builder": "Codex",
+    "local_path": "C:\\2026\\Codex\\Voice Präsentationstool",
+    "source_url": "file:///C:/2026/Codex/Voice Präsentationstool",
+    "archive_url": null,
+    "created_on": "30.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Kein Startpunkt im Projektordner gefunden",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Noch nicht vorhanden",
+    "middleware": "Noch nicht vorhanden",
+    "backend": "Noch nicht vorhanden",
+    "database_technology": "Noch nicht vorhanden",
+    "connections": [
+      "Noch keine Verbindung belegt"
+    ],
+    "models": [
+      "Noch nicht belegt"
+    ],
+    "evidence": {
+      "overlap": "Präsentations-Finder · Presentation Designer",
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Codex-Projektregistrierung und leerer Stammordner"
+    },
+    "access_profile": "Kein App-Startpunkt vorhanden"
+  },
+  {
+    "app_key": "claude-workspace-wad",
+    "title": "WAD 2026 Explorer",
+    "description": "Designauswahl für den WeAreDevelopers World Congress 2026 Explorer.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Organisation",
+    "detail": "Statische HTML-Designvarianten für den WAD-Explorer.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\WAD_2026\\index.html",
+    "source_url": "file:///C:/2026/Claude/WAD_2026/index.html",
+    "archive_url": null,
+    "created_on": "06.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "perplexity-wartungsvertrag-vergleich",
+    "title": "Wartungsvertrag Vergleich",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Verträge",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-03-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "perplexity-wartungsvertrag-vergleich-v2",
+    "title": "Wartungsvertrag Vergleich V2",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "Verträge",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2026-03-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  },
+  {
+    "app_key": "waterdamage",
+    "title": "Wasserschaden Fallakte",
+    "description": "Codex-Projekt mit Kommunikations- und Argumentationsunterlagen.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Verträge",
+    "detail": "Sammlung strukturierter Markdown-Protokolle und Zeitstrahlen; keine eigene Web-App gefunden.",
+    "builder": "Codex",
+    "local_path": "C:\\Users\\andre\\OneDrive\\Dokumente\\Wasserschaden",
+    "source_url": "file:///C:/Users/andre/OneDrive/Dokumente/Wasserschaden",
+    "archive_url": null,
+    "created_on": "04.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": "Dokumentenbestand vorhanden; keine Web-App",
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Markdown-Dokumente",
+    "middleware": "Keine",
+    "backend": "Lokale Fallakte",
+    "database_technology": "Keine",
+    "connections": [
+      "Kommunikationsprotokolle und Zeitstrahlen"
+    ],
+    "models": [
+      "Kein Modellbezug belegt"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Sechs lokale Protokoll- und Argumentationsdateien"
+    },
+    "access_profile": "Lokaler Dokumentenzugang"
+  },
+  {
+    "app_key": "claude-workspace-wasserschaden",
+    "title": "Wasserschaden-Chatakte",
+    "description": "Claude-Artefakt mit sechs PDF-Unterlagen zu Versicherungs- und Schadenskommunikation.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Verträge",
+    "detail": "Lokale Claude-Artefaktakte; kein eigenständiger App-Startpunkt, aber klarer Dokumentenbestand.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\-Chat Wasserschaden",
+    "source_url": "file:///C:/2026/Claude/-Chat Wasserschaden",
+    "archive_url": null,
+    "created_on": "10.07.2026",
+    "last_checked_on": "11.08.2026",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": null,
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "claude-workspace-webinar-recorder",
+    "title": "Webinar Screen Recorder",
+    "description": "Windows-App für Webinar-Screenshots, Audioaufzeichnung, OCR und lokale Transkription.",
+    "source": "Lokaler Rechner",
+    "status": "Dokumentiert",
+    "category": "Dokumentation",
+    "detail": "Python/Windows-Anwendung mit EXE-Build, Aufnahmebereich und lokaler Whisper-Transkription.",
+    "builder": "Claude Desktop / Claude Code",
+    "local_path": "C:\\2026\\Claude\\Videoscreen",
+    "source_url": "file:///C:/2026/Claude/Videoscreen",
+    "archive_url": null,
+    "created_on": "17.07.2026",
+    "last_checked_on": "2026-09-19",
+    "performance_note": "Projektordner und Anforderungen lokal bestätigt; lokale Anwendung nicht neu gestartet.",
+    "traffic_light": "gray",
+    "traffic_note": "Lokale Projektdateien vorhanden; aktueller Laufzeitstatus nicht getestet.",
+    "frontend": "Lokales Artefakt oder Web-Frontend; Code-Struktur noch im Detail zu prüfen",
+    "middleware": "Keine separate Middleware in der Inventur belegt",
+    "backend": "Lokale Projektdateien und Browser-Laufzeit",
+    "database_technology": "Keine Datenbank in der Inventur belegt",
+    "connections": [
+      "Noch zu prüfen"
+    ],
+    "models": [
+      "Noch zu prüfen"
+    ],
+    "evidence": {
+      "overlap": null,
+      "source_catalog": "Master-App 11.08.2026",
+      "detail_evidence": "Quelle noch nicht im Detail bewertet"
+    },
+    "access_profile": null
+  },
+  {
+    "app_key": "perplexity-zukunftsbild-moderne-autofabrik-mit-menschen-und-selbstlernenden-robotern-in-rohbau-lackie",
+    "title": "Zukunftsbild: Moderne Autofabrik Mit Menschen Und Selbstlernenden Robotern In Rohbau, Lackiererei Und Montage",
+    "description": "Perplexity-Artefakt aus dem angemeldeten Arbeitsbereich.",
+    "source": "Cloud",
+    "status": "Dokumentiert",
+    "category": "KI-Artefakt",
+    "detail": "Sichtbares Perplexity-Artefakt; Detailprüfung und Einzelscreen können bei Bedarf ergänzt werden.",
+    "builder": "Perplexity",
+    "local_path": null,
+    "source_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "archive_url": "https://www.perplexity.ai/computer/artifacts?login-new=false&login-source=artifactsPage",
+    "created_on": "2025-07-01",
+    "last_checked_on": "2026-08-11",
+    "performance_note": null,
+    "traffic_light": "gray",
+    "traffic_note": "Im angemeldeten Perplexity-Arbeitsbereich sichtbar; Live-Detailtest noch offen.",
+    "frontend": "Perplexity Artefakt",
+    "middleware": "Perplexity Computer",
+    "backend": "Perplexity verwalteter Artefaktbereich",
+    "database_technology": "Nicht separat verifiziert",
+    "connections": [
+      "Perplexity Artefakte"
+    ],
+    "models": [
+      "Modell im Artefakt nicht einzeln ausgewiesen"
+    ],
+    "evidence": [
+      "Perplexity Artefaktseite, am 11.08.2026 geprüft"
+    ],
+    "access_profile": "Angemeldetes Perplexity-Konto erforderlich"
+  }
+]

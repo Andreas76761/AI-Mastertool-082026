@@ -14,7 +14,8 @@ export async function GET() {
       supabaseRest("catalog_chats?select=external_key,provider,title,summary,occurred_on,model,app_key,app_match,access_status&order=created_at.desc&limit=500", { headers: { Accept: "application/json" } }),
     ]);
     const [apps, screenshots, tests, devices, quality, chats] = await Promise.all([appsResponse.json(), screenshotsResponse.json(), testsResponse.json(), devicesResponse.json(), qualityResponse.json(), chatsResponse.json()]);
-    return Response.json({ user: { name: chatgpt.displayName, role: profile.role }, apps, chats, summary: { screenshots: screenshots.length, recentTests: tests.length, devices: devices.length, qualityIssues: quality.length, syncedAt: new Date().toISOString() } });
+    const count = (value: unknown) => Array.isArray(value) ? value.length : 0;
+    return Response.json({ user: { name: chatgpt.displayName, role: profile.role }, apps, chats, summary: { screenshots: count(screenshots), recentTests: count(tests), devices: count(devices), qualityIssues: count(quality), syncedAt: new Date().toISOString() } });
   } catch (error) {
     if (error instanceof Error && error.message === "AUTH_REQUIRED") return Response.json({ error: "Anmeldung erforderlich." }, { status: 401 });
     return Response.json({ error: error instanceof Error ? error.message : "Der Katalog konnte nicht geladen werden." }, { status: 503 });

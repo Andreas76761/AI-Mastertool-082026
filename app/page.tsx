@@ -2,13 +2,15 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import sitesInventory from "./catalog-sites.json";
+import catalogSnapshot from "./catalog-snapshot.json";
 import { mergeCatalog } from "./merge-catalog";
+import PortfolioView, { type PortfolioMode } from "./portfolio-view";
 
 type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
 type WindowTab = "profile" | "systems" | "screens";
-type MainView = "dashboard" | "catalog" | "control" | "chats" | "costs";
+type MainView = "dashboard" | "catalog" | "control" | "chats" | "costs" | PortfolioMode;
 type ControlTab = "analytics" | "sources" | "devices" | "matrix" | "scores" | "ideas" | "remote" | "security";
 
 type Tool = {
@@ -41,17 +43,18 @@ type TestResult = { phase: "testing" | "done" | "error"; message: string };
 type StoredScreen = { id: string; src: string; title: string; source: string };
 type ChatRecord = { id: string; source: string; title: string; summary: string; updatedAt: string; model: string; appId?: string; appMatch: string; status: "Erfasst" | "Zugang fehlt" };
 type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; syncedAt?: string; qualityIssues?: number; screenshots?: number; devices?: number };
-type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: string | null; models: string | null; evidence: unknown; access_profile: string | null };
+type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: unknown; models: unknown; evidence: unknown; access_profile: string | null };
 type RemoteCatalogChat = { external_key: string; provider: string; title: string; summary: string | null; occurred_on: string | null; model: string | null; app_key: string | null; app_match: string | null; access_status: string | null };
 type CostEntry = { id: string; app_key: string | null; provider: string; transaction_date: string; amount: number | string; currency: string; description: string | null; source: string };
 type AgentSetup = { agentKey: string; deviceKey: string; agentName: string; appKey: string; port: string };
 type AgentEnrollment = { code: string; expiresAt: string; command: string };
 
+function fieldText(value: unknown, fallback: string) { return typeof value === "string" ? value || fallback : Array.isArray(value) ? value.map((item) => typeof item === "string" ? item : JSON.stringify(item)).join(", ") || fallback : value && typeof value === "object" ? JSON.stringify(value) : fallback; }
 function remoteCatalogTool(app: RemoteCatalogApp): Tool {
   const source: Source = ["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"].includes(app.source) ? app.source as Source : "Cloud";
   const status: Status = ["Aktiv", "Prüfen", "Dokumentiert", "Entwurf"].includes(app.status) ? app.status as Status : "Prüfen";
-  const evidence = Array.isArray(app.evidence) ? app.evidence.join(", ") : typeof app.evidence === "string" ? app.evidence : "Kataloginventur";
-  return { id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined, technical: { builder: app.builder ?? "Noch nicht verifiziert", frontend: app.frontend ?? "Noch zu prüfen", middleware: app.middleware ?? "Noch zu prüfen", backend: app.backend ?? "Noch zu prüfen", database: app.database_technology ?? "Noch zu prüfen", connections: app.connections ?? "Noch zu prüfen", models: app.models ?? "Noch zu prüfen", evidence, access: app.access_profile ?? "Zugang über sicheren Verweis; keine Passwörter im Katalog" } };
+  const evidence = fieldText(app.evidence, "Kataloginventur");
+  return { id: app.app_key, title: app.title, description: app.description ?? "", source, status, category: app.category ?? "Ohne Kategorie", detail: app.detail ?? "", location: app.local_path ?? "Noch nicht hinterlegt", url: app.source_url ?? undefined, archive: app.archive_url ?? undefined, createdAt: app.created_on ?? undefined, checkedAt: app.last_checked_on ?? undefined, performance: app.performance_note ?? undefined, trafficLight: app.traffic_light === "unknown" ? undefined : app.traffic_light ?? undefined, trafficNote: app.traffic_note ?? undefined, technical: { builder: app.builder ?? "Noch nicht verifiziert", frontend: app.frontend ?? "Noch zu prüfen", middleware: app.middleware ?? "Noch zu prüfen", backend: app.backend ?? "Noch zu prüfen", database: app.database_technology ?? "Noch zu prüfen", connections: fieldText(app.connections, "Noch zu prüfen"), models: fieldText(app.models, "Noch zu prüfen"), evidence, access: app.access_profile ?? "Zugang über sicheren Verweis; keine Passwörter im Katalog" } };
 }
 
 function remoteCatalogChat(chat: RemoteCatalogChat): ChatRecord {
@@ -181,7 +184,7 @@ const googleStudioModelEvidence: Record<string, string> = {
   "google-studio-n8n-expert": "Gemini 3.6 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)",
   "google-studio-featurewatch": "Gemini 3.6 Flash (im Google-AI-Studio-Verlauf am 11.08.2026 sichtbar)",
 };
-const googleStudioTools: Tool[] = [
+const googleStudioTools: Tool[] = ([
   { id: "google-studio-vibe-web", title: "Vibe Evaluator", description: "IT Stack und MVP Use Case Evaluator für Konzernumgebungen", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Google-AI-Studio-App zur Bewertung von IT-Stack und MVP-Use-Cases.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/68504720-64f6-456b-97af-3afec59064ea?showPreview=true&showAssistant=true", createdAt: "07.08.2026", checkedAt: "10.08.2026" },
   { id: "google-studio-vibe-android", title: "Vibe Evaluator Android", description: "IT Stack Evaluator für Rapid Prototyping in DAX-Konzernen", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Android-Variante des Vibe Evaluators in Google AI Studio.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/c4c56c76-bf5a-4e09-ab4c-ae8c25f12485?showPreview=true&showAssistant=true", createdAt: "07.08.2026", checkedAt: "07.08.2026" },
   { id: "google-studio-excel-sharepoint", title: "Excel to SharePoint List Converter", description: "Automatisierter SharePoint-Listen-Generator aus Excel-Dateien mit PnP PowerShell, Power Automate und Python.", source: "Google Drive", status: "Dokumentiert", category: "Automatisierung", detail: "Google-AI-Studio-App für Excel-zu-SharePoint-Listen.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/94a343a5-7476-4851-ac06-1174cb1d6d98?showPreview=true&showAssistant=true", createdAt: "07.08.2026", checkedAt: "07.08.2026" },
@@ -206,7 +209,7 @@ const googleStudioTools: Tool[] = [
   { id: "google-studio-reportmonitor", title: "ReportMonitor", description: "Gesamtdokumentation und Monitoring-Dashboard für Geschäfts-, Prozess- und Steuerungskennzahlen.", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Google-AI-Studio-App für Monitoring und Dokumentation.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/4bc99f33-f10e-498f-a99a-a57e79feebec?showPreview=true&showAssistant=true", createdAt: "20.03.2026", checkedAt: "11.04.2026" },
   { id: "google-studio-einnahmen", title: "Einnahmen Treppendiagramm", description: "Interaktives Treppendiagramm für Einnahmen auf Basis einer editierbaren Datentabelle.", source: "Google Drive", status: "Dokumentiert", category: "Analyse", detail: "Google-AI-Studio-App zur Einnahmenvisualisierung.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/b7db094b-6032-4beb-b9c8-2ebe9d41dd8c?showPreview=true&showAssistant=true", createdAt: "28.02.2026", checkedAt: "29.03.2026" },
   { id: "google-studio-social", title: "Social Media Content Generator", description: "Maßgeschneiderte Posts und Bilder für LinkedIn, Twitter und Instagram erzeugen.", source: "Google Drive", status: "Dokumentiert", category: "Kommunikation", detail: "Google-AI-Studio-App für Social-Media-Inhalte.", location: "Google AI Studio / My apps", url: "https://aistudio.google.com/apps/d242ae67-d15b-4807-89c6-913100c85f80?showPreview=true&showAssistant=true", createdAt: "12.03.2026", checkedAt: "12.03.2026" },
-].map((tool) => ({ ...tool, ...googleStudioTestResults[tool.id] }));
+] satisfies Tool[]).map((tool) => ({ ...tool, ...googleStudioTestResults[tool.id] }));
 const codexDiscoveredTools: Tool[] = [
   { id: "codex-n8n", title: "Codex N8N Releaseletter-System", description: "Multi-Agent-Grundgeruest fuer Releaseletter, Freigaben und Ausspielung.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Automatisierung", detail: "Codex-Projekt mit Workflow-, Ontologie-, Graph- und Infrastrukturartefakten.", location: "C:\\Users\\andre\\OneDrive\\Dokumente\\Codex N8N", overlap: "Releaseletter · Dify Releaseletter · n8n", checkedAt: "11.08.2026", performance: "Quellcode und Archive vorhanden; keine laufende Web-App gestartet" },
   { id: "voice-presentation", title: "Voice Präsentationstool", description: "Codex-Projekt fuer sprachgesteuerte Präsentationssuche.", source: "Lokaler Rechner", status: "Entwurf", category: "Präsentation", detail: "Projektordner wurde im Codex gefunden; im Stammordner liegt noch keine lauffaehige Anwendung.", location: "C:\\2026\\Codex\\Voice Präsentationstool", overlap: "Präsentations-Finder · Presentation Designer", checkedAt: "11.08.2026", performance: "Kein Startpunkt im Projektordner gefunden" },
@@ -240,7 +243,7 @@ const handbookStudio: Tool = {
   location: "oneSCM_Handbook_Studio_v2.57.0-alpha.zip / work/md-content-studio", createdAt: "25.09.2026", checkedAt: "06.10.2026", version: "2.57.0-alpha.1", hosting: "Lokale Node.js-Anwendung",
   technical: { builder: "Codex", frontend: "Web-Oberfläche; Markdown-Verarbeitung mit marked", middleware: "Express 4.21.2 und Multer", backend: "Node.js (server.js); Word- und PDF-Export", database: "SQLite über better-sqlite3 12.4.1", connections: "ZIP-Import (adm-zip), Word (docx), PDF (pdfkit), Playwright-Tests", models: "Aktives KI-Modell nicht aus package.json ersichtlich", evidence: "Aktuelles ZIP-Paket vom 25.09.2026: package.json; geprüft am 06.10.2026", access: "Lokaler Start mit npm start; Betriebsstatus nicht geprüft" },
 };
-const allTools = mergeCatalog([...tools, aiMesseGuide, ...claudeWorkspaceTools, ...googleStudioTools, ...codexDiscoveredTools], siteTools, [handbookStudio]);
+const allTools = mergeCatalog([...tools, aiMesseGuide, ...claudeWorkspaceTools, ...googleStudioTools, ...codexDiscoveredTools], catalogSnapshot.map((app) => remoteCatalogTool(app as RemoteCatalogApp)), siteTools, [handbookStudio]);
 
 // Central catalogue data for future protected server-side synchronisation.
 export { allTools, chatRecords, networkDevices, featureIdeas, chatProviderStates };
@@ -551,6 +554,7 @@ function builderForFilter(tool: Tool): Exclude<BuilderFilter, "Alle"> | "Andere"
 
 export default function Home() {
   const [mainView, setMainView] = useState<MainView>("catalog");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [controlTab, setControlTab] = useState<ControlTab>("analytics");
   const [darkMode, setDarkMode] = useState(false);
   const [ideaVotes, setIdeaVotes] = useState<Record<string, number>>({});
@@ -560,7 +564,6 @@ export default function Home() {
   const [status, setStatus] = useState<Status | "Alle">("Alle");
   const [builderFilter, setBuilderFilter] = useState<BuilderFilter>("Alle");
   const [sortBy, setSortBy] = useState<"created" | "status">("created");
-  const [showAllTools, setShowAllTools] = useState(false);
   const [testResults, setTestResults] = useState<Record<string, TestResult>>({});
   const [selectedId, setSelectedId] = useState("overview");
   const [panel, setPanel] = useState<DetailPanel>("masterdata");
@@ -615,6 +618,7 @@ export default function Home() {
   }, [openedId]);
 
   useEffect(() => {
+    setSidebarCollapsed(window.localStorage.getItem("catalog-sidebar-collapsed") === "true");
     const savedTheme = window.localStorage.getItem("catalog-theme");
     const savedVotes = window.localStorage.getItem("catalog-feature-votes");
     setDarkMode(savedTheme === "dark");
@@ -800,35 +804,47 @@ export default function Home() {
   const fullyDocumented = catalogTools.filter((tool) => documentationStateFor(tool) === "Fertig dokumentiert");
   const partlyDocumented = catalogTools.filter((tool) => documentationStateFor(tool) === "Teilweise dokumentiert");
   const documentationRows = [...catalogTools].sort((a, b) => documentationStateFor(a).localeCompare(documentationStateFor(b), "de") || a.title.localeCompare(b.title, "de"));
-  const renderedTools = showAllTools ? filtered : filtered.slice(0, 24);
+  const renderedTools = filtered;
 
   return (
+    <div className={`portfolio-shell ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}>
+      <aside className="left-navigation" aria-label="Seitennavigation">
+        <div className="sidebar-brand"><span className="brand-mark">M</span><strong>Mein App-Katalog</strong></div>
+        <button type="button" className="sidebar-toggle" aria-controls="catalog-navigation" aria-expanded={!sidebarCollapsed} aria-label={sidebarCollapsed ? "Navigation ausklappen" : "Navigation einklappen"} onClick={() => { const collapsed = !sidebarCollapsed; setSidebarCollapsed(collapsed); window.localStorage.setItem("catalog-sidebar-collapsed", String(collapsed)); }}><span aria-hidden="true">☰</span><span>Navigation einklappen</span></button>
+        <nav id="catalog-navigation">{([
+          {view:"catalog",label:"Alle Apps",icon:"A",fresh:false},
+          {view:"dashboard",label:"Dashboard",icon:"D",fresh:false},
+          {view:"costs",label:"Kostenübersicht",icon:"€",fresh:true},
+          {view:"accounts",label:"Konten & Zugänge",icon:"K",fresh:true},
+          {view:"scores",label:"Technischer Score",icon:"S",fresh:true},
+          {view:"performance",label:"Performance",icon:"P",fresh:true},
+          {view:"development",label:"Weiterentwicklung",icon:"W",fresh:true},
+          {view:"duplicates",label:"Inhaltsvergleich",icon:"V",fresh:true},
+          {view:"chats",label:"Chats",icon:"C",fresh:false},
+          {view:"control",label:"Control Center",icon:"Z",fresh:false},
+        ] as {view:MainView;label:string;icon:string;fresh:boolean}[]).map(item => <button type="button" key={item.view} title={item.label} aria-label={item.label} aria-current={mainView === item.view ? "page" : undefined} className={mainView === item.view ? "active" : ""} onClick={() => setMainView(item.view)}><span className="nav-icon" aria-hidden="true">{item.icon}</span><span className="nav-label">{item.label}</span>{item.fresh && <small className="nav-new">Neu</small>}</button>)}</nav>
+        <div className="sidebar-footer"><strong>{catalogTools.length}</strong><span>Apps · Stand 06.10.2026</span></div>
+      </aside>
     <main className="app-shell">
       <header className="topbar">
         <div className="brand"><span className="brand-mark">M</span><span>Mein App-Katalog</span></div>
-        <nav className="main-nav" aria-label="Hauptnavigation">
-          <button type="button" className={mainView === "dashboard" ? "active" : ""} onClick={() => setMainView("dashboard")}>Dashboard</button>
-          <button type="button" className={mainView === "catalog" ? "active" : ""} onClick={() => setMainView("catalog")}>Apps</button>
-          <button type="button" className={mainView === "chats" ? "active" : ""} onClick={() => setMainView("chats")}>Chats</button>
-          <button type="button" className={mainView === "costs" ? "active" : ""} onClick={() => setMainView("costs")}>Cost</button>
-          <button type="button" className={mainView === "control" ? "active" : ""} onClick={() => setMainView("control")}>Control Center</button>
-          <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
-        </nav>
+        <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
         <p>App-Abgleich: 06.10.2026 · {catalogTools.filter((tool) => tool.isNew).length} neue Apps im Katalog</p>
       </header>
 
+      {(["accounts", "scores", "performance", "development", "duplicates"] as MainView[]).includes(mainView) && <PortfolioView mode={mainView as PortfolioMode} apps={catalogTools} detailsFor={(app) => detailsFor(app as Tool)} openApp={(app) => openTool(app as Tool)} refreshCosts={() => { void fetch("/api/catalog/costs", { cache: "no-store" }).then(async response => { const data = await response.json() as { entries?: CostEntry[] }; if (response.ok && data.entries) setCostEntries(data.entries); }).catch(() => setCostNotice("Kostenübersicht konnte nicht aktualisiert werden. Bitte erneut laden.")); }} />}
       <div className={mainView === "catalog" ? "catalog-view" : "catalog-view view-hidden"}>
       <p className={`sync-indicator sync-${catalogSync.phase}`}>{catalogSync.message}{catalogSync.syncedAt ? ` · Stand ${new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(catalogSync.syncedAt))}` : ""}</p>
       <section className="hero">
         <div>
           <p className="eyebrow">Zentrale Übersicht</p>
-          <h1>Alle Werkzeuge an einem Ort.</h1>
-          <p className="lead">Finde Apps, erkenne Überschneidungen und öffne die passende Quelle, um ein Projekt weiterzuentwickeln.</p>
+          <h1>Alle {catalogTools.length} Apps.</h1>
+          <p className="lead">Vollständiger Bestand mit lokalen Projekten, Cloud-Apps und Plattform-Artefakten. Ein Klick öffnet die technischen Daten.</p>
         </div>
         <div className="summary" aria-label="Inventurstand">
           <span><strong>{catalogTools.length}</strong> erfasste Werkzeuge</span>
           <span><strong>4</strong> Quelltypen</span>
-          <span><strong>5</strong> Prüfcluster</span>
+          <span><strong>{catalogTools.filter((tool) => tool.isNew).length}</strong> neue Apps</span>
         </div>
       </section>
 
@@ -836,7 +852,7 @@ export default function Home() {
         <div className="catalog">
           <div className="search-row">
             <label className="search"><span aria-hidden="true">⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Apps, Funktionen oder Inhalte suchen" aria-label="Werkzeuge durchsuchen" /></label>
-            <span className="result-count">{filtered.length} Treffer</span>
+            <span className="result-count">{filtered.length} von {catalogTools.length} Apps</span><button type="button" className="reset-filters" onClick={() => {setQuery("");setSource("Alle");setStatus("Alle");setBuilderFilter("Alle");}}>Filter zurücksetzen</button>
           </div>
           <div className="filters" aria-label="Filter">
             <select value={source} onChange={(event) => setSource(event.target.value as Source | "Alle")} aria-label="Quelle filtern">
@@ -850,8 +866,8 @@ export default function Home() {
             </select>
           </div>
           <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? catalogTools.length : catalogTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
-          <div className="tool-grid">
-            {renderedTools.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); openTool(tool); } }}>
+          <p className="inventory-note">94 bisherige Apps erhalten · 8 ergänzt · Keine Zusammenführung über gemeinsame Plattformlinks.</p><div className="tool-grid">
+            {renderedTools.map((tool) => <article key={tool.id} data-app-id={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); openTool(tool); } }}>
               <span className="card-top"><span className="source-marks"><ProviderIcon tool={tool} /><ClaudeSurfaceBadge tool={tool} />{tool.isNew && <span className="new-badge" title="Seit der letzten Inventur neu erfasst">Neu</span>}</span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
               <button className="card-select" onClick={(event) => { event.stopPropagation(); openTool(tool); }}><span className="tool-title">{tool.title}</span><span className="tool-description">{tool.description}</span></button>
               <span className="tool-meta">{tool.source} · {tool.category}</span>
@@ -875,7 +891,6 @@ export default function Home() {
               </span>
             </article>)}
           </div>
-          {filtered.length > renderedTools.length && <button type="button" className="load-more" onClick={() => setShowAllTools(true)}>Alle {filtered.length} Apps laden</button>}
         </div>
 
         <aside className="detail" aria-live="polite">
@@ -917,7 +932,7 @@ export default function Home() {
         <div className="chat-source-grid">{chatProviderStates.map((provider) => { const count = displayedChats.filter((chat) => chat.source === provider.source).length; const detail = provider.source === "ChatGPT" && count ? `${count} sichtbare ChatGPT-Verläufe aus den übermittelten Screens erfasst` : provider.detail; return <article key={provider.source}><strong>{provider.source}</strong><span className={provider.state === "Verbunden" ? "connected" : provider.state === "Teilzugriff" ? "partial" : "unavailable"}>{provider.state}</span><p>{detail}</p></article>; })}</div>
         <div className="documentation-table-wrap"><table className="documentation-table chat-table"><caption>Erfasste Chats und fachliche Zuordnung</caption><thead><tr><th>Quelle</th><th>Chat</th><th>Kurzinhalt</th><th>Datum</th><th>Modell</th><th>Passende App</th></tr></thead><tbody>{displayedChats.map((chat) => <tr key={chat.id}><td>{chat.source}</td><td><strong>{chat.title}</strong></td><td>{chat.summary}</td><td>{chat.updatedAt}</td><td>{chat.model}</td><td>{chat.appId ? <button type="button" onClick={() => { setSelectedId(chat.appId!); setMainView("catalog"); }}>{chat.appMatch}</button> : chat.appMatch}</td></tr>)}</tbody></table></div>
       </section>}
-      {mainView === "costs" && <section className="costs-view" aria-label="Kostenübersicht">
+      {mainView === "costs" && <section className="costs-view" aria-label="Kostenübersicht"><div className="section-bar"><h2>Kosten und Abrechnung</h2><button type="button" onClick={() => setMainView("accounts")}>Abrechnung je Konto öffnen</button></div>
         <div className="dashboard-heading"><div><p className="eyebrow">Kostenakte ab Januar 2025</p><h1>Alle Tool-Kosten im Blick.</h1><p>Die Ansicht zeigt ausschließlich importierte Zahlungszeilen. Es werden keine Kosten geschätzt oder aus Zugangsdaten abgeleitet.</p></div><div className="documentation-summary"><span><strong>{new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(totalCosts)}</strong> Gesamt, EUR</span><span><strong>{new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(totalUsdCosts)}</strong> USD, ohne Umrechnung</span><span><strong>{costEntries.length}</strong> Zahlungszeilen</span></div></div>
         <div className="cost-summary-grid"><article><span>Aktueller Monat</span><strong>{new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(monthlyCosts.at(-1)?.total ?? 0)}</strong><small>{monthlyCosts.at(-1)?.change ? `${monthlyCosts.at(-1)!.change > 0 ? "+" : ""}${new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(monthlyCosts.at(-1)!.change)} gegenüber Vormonat` : "Keine Veränderung"}</small></article><article><span>Zuordnung</span><strong>{costEntries.filter((entry) => entry.app_key).length}/{costEntries.length}</strong><small>Zahlungszeilen mit App-Verknüpfung</small></article><article><span>Importstatus</span><strong>{costEntries.length ? "Aktuell" : "Offen"}</strong><small>{costEntries.length ? "Aus den hinterlegten CSV-Zeilen berechnet" : "CSV aus Zahlungsmethode erforderlich"}</small></article></div>
         <section className="cost-import"><div><h2>Zahlungen privat importieren</h2><p>CSV-Export aus Kreditkarte, PayPal, Apple/Google, App Store oder Anbieterrechnung wählen. Benötigte Spalten: <code>datum;anbieter;betrag;waehrung;app_key;beschreibung</code>.</p></div><div className="cost-import-actions"><input type="file" accept=".csv,text/csv" onChange={(event) => setCostFile(event.target.files?.[0] ?? null)} /><button type="button" onClick={importCosts}>CSV importieren</button><button type="button" className="secondary" onClick={downloadCostTemplate}>Vorlage laden</button></div><p>{costNotice}</p></section>
@@ -957,5 +972,6 @@ export default function Home() {
         </section>
       </div>}
     </main>
+    </div>
   );
 }

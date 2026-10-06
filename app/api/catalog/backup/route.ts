@@ -2,7 +2,7 @@ import { isAdmin, requireCatalogUser, supabaseRest, supabaseStorage } from "../.
 
 export const dynamic = "force-dynamic";
 
-const tables = ["catalog_apps", "catalog_chats", "catalog_documents", "app_screenshots", "app_test_runs", "catalog_cost_entries", "device_statuses", "deployment_events", "catalog_integrations", "catalog_vault_references"];
+const tables = ["catalog_apps", "catalog_chats", "catalog_documents", "app_screenshots", "app_test_runs", "catalog_cost_entries", "device_statuses", "deployment_events", "catalog_integrations", "catalog_vault_references", "catalog_accounts", "catalog_development"];
 
 async function checksum(content: string) {
   const bytes = new TextEncoder().encode(content);
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       const content = await contentResponse.text();
       const { checksum: calculatedChecksum } = await checksum(content);
       const payload = JSON.parse(content) as { tables?: Record<string, unknown[]> };
-      const valid = calculatedChecksum === latest.checksum_sha256 && tables.every((table) => Array.isArray(payload.tables?.[table]));
+      const valid = calculatedChecksum === latest.checksum_sha256 && tables.filter((table) => !["catalog_accounts", "catalog_development"].includes(table)).every((table) => Array.isArray(payload.tables?.[table]));
       await supabaseRest(`catalog_backups?id=eq.${encodeURIComponent(latest.id)}`, { method: "PATCH", body: JSON.stringify({ status: valid ? "verified" : "failed", verified_at: new Date().toISOString(), detail: valid ? "Struktur und Prüfsumme erfolgreich wiederhergestellt geprüft." : "Prüfung fehlgeschlagen." }) });
       return Response.json({ verified: valid });
     }
