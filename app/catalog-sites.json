@@ -1,0 +1,163 @@
+[
+  {
+    "id": "appgprj_6ac267e0ba8c81919b74c744c01453c8",
+    "title": "HaushaltKompass – Berlin · Stuttgart",
+    "description": null,
+    "slug": "haushalt-kompass",
+    "status": "active",
+    "created_at": "2026-10-04T14:51:13.484543+00:00",
+    "updated_at": "2026-10-04T15:41:17.035439+00:00",
+    "latest_version_number": 2,
+    "current_live_url": "https://haushalt-kompass.azehn.chatgpt.site",
+    "authConfigured": true,
+    "access_mode": "custom",
+    "isNew": true,
+    "technical": {
+      "frontend": "HTML, CSS und JavaScript",
+      "middleware": "Berechnungen im Browser (calc.js)",
+      "backend": "Statische Site; kein eigener API-Server",
+      "database": "LocalStorage im jeweiligen Browser",
+      "connections": "CSV-Export; keine externe Datenverbindung im geprüften Code",
+      "models": "Keine KI-Modellaufrufe im geprüften Code",
+      "evidence": "Quellcode: dist/app.js, calc.js und hosting.json; geprüft am 06.10.2026"
+    }
+  },
+  {
+    "id": "appgprj_6aae6488d0b4819192a6b9f2081c839e",
+    "title": "DocApp 2.2",
+    "description": "Zentrale Dokumentationsplattform für Dokumente, Releases, Themen und Verbindungen.",
+    "slug": "docapp-v22",
+    "status": "active",
+    "created_at": "2026-09-19T10:31:40.991552+00:00",
+    "updated_at": "2026-09-20T08:40:57.987185+00:00",
+    "latest_version_number": 17,
+    "current_live_url": "https://docapp-v22.azehn.chatgpt.site",
+    "authConfigured": true,
+    "access_mode": "custom",
+    "isNew": true,
+    "technical": {
+      "frontend": "React 19.2.6, TypeScript, shadcn/ui, Tailwind CSS",
+      "middleware": "Vinext / Vite; API-Routen",
+      "backend": "Cloudflare Worker; Dokument-, Datei- und Wissens-API",
+      "database": "Cloudflare D1 (DB); Drizzle ORM; Dateien in R2 (BUCKET)",
+      "connections": "Connector-Verwaltung, Datei-Upload, Wissenssuche; aktive externe Verbindungen nicht verifiziert",
+      "models": "Konkretes aktives KI-Modell nicht verifiziert",
+      "evidence": "Quellcode: package.json, hosting.json und app/api; geprüft am 06.10.2026"
+    }
+  },
+  {
+    "id": "appgprj_6a85cebca3808191a9b057eb495d5859",
+    "title": "Handbookly – IT-Handbücher",
+    "description": "Interne Arbeitsumgebung für professionelle IT-Benutzerhandbücher.",
+    "slug": "handbookly-it-manuals",
+    "status": "active",
+    "created_at": "2026-08-19T15:41:51.590591+00:00",
+    "updated_at": "2026-09-21T07:24:07.655581+00:00",
+    "latest_version_number": 54,
+    "current_live_url": "https://handbookly-it-manuals.azehn.chatgpt.site",
+    "authConfigured": true,
+    "access_mode": "custom",
+    "isNew": true,
+    "technical": {
+      "frontend": "React 19.2.6 und TypeScript; Tesseract.js für OCR",
+      "middleware": "Vinext / Vite; API-Routen",
+      "backend": "Cloudflare Worker; Handbuch-, Kapitel- und Export-API",
+      "database": "Cloudflare D1 (DB); Drizzle ORM; Dateien in R2 (FILES)",
+      "connections": "Quellen-, Medien- und ZIP-Verarbeitung, Handbuch-Export; externe Konten nicht verifiziert",
+      "models": "Konkretes aktives KI-Modell nicht verifiziert",
+      "evidence": "Quellcode: package.json, hosting.json und app/api; geprüft am 06.10.2026"
+    }
+  },
+  {
+    "id": "appgprj_6a7c95ca32948191b7d7dfeaafbeeb91",
+    "title": "TicketBrain",
+    "description": null,
+    "slug": "ticketbrain",
+    "status": "active",
+    "created_at": "2026-08-12T15:48:28.949508+00:00",
+    "updated_at": "2026-09-20T06:56:38.623644+00:00",
+    "latest_version_number": 25,
+    "current_live_url": "https://ticketbrain.azehn.chatgpt.site",
+    "authConfigured": true,
+    "access_mode": "custom",
+    "isNew": true,
+    "technical": {
+      "frontend": "React 19.2.6 und TypeScript; Tesseract.js 6.0.1 für OCR",
+      "middleware": "Vinext / Vite; API-Routen",
+      "backend": "Cloudflare Worker; Ticket-, Recherche- und Notion-API",
+      "database": "Cloudflare D1 (DB); Drizzle ORM; Dateien in R2 (BUCKET)",
+      "connections": "Notion API, Prozessdokumentation, Link-Recherche und PDF-Export; aktive Konten nicht verifiziert",
+      "models": "Konkretes aktives KI-Modell nicht verifiziert",
+      "evidence": "Quellcode: package.json, hosting.json und Notion-API-Routen; geprüft am 06.10.2026"
+    }
+  },
+  {
+    "id": "appgprj_6a7b5f53929881919a2d99bfdb990a41",
+    "title": "Mein App-Katalog",
+    "description": null,
+    "slug": "mein-app-katalog",
+    "status": "active",
+    "created_at": "2026-08-11T17:43:52.152067+00:00",
+    "updated_at": "2026-10-06T06:55:40.536440+00:00",
+    "latest_version_number": 35,
+    "current_live_url": "https://mein-app-katalog.azehn.chatgpt.site",
+    "authConfigured": true,
+    "access_mode": "custom",
+    "isNew": false,
+    "technical": {
+      "frontend": "React 19.2.6, TypeScript und CSS",
+      "middleware": "Vinext / Vite; geschützte API-Routen",
+      "backend": "Cloudflare Worker; Supabase REST- und Storage-Anbindung",
+      "database": "Supabase PostgreSQL und Storage (serverseitig konfiguriert)",
+      "connections": "Sites-Inventur vom 06.10.2026, Supabase, lokale Status-Agenten, CSV-Kostenimport",
+      "models": "Kein KI-Modellaufruf im Katalog belegt",
+      "evidence": "Quellcode: package.json, app/api/catalog und Supabase-Servermodul; geprüft am 06.10.2026"
+    }
+  },
+  {
+    "id": "appgprj_6a6a4ea898848191892d3de798f5a5f6",
+    "title": "smartaiz — KI-Kompetenz",
+    "description": "KI-Beratung und EU AI Act Kompetenzschulung in Berlin, Stuttgart und bundesweit.",
+    "slug": "smartaiz-ki-kompetenz",
+    "status": "active",
+    "created_at": "2026-07-29T19:04:12.148448+00:00",
+    "updated_at": "2026-07-29T19:54:41.474673+00:00",
+    "latest_version_number": 5,
+    "current_live_url": "https://smartaiz-ki-kompetenz.azehn.chatgpt.site",
+    "authConfigured": true,
+    "access_mode": "custom",
+    "isNew": false,
+    "technical": {
+      "frontend": "Noch nicht verifiziert",
+      "middleware": "Noch nicht verifiziert",
+      "backend": "Auf Sites veröffentlicht; Server-Implementierung nicht geprüft",
+      "database": "Noch nicht verifiziert",
+      "connections": "Noch nicht verifiziert",
+      "models": "Noch nicht verifiziert",
+      "evidence": "Aktuelle Sites-Projektmetadaten, abgeglichen am 06.10.2026"
+    }
+  },
+  {
+    "id": "appgprj_6a606744a8ac8191862a202995bd5aa7",
+    "title": "Ortsfinder · Kalender-Assistent",
+    "description": "Finde Präsenztermine außerhalb von Stuttgart.",
+    "slug": "ortsfinder-kalender",
+    "status": "active",
+    "created_at": "2026-07-22T06:46:34.942122+00:00",
+    "updated_at": "2026-07-22T06:46:34.964893+00:00",
+    "latest_version_number": 0,
+    "current_live_url": null,
+    "authConfigured": true,
+    "access_mode": "custom",
+    "isNew": false,
+    "technical": {
+      "frontend": "Noch nicht verifiziert",
+      "middleware": "Noch nicht verifiziert",
+      "backend": "Noch nicht veröffentlicht",
+      "database": "Noch nicht verifiziert",
+      "connections": "Noch nicht verifiziert",
+      "models": "Noch nicht verifiziert",
+      "evidence": "Aktuelle Sites-Projektmetadaten, abgeglichen am 06.10.2026"
+    }
+  }
+]

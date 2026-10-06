@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import sitesInventory from "./catalog-sites.json";
+import { mergeCatalog } from "./merge-catalog";
 
 type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
@@ -27,6 +29,12 @@ type Tool = {
   trafficLight?: "green" | "gray" | "red";
   trafficNote?: string;
   technical?: AppDetails;
+  isNew?: boolean;
+  projectId?: string;
+  version?: string;
+  updatedAt?: string;
+  hosting?: string;
+  published?: boolean;
 };
 
 type TestResult = { phase: "testing" | "done" | "error"; message: string };
@@ -213,7 +221,26 @@ const codexDiscoveredTools: Tool[] = [
   { id: "presentation-finder", title: "Präsentations-Finder", description: "Einzelplatz-App mit Sprachsuche, Folien-Thumbnails und lokalen Sicherungen.", source: "Lokaler Rechner", status: "Dokumentiert", category: "Präsentation", detail: "Codex-Projekt mit lokalem Dienst, Eigentümermodus, Hintergrundaufträgen und SQLite-Sicherung.", location: "C:\\Users\\andre\\Documents\\Codex\\2026-07-30\\realtime-voice-chat", overlap: "Voice Präsentationstool · Presentation Designer", checkedAt: "11.08.2026", performance: "Laut letzter Codex-Prüfung: Build, Lint und 9 Tests erfolgreich; lokaler Server auf Port 4310 geprüft" },
   { id: "hackathon", title: "MB AI Hackathon", description: "ChatGPT-Projekt, fachliche Umsetzung noch zu erfassen.", source: "Cloud", status: "Prüfen", category: "KI", detail: "Als ChatGPT-Projekt registriert; es liegt noch keine technische Projektakte im lokalen Katalog vor.", location: "ChatGPT Projekt / MB AI Hackathon", checkedAt: "11.08.2026", performance: "Zugang zur Projektübersicht vorhanden; keine lauffaehige App identifiziert" },
 ];
-const allTools = [...tools, aiMesseGuide, ...claudeWorkspaceTools, ...googleStudioTools, ...codexDiscoveredTools];
+const siteTools: Tool[] = sitesInventory.map((site) => ({
+  id: site.id, projectId: site.id, title: site.title,
+  description: site.description ?? ({ ticketbrain: "Private Tickets, Wissen und Prozessdokumentation.", "haushalt-kompass": "Doppelte Haushaltsführung Berlin / Stuttgart für 2025–2027.", "mein-app-katalog": "Zentrale Übersicht deiner Apps und technischen Daten." } as Record<string, string>)[site.slug] ?? "Eigene Sites-Anwendung.",
+  source: "Cloud", status: site.current_live_url ? "Aktiv" : "Entwurf",
+  category: ["docapp-v22", "handbookly-it-manuals"].includes(site.slug) ? "Dokumentation" : site.slug === "haushalt-kompass" ? "Steuer" : site.slug === "ticketbrain" ? "Wissen" : site.slug === "mein-app-katalog" ? "Katalog" : "Organisation",
+  detail: site.description ?? "Aktueller Projektstand aus dem Sites-Inventar.",
+  location: site.current_live_url ?? "Noch nicht veröffentlicht", url: site.current_live_url ?? undefined,
+  createdAt: new Date(site.created_at).toLocaleDateString("de-DE", { timeZone: "Europe/Berlin" }),
+  updatedAt: site.updated_at, checkedAt: "06.10.2026", isNew: site.isNew,
+  version: String(site.latest_version_number), hosting: "Sites", published: !!site.current_live_url,
+  technical: { ...site.technical, builder: "ChatGPT Sites", access: site.access_mode === "custom" ? "Privat; Zugriff für freigegebene Nutzer" : site.access_mode === "public" ? "Öffentlich" : "Zugriff gemäß Sites-Freigabe" },
+}));
+const handbookStudio: Tool = {
+  id: "onescm-handbook-studio", title: "oneSCM Handbook Studio", description: "Markdown-Quellen, Draft Manual und Qualitätsprüfung für Benutzerhandbücher.",
+  source: "Lokaler Rechner", status: "Dokumentiert", category: "Dokumentation", isNew: true,
+  detail: "Aktuelle verfügbare Paketversion: oneSCM_Handbook_Studio_v2.57.0-alpha.zip. Laufende lokale Installation wurde nicht geprüft.",
+  location: "oneSCM_Handbook_Studio_v2.57.0-alpha.zip / work/md-content-studio", createdAt: "25.09.2026", checkedAt: "06.10.2026", version: "2.57.0-alpha.1", hosting: "Lokale Node.js-Anwendung",
+  technical: { builder: "Codex", frontend: "Web-Oberfläche; Markdown-Verarbeitung mit marked", middleware: "Express 4.21.2 und Multer", backend: "Node.js (server.js); Word- und PDF-Export", database: "SQLite über better-sqlite3 12.4.1", connections: "ZIP-Import (adm-zip), Word (docx), PDF (pdfkit), Playwright-Tests", models: "Aktives KI-Modell nicht aus package.json ersichtlich", evidence: "Aktuelles ZIP-Paket vom 25.09.2026: package.json; geprüft am 06.10.2026", access: "Lokaler Start mit npm start; Betriebsstatus nicht geprüft" },
+};
+const allTools = mergeCatalog([...tools, aiMesseGuide, ...claudeWorkspaceTools, ...googleStudioTools, ...codexDiscoveredTools], siteTools, [handbookStudio]);
 
 // Central catalogue data for future protected server-side synchronisation.
 export { allTools, chatRecords, networkDevices, featureIdeas, chatProviderStates };
@@ -336,6 +363,7 @@ function statusFor(tool: Tool) {
 }
 
 function architectureFor(tool: Tool) {
+  if (tool.technical) return { Frontend: tool.technical.frontend, Middleware: tool.technical.middleware, Backend: tool.technical.backend, Datenbank: tool.technical.database, Verbindungen: tool.technical.connections, Modelle: tool.technical.models };
   if (tool.id === "bau") return { frontend: "HTML, CSS und JavaScript", middleware: "Keine separate Schicht erfasst", backend: "Lokale Dokumente und Dateien" };
   if (tool.id === "contracts") return { frontend: "Web-App (genau prüfen)", middleware: "Multi-Agent-Workflows", backend: "Datenbankmodell und Vertragsdaten" };
   if (tool.id === "dokupress") return { frontend: "Noch zu ergänzen", middleware: "API-Backend", backend: "PostgreSQL mit Mandantentrennung" };
@@ -491,6 +519,13 @@ const localPorts: Record<string, string> = {
   "codex-n8n": "http://localhost:3000", "n8n-excel": "http://localhost:3110", "n8n-slides": "http://localhost:3010", transparency: "http://localhost:5173 (API: 4000)", "n8n-library": "http://localhost:4173", "pc-optimizer": "http://localhost:3080", "presentation-finder": "http://localhost:4310",
 };
 
+function creationTimestamp(tool: Tool) {
+  const date = createdFor(tool);
+  const match = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(date);
+  const parsed = match ? Date.UTC(Number(match[3]), Number(match[2]) - 1, Number(match[1])) : Date.parse(date);
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
 function createdFor(tool: Tool) {
   return tool.createdAt ?? creationDates[tool.id] ?? "Noch nicht verifiziert";
 }
@@ -548,7 +583,8 @@ export default function Home() {
   const [agentEnrollment, setAgentEnrollment] = useState<AgentEnrollment | null>(null);
   const [agentNotice, setAgentNotice] = useState("Für einen neuen Rechner wird ein zeitlich begrenzter Einmal-Code erzeugt.");
   const drag = useRef<{ startX: number; startY: number; x: number; y: number } | null>(null);
-  const catalogTools = remoteTools ?? allTools;
+  const dialogRef = useRef<HTMLElement>(null);
+  const catalogTools = useMemo(() => mergeCatalog(allTools, remoteTools ?? [], siteTools, [handbookStudio]), [remoteTools]);
   const displayedChats = remoteChats ?? chatRecords;
   const selected = catalogTools.find((tool) => tool.id === selectedId) ?? catalogTools[0];
   const opened = catalogTools.find((tool) => tool.id === openedId);
@@ -560,6 +596,23 @@ export default function Home() {
   const costByApp = useMemo(() => Object.values(costEntries.reduce<Record<string, { key: string | null; title: string; totalEur: number; totalUsd: number; entries: number }>>((groups, entry) => { const key = entry.app_key ?? "unassigned"; const tool = catalogTools.find((item) => item.id === entry.app_key); const group = groups[key] ?? { key: entry.app_key, title: tool?.title ?? "Nicht zugeordnet", totalEur: 0, totalUsd: 0, entries: 0 }; if (entry.currency === "EUR") group.totalEur += Number(entry.amount); if (entry.currency === "USD") group.totalUsd += Number(entry.amount); group.entries += 1; groups[key] = group; return groups; }, {})).sort((a, b) => (b.totalEur + b.totalUsd) - (a.totalEur + a.totalUsd)), [catalogTools, costEntries]);
   const totalCosts = costEntries.filter((entry) => entry.currency === "EUR").reduce((sum, entry) => sum + Number(entry.amount), 0);
   const totalUsdCosts = costEntries.filter((entry) => entry.currency === "USD").reduce((sum, entry) => sum + Number(entry.amount), 0);
+
+  useEffect(() => {
+    if (!openedId) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const dialog = dialogRef.current;
+    dialog?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { event.preventDefault(); setOpenedId(null); }
+      if (event.key !== "Tab" || !dialog) return;
+      const nodes = [...dialog.querySelectorAll<HTMLElement>('button, a[href], input, select, [tabindex="0"]')].filter((node) => node.getClientRects().length > 0);
+      const first = nodes[0], last = nodes[nodes.length - 1];
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === dialog)) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || document.activeElement === dialog)) { event.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("keydown", onKey); previousFocus?.focus(); };
+  }, [openedId]);
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("catalog-theme");
@@ -630,7 +683,8 @@ export default function Home() {
   function openTool(tool: Tool) {
     setSelectedId(tool.id);
     setOpenedId(tool.id);
-    setWindowTab("profile");
+    setWindowTab("systems");
+    setPanel("architecture");
     setWindowPosition({ x: 0, y: 0 });
   }
 
@@ -741,7 +795,7 @@ export default function Home() {
     return catalogTools.filter((tool) => {
       const searchable = `${tool.title} ${tool.description} ${tool.category} ${tool.detail} ${tool.location} ${tool.overlap ?? ""}`.toLocaleLowerCase("de");
       return (source === "Alle" || tool.source === source) && (status === "Alle" || tool.status === status) && (builderFilter === "Alle" || builderForFilter(tool) === builderFilter) && (!needle || searchable.includes(needle));
-    }).sort((a, b) => sortBy === "created" ? createdFor(b).localeCompare(createdFor(a), "de") : a.status.localeCompare(b.status, "de"));
+    }).sort((a, b) => sortBy === "created" ? Number(!!b.isNew) - Number(!!a.isNew) || creationTimestamp(b) - creationTimestamp(a) || a.title.localeCompare(b.title, "de") : a.status.localeCompare(b.status, "de"));
   }, [catalogTools, query, source, status, builderFilter, sortBy]);
   const fullyDocumented = catalogTools.filter((tool) => documentationStateFor(tool) === "Fertig dokumentiert");
   const partlyDocumented = catalogTools.filter((tool) => documentationStateFor(tool) === "Teilweise dokumentiert");
@@ -760,7 +814,7 @@ export default function Home() {
           <button type="button" className={mainView === "control" ? "active" : ""} onClick={() => setMainView("control")}>Control Center</button>
           <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
         </nav>
-        <p>Arbeitsstand: erste Inventur · 18 GitHub-Repositories · Google Drive verbunden</p>
+        <p>App-Abgleich: 06.10.2026 · {catalogTools.filter((tool) => tool.isNew).length} neue Apps im Katalog</p>
       </header>
 
       <div className={mainView === "catalog" ? "catalog-view" : "catalog-view view-hidden"}>
@@ -797,8 +851,8 @@ export default function Home() {
           </div>
           <div className="quick-filters" aria-label="Schnellfilter nach Erstellwerkzeug"><span>Erstellt mit</span>{builderFilters.map((item) => <button key={item} type="button" className={builderFilter === item ? "active" : ""} onClick={() => setBuilderFilter(item)}>{item}<small>{item === "Alle" ? catalogTools.length : catalogTools.filter((tool) => builderForFilter(tool) === item).length}</small></button>)}</div>
           <div className="tool-grid">
-            {renderedTools.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") openTool(tool); }}>
-              <span className="card-top"><span className="source-marks"><ProviderIcon tool={tool} /><ClaudeSurfaceBadge tool={tool} /></span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
+            {renderedTools.map((tool) => <article key={tool.id} className={`tool-card ${selected.id === tool.id ? "selected" : ""}`} role="button" tabIndex={0} onClick={() => openTool(tool)} onKeyDown={(event) => { if (event.target === event.currentTarget && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); openTool(tool); } }}>
+              <span className="card-top"><span className="source-marks"><ProviderIcon tool={tool} /><ClaudeSurfaceBadge tool={tool} />{tool.isNew && <span className="new-badge" title="Seit der letzten Inventur neu erfasst">Neu</span>}</span><span className={`status ${tool.status.toLowerCase()}`}>{tool.status}</span></span>
               <button className="card-select" onClick={(event) => { event.stopPropagation(); openTool(tool); }}><span className="tool-title">{tool.title}</span><span className="tool-description">{tool.description}</span></button>
               <span className="tool-meta">{tool.source} · {tool.category}</span>
               <span className="classification">{builderForFilter(tool)} · erstellt {createdFor(tool)}</span>
@@ -812,11 +866,11 @@ export default function Home() {
               </span>
               <span className="checked-status" title={tool.performance ?? "Keine Performance-Angabe"}>Status: {statusFor(tool)}</span>
               <span className="card-actions" aria-label={`Aktionen für ${tool.title}`}>
-                <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); }}>Start</a>
+                {tool.published === false ? <span className="no-start">Entwurf</span> : <a href={quickStartFor(tool)} target="_blank" rel="noreferrer" onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); }}>Start</a>}
                 <button onClick={(event) => { event.stopPropagation(); testApp(tool); }}>Test</button>
                 <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("masterdata"); }}>Daten</button>
                 <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("tags"); }}>Tags</button>
-                <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("architecture"); }}>IT</button>
+                <button onClick={(event) => { event.stopPropagation(); openTool(tool); }}>IT</button>
                 <button onClick={(event) => { event.stopPropagation(); setSelectedId(tool.id); setPanel("features"); }}>Features</button>
               </span>
             </article>)}
@@ -871,13 +925,13 @@ export default function Home() {
         <div className="documentation-table-wrap"><table className="documentation-table cost-table"><caption>Importierte Zahlungszeilen</caption><thead><tr><th>Datum</th><th>Anbieter</th><th>App</th><th>Beschreibung</th><th>Betrag</th><th>Quelle</th></tr></thead><tbody>{costEntries.length ? costEntries.map((entry) => <tr key={entry.id}><td>{entry.transaction_date}</td><td>{entry.provider}</td><td>{catalogTools.find((tool) => tool.id === entry.app_key)?.title ?? "Nicht zugeordnet"}</td><td>{entry.description ?? "—"}</td><td>{new Intl.NumberFormat("de-DE", { style: "currency", currency: entry.currency || "EUR" }).format(Number(entry.amount))}</td><td>{entry.source}</td></tr>) : <tr><td colSpan={6}>Noch keine realen Zahlungszeilen vorhanden.</td></tr>}</tbody></table></div>
       </section>}
       {mainView === "control" && <section className="control-center" aria-label="Control Center">
-        <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{allTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>
+        <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{catalogTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>
         <nav className="control-tabs" aria-label="Control Center Funktionen">{(["analytics", "sources", "devices", "matrix", "scores", "ideas", "remote", "security"] as ControlTab[]).map((tab) => <button key={tab} type="button" className={controlTab === tab ? "active" : ""} onClick={() => setControlTab(tab)}>{{ analytics: "Analytics", sources: "Quellen", devices: "Geräte", matrix: "Matrix", scores: "Scorecards", ideas: "Ideen", remote: "Remote Launcher", security: "Sicherung & Zugang" }[tab]}</button>)}</nav>
-        {controlTab === "analytics" && <div className="control-panel"><div className="analytics-cards"><article><span>Fertig dokumentiert</span><strong>{fullyDocumented.length}</strong><small>technische Akte geprüft</small></article><article><span>Teilweise dokumentiert</span><strong>{partlyDocumented.length}</strong><small>Quellen oder Zugang ergänzen</small></article><article><span>Aktive Apps</span><strong>{allTools.filter((tool) => tool.status === "Aktiv").length}</strong><small>im Inventar als aktiv geführt</small></article><article><span>Lokale Ports</span><strong>{allTools.filter((tool) => localHrefFor(tool)).length}</strong><small>dokumentierte Web-Startpunkte</small></article></div><div className="control-actions"><button type="button" onClick={() => exportCatalog("json")}>JSON exportieren</button><button type="button" onClick={() => exportCatalog("csv")}>CSV exportieren</button><button type="button" onClick={() => exportCatalog("markdown")}>Markdown exportieren</button><button type="button" onClick={() => window.print()}>Drucken</button></div></div>}
-        {controlTab === "sources" && <div className="source-summary-grid">{(["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"] as Source[]).map((item) => <article key={item}><span>{item}</span><strong>{allTools.filter((tool) => tool.source === item).length}</strong><p>{allTools.filter((tool) => tool.source === item && documentationStateFor(tool) === "Fertig dokumentiert").length} vollständig dokumentiert</p></article>)}</div>}
+        {controlTab === "analytics" && <div className="control-panel"><div className="analytics-cards"><article><span>Fertig dokumentiert</span><strong>{fullyDocumented.length}</strong><small>technische Akte geprüft</small></article><article><span>Teilweise dokumentiert</span><strong>{partlyDocumented.length}</strong><small>Quellen oder Zugang ergänzen</small></article><article><span>Aktive Apps</span><strong>{catalogTools.filter((tool) => tool.status === "Aktiv").length}</strong><small>im Inventar als aktiv geführt</small></article><article><span>Lokale Ports</span><strong>{catalogTools.filter((tool) => localHrefFor(tool)).length}</strong><small>dokumentierte Web-Startpunkte</small></article></div><div className="control-actions"><button type="button" onClick={() => exportCatalog("json")}>JSON exportieren</button><button type="button" onClick={() => exportCatalog("csv")}>CSV exportieren</button><button type="button" onClick={() => exportCatalog("markdown")}>Markdown exportieren</button><button type="button" onClick={() => window.print()}>Drucken</button></div></div>}
+        {controlTab === "sources" && <div className="source-summary-grid">{(["GitHub", "Lokaler Rechner", "Google Drive", "Cloud"] as Source[]).map((item) => <article key={item}><span>{item}</span><strong>{catalogTools.filter((tool) => tool.source === item).length}</strong><p>{catalogTools.filter((tool) => tool.source === item && documentationStateFor(tool) === "Fertig dokumentiert").length} vollständig dokumentiert</p></article>)}</div>}
         {controlTab === "devices" && <div className="control-panel"><div className="control-panel-head"><div><h2>Gerätestatus im Netzwerk</h2><p>{networkNotice}</p></div><button type="button" onClick={() => setNetworkNotice("Erneute Prüfung ist erst möglich, wenn die drei Geräte im aktuellen WLAN erreichbar sind oder ein Status-Agent eingerichtet wurde.")}>Status aktualisieren</button></div><div className="device-grid">{networkDevices.map((device) => <article key={device.id}><span className={`device-dot ${device.state}`}></span><div><strong>{device.name}</strong><p>{device.system} · {device.address}</p><small>{device.detail}</small></div><b className={device.state}>{device.state === "online" ? "Online" : "Nicht erreichbar"}</b></article>)}</div><p className="network-help">Für echte Live-Daten der anderen Rechner braucht jeder Rechner einen kleinen Status-Agenten oder eine HTTPS-fähige Freigabe. Die frühere Konfiguration zeigt noch Adressen aus dem Netz 192.168.1.x, der aktuelle Rechner arbeitet im Netz 192.168.2.x.</p></div>}
-        {controlTab === "matrix" && <div className="documentation-table-wrap"><table className="documentation-table"><caption>Projekt × Quelle × lokaler Zugang</caption><thead><tr><th>App</th><th>Quelle</th><th>Dokumentation</th><th>Lokaler Zugang</th><th>Status</th></tr></thead><tbody>{allTools.map((tool) => <tr key={tool.id}><td><button type="button" onClick={() => { setSelectedId(tool.id); setMainView("catalog"); }}>{tool.title}</button></td><td>{tool.source}</td><td>{documentationStateFor(tool)}</td><td>{localPortFor(tool)}</td><td>{tool.status}</td></tr>)}</tbody></table></div>}
-        {controlTab === "scores" && <div className="score-grid">{[...allTools].sort((a, b) => documentationScoreFor(b) - documentationScoreFor(a)).map((tool) => <article key={tool.id}><div><strong>{tool.title}</strong><span>{documentationStateFor(tool)}</span></div><b>{documentationScoreFor(tool)}%</b><div className="score-track"><i style={{ width: `${documentationScoreFor(tool)}%` }}></i></div><small>{detailsFor(tool).evidence}</small></article>)}</div>}
+        {controlTab === "matrix" && <div className="documentation-table-wrap"><table className="documentation-table"><caption>Projekt × Quelle × lokaler Zugang</caption><thead><tr><th>App</th><th>Quelle</th><th>Dokumentation</th><th>Lokaler Zugang</th><th>Status</th></tr></thead><tbody>{catalogTools.map((tool) => <tr key={tool.id}><td><button type="button" onClick={() => { setSelectedId(tool.id); setMainView("catalog"); }}>{tool.title}</button></td><td>{tool.source}</td><td>{documentationStateFor(tool)}</td><td>{localPortFor(tool)}</td><td>{tool.status}</td></tr>)}</tbody></table></div>}
+        {controlTab === "scores" && <div className="score-grid">{[...catalogTools].sort((a, b) => documentationScoreFor(b) - documentationScoreFor(a)).map((tool) => <article key={tool.id}><div><strong>{tool.title}</strong><span>{documentationStateFor(tool)}</span></div><b>{documentationScoreFor(tool)}%</b><div className="score-track"><i style={{ width: `${documentationScoreFor(tool)}%` }}></i></div><small>{detailsFor(tool).evidence}</small></article>)}</div>}
         {controlTab === "ideas" && <div className="ideas-grid">{featureIdeas.map((idea) => <article key={idea.id}><h2>{idea.title}</h2><p>{idea.detail}</p><button type="button" onClick={() => voteForIdea(idea.id)}>Priorisieren <span>{idea.votes + (ideaVotes[idea.id] ?? 0)}</span></button></article>)}</div>}
         {controlTab === "remote" && <div className="control-panel remote-panel"><h2>Remote Launcher</h2><p>Die frühere Übersicht konnte Apps auf anderen Geräten über einen lokalen Dienst starten. Aktuell ist keiner der drei hinterlegten Rechner im erreichbaren Netzsegment.</p><div className="device-grid">{networkDevices.filter((device) => device.id !== "local").map((device) => <article key={device.id}><span className="device-dot unavailable"></span><div><strong>{device.name}</strong><p>{device.address}</p><small>Startdienst nicht erreichbar</small></div><button type="button" disabled>Starten</button></article>)}</div><p className="network-help">Sobald ein Status- und Startdienst auf dem jeweiligen Rechner erreichbar ist, kann dieser Bereich die Prüfung und den Startvorgang übernehmen.</p></div>}
       </section>}
@@ -885,20 +939,20 @@ export default function Home() {
       {mainView === "control" && controlTab === "security" && <section className="agent-enrollment control-panel" aria-label="Rechner aktivieren"><h2>Neuen Rechner aktivieren</h2><p>Erstellt einen einmaligen Code für den lokalen Status-Agenten. Das eigentliche Zugangsmerkmal wird nur auf dem jeweiligen Rechner gespeichert.</p><div className="agent-form"><input value={agentSetup.agentKey} onChange={(event) => setAgentSetup((current) => ({ ...current, agentKey: event.target.value }))} aria-label="Agentenkennung" placeholder="Agentenkennung" /><input value={agentSetup.deviceKey} onChange={(event) => setAgentSetup((current) => ({ ...current, deviceKey: event.target.value }))} aria-label="Gerätekennung" placeholder="Gerätekennung" /><input value={agentSetup.agentName} onChange={(event) => setAgentSetup((current) => ({ ...current, agentName: event.target.value }))} aria-label="Gerätename" placeholder="Name des Rechners" /><select value={agentSetup.appKey} onChange={(event) => setAgentSetup((current) => ({ ...current, appKey: event.target.value }))} aria-label="Zu prüfende App">{catalogTools.map((tool) => <option value={tool.id} key={tool.id}>{tool.title}</option>)}</select><input value={agentSetup.port} inputMode="numeric" onChange={(event) => setAgentSetup((current) => ({ ...current, port: event.target.value }))} aria-label="Lokaler Port" placeholder="Port" /><button type="button" onClick={createAgentEnrollment}>Einmal-Code erstellen</button></div><p className="security-notice">{agentNotice}</p>{agentEnrollment && <div className="agent-command"><strong>Auf dem neuen Rechner einmal ausführen:</strong><code>{agentEnrollment.command}</code><button type="button" onClick={() => navigator.clipboard?.writeText(agentEnrollment.command)}>Startbefehl kopieren</button><small>Code gültig bis {new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(agentEnrollment.expiresAt))}. Nach erfolgreichem Start ist er ungültig.</small></div>}</section>}
       {mainView === "control" && controlTab === "security" && <section className="evidence-upload control-panel" aria-label="Private Dateiablage"><h2>Echte Screens und geprüfte Dokumente ablegen</h2><p>Nur freigegebene Projektunterlagen hochladen. Passwörter, private Browserdaten und ungeprüfte Fallakten bleiben außerhalb des Katalogs.</p><div className="evidence-form"><select value={evidenceAppKey} onChange={(event) => setEvidenceAppKey(event.target.value)} aria-label="App auswählen">{catalogTools.map((tool) => <option value={tool.id} key={tool.id}>{tool.title}</option>)}</select><select value={evidenceKind} onChange={(event) => setEvidenceKind(event.target.value as "screenshot" | "document")} aria-label="Dateityp auswählen"><option value="screenshot">Echter Screen</option><option value="document">Geprüftes Dokument</option></select><input type="file" accept={evidenceKind === "screenshot" ? "image/png,image/jpeg,image/webp" : ".pdf,.json,.txt,.md"} onChange={(event) => setEvidenceFile(event.target.files?.[0] ?? null)} /><button type="button" onClick={uploadEvidence}>Geschützt hochladen</button></div><p className="security-notice">{evidenceNotice}</p></section>}
       {opened && <div className="app-window-layer" role="presentation">
-        <section className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Arbeitsfenster`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
+        <section ref={dialogRef} tabIndex={-1} className="app-window" role="dialog" aria-modal="true" aria-label={`${opened.title} Technische Daten`} style={{ transform: `translate(calc(-50% + ${windowPosition.x}px), calc(-50% + ${windowPosition.y}px))` }}>
           <header className="window-header" onPointerDown={startDrag} onPointerMove={moveWindow} onPointerUp={() => { drag.current = null; }}>
             <div className="window-title"><span className="source-marks"><ProviderIcon tool={opened} detail /><ClaudeSurfaceBadge tool={opened} /></span><div><strong>{opened.title}</strong><small>Arbeitsfenster - verschieben am Kopf, Groesse unten rechts anpassen</small></div></div>
-            <div className="window-actions"><button type="button" className="test-action" onClick={() => testApp(opened)}>App testen</button><a href={quickStartFor(opened)} target="_blank" rel="noreferrer">App oeffnen</a><button type="button" onClick={() => setOpenedId(null)} aria-label="Fenster schliessen">Schliessen</button></div>
+            <div className="window-actions"><button type="button" className="test-action" onClick={() => testApp(opened)}>App testen</button>{opened.published !== false && <a href={quickStartFor(opened)} target="_blank" rel="noreferrer">App öffnen</a>}<button type="button" onClick={() => setOpenedId(null)} aria-label="Fenster schliessen">Schliessen</button></div>
           </header>
           <nav className="window-tabs" aria-label="App-Informationen">
             <button className={windowTab === "profile" ? "active" : ""} onClick={() => setWindowTab("profile")}>Herkunft & Tool</button>
-            <button className={windowTab === "systems" ? "active" : ""} onClick={() => setWindowTab("systems")}>Architektur & Daten</button>
+            <button className={windowTab === "systems" ? "active" : ""} onClick={() => setWindowTab("systems")}>Technische Daten</button>
             <button className={windowTab === "screens" ? "active" : ""} onClick={() => setWindowTab("screens")}>Echte Screens ({allScreensFor(opened).length})</button>
           </nav>
           <div className="window-content">
             {windowTab === "profile" && <div className="window-profile"><div><p className="eyebrow">Entwickelt mit</p><h2>{detailsFor(opened).builder}</h2><p>{opened.detail}</p>{opened.trafficLight && <p className={`traffic-light ${opened.trafficLight}`} title={opened.trafficNote}><i></i>{trafficLabelFor(opened)} · {opened.trafficNote}</p>}{testResults[opened.id] && <p className={`test-result ${testResults[opened.id].phase}`}>{testResults[opened.id].message}</p>}</div><dl className="window-data"><div><dt>Quelle</dt><dd>{opened.source}</dd></div>{isClaudeWorkspace(opened) && <><div><dt>Claude-Oberfläche</dt><dd>{claudeSurfaceFor(opened)}</dd></div><div><dt>Erstellmodell</dt><dd>{claudeCreationModelFor(opened)}</dd></div></>}<div><dt>Direkt-URL</dt><dd><a className="data-link" href={quickStartFor(opened)} target="_blank" rel="noreferrer">{quickStartFor(opened)}</a></dd></div><div><dt>Startpunkt</dt><dd>{opened.location}</dd></div><div><dt>Lokaler Port</dt><dd>{localPortFor(opened)}</dd></div><div><dt>Zugang</dt><dd>{accessProfileFor(opened)}</dd></div><div><dt>Modellbezug der App</dt><dd>{detailsFor(opened).models}</dd></div><div><dt>Verbindungen</dt><dd>{detailsFor(opened).connections}</dd></div><div><dt>Pruefgrundlage</dt><dd>{detailsFor(opened).evidence}</dd></div><div><dt>Verwandte Apps</dt><dd>{opened.overlap ?? "Noch abgleichen"}</dd></div></dl></div>}
-            {windowTab === "systems" && <div className="systems-grid"><article><span>Frontend</span><strong>{detailsFor(opened).frontend}</strong></article><article><span>Middleware</span><strong>{detailsFor(opened).middleware}</strong></article><article><span>Backend</span><strong>{detailsFor(opened).backend}</strong></article><article><span>Datenbank</span><strong>{detailsFor(opened).database}</strong></article><article><span>Connections</span><strong>{detailsFor(opened).connections}</strong></article><article><span>Modelle</span><strong>{detailsFor(opened).models}</strong></article><article><span>Pruefgrundlage</span><strong>{detailsFor(opened).evidence}</strong></article></div>}
-            {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{allScreensFor(opened).length > 0 ? <div className="screens-grid">{allScreensFor(opened).map((screen) => <figure key={"id" in screen ? screen.id : screen.src}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
+            {windowTab === "systems" && <div><dl className="technical-summary"><div><dt>Version</dt><dd>{opened.version ? `${opened.projectId ? "Sites-Version " : ""}${opened.version}` : "Nicht erfasst"}</dd></div><div><dt>Hosting</dt><dd>{opened.hosting ?? opened.source}</dd></div><div><dt>Letzte Änderung</dt><dd>{opened.updatedAt ? new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyle: "short", timeZone: "Europe/Berlin" }).format(new Date(opened.updatedAt)) : opened.checkedAt ?? "Nicht verifiziert"}</dd></div><div><dt>Direkt-URL</dt><dd>{opened.url ? <a href={opened.url} target="_blank" rel="noreferrer">{opened.url}</a> : "Kein veröffentlichter Link erfasst"}</dd></div><div><dt>Zugang</dt><dd>{detailsFor(opened).access ?? "Nicht verifiziert"}</dd></div>{opened.projectId && <div><dt>Projekt-ID</dt><dd>{opened.projectId}</dd></div>}</dl><div className="systems-grid"><article><span>Frontend</span><strong>{detailsFor(opened).frontend}</strong></article><article><span>Middleware</span><strong>{detailsFor(opened).middleware}</strong></article><article><span>Backend</span><strong>{detailsFor(opened).backend}</strong></article><article><span>Datenbank</span><strong>{detailsFor(opened).database}</strong></article><article><span>Connections</span><strong>{detailsFor(opened).connections}</strong></article><article><span>Modelle</span><strong>{detailsFor(opened).models}</strong></article><article><span>Pruefgrundlage</span><strong>{detailsFor(opened).evidence}</strong></article></div></div>}
+            {windowTab === "screens" && <div><p className="screens-intro">Hier erscheinen ausschliesslich echte Ansichten der jeweiligen Anwendung. Es werden keine Platzhalter der Master-App als Produktbilder ausgegeben.</p>{allScreensFor(opened).length > 0 ? <div className="screens-grid">{allScreensFor(opened).map((screen) => <figure key={String("id" in screen ? screen.id : screen.src)}><img src={screen.src} alt={`Bildschirmansicht ${screen.title}`} /><figcaption>{screen.title}<span>{screen.source}</span></figcaption></figure>)}</div> : <p className="empty-screens">Noch kein echter Screen hinterlegt. Die Anwendung ist derzeit nur als Quellcode, Dokument oder geschuetzter Zugang vorhanden.</p>}</div>}
           </div>
         </section>
       </div>}
