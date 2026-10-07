@@ -6,7 +6,7 @@ type Source = "GitHub" | "Lokaler Rechner" | "Google Drive" | "Cloud";
 type Status = "Aktiv" | "Prüfen" | "Dokumentiert" | "Entwurf";
 type DetailPanel = "masterdata" | "tags" | "architecture" | "features";
 type WindowTab = "profile" | "systems" | "screens";
-type MainView = "dashboard" | "catalog" | "control" | "chats" | "costs";
+type MainView = "dashboard" | "catalog" | "control" | "chats" | "costs" | "access";
 type ControlTab = "analytics" | "sources" | "devices" | "matrix" | "scores" | "ideas" | "remote" | "security";
 
 type Tool = {
@@ -36,6 +36,9 @@ type CatalogSync = { phase: "loading" | "live" | "fallback"; message: string; sy
 type RemoteCatalogApp = { app_key: string; title: string; description: string; source: string; status: string; category: string; detail: string; builder: string | null; local_path: string | null; source_url: string | null; archive_url: string | null; created_on: string | null; last_checked_on: string | null; performance_note: string | null; traffic_light: "green" | "gray" | "red" | "unknown" | null; traffic_note: string | null; frontend: string | null; middleware: string | null; backend: string | null; database_technology: string | null; connections: string | null; models: string | null; evidence: unknown; access_profile: string | null };
 type RemoteCatalogChat = { external_key: string; provider: string; title: string; summary: string | null; occurred_on: string | null; model: string | null; app_key: string | null; app_match: string | null; access_status: string | null };
 type CostEntry = { id: string; app_key: string | null; provider: string; transaction_date: string; amount: number | string; currency: string; description: string | null; source: string };
+type AccessReference = { id: string; app_key: string | null; provider: string; vault_label: string; item_label: string; access_scope: string | null; last_verified_at: string | null };
+type Integration = { id: string; integration_key: string; provider: string; display_name: string; status: string; writes_status: boolean; auth_reference: string | null; last_checked_at: string | null; detail: string | null };
+type AccessOverview = { references: AccessReference[]; integrations: Integration[]; costs: CostEntry[] };
 type AgentSetup = { agentKey: string; deviceKey: string; agentName: string; appKey: string; port: string };
 type AgentEnrollment = { code: string; expiresAt: string; command: string };
 
@@ -542,6 +545,7 @@ export default function Home() {
   const [evidenceNotice, setEvidenceNotice] = useState("Noch keine Datei ausgewählt.");
   const [storedScreens, setStoredScreens] = useState<Record<string, StoredScreen[]>>({});
   const [costEntries, setCostEntries] = useState<CostEntry[]>([]);
+  const [accessOverview, setAccessOverview] = useState<AccessOverview | null>(null);
   const [costFile, setCostFile] = useState<File | null>(null);
   const [costNotice, setCostNotice] = useState("Noch keine Zahlungsdaten importiert.");
   const [agentSetup, setAgentSetup] = useState<AgentSetup>({ agentKey: "pc-2-agent", deviceKey: "pc-2", agentName: "PC 2", appKey: "overview", port: "3000" });
@@ -566,6 +570,18 @@ export default function Home() {
     const savedVotes = window.localStorage.getItem("catalog-feature-votes");
     setDarkMode(savedTheme === "dark");
     if (savedVotes) setIdeaVotes(JSON.parse(savedVotes) as Record<string, number>);
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/catalog/access", { cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json() as Partial<AccessOverview> & { error?: string };
+        if (!response.ok) throw new Error(data.error ?? "Zugänge konnten nicht geladen werden.");
+        if (active) setAccessOverview({ references: data.references ?? [], integrations: data.integrations ?? [], costs: data.costs ?? [] });
+      })
+      .catch(() => { if (active) setAccessOverview({ references: [], integrations: [], costs: [] }); });
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {
@@ -757,6 +773,7 @@ export default function Home() {
           <button type="button" className={mainView === "catalog" ? "active" : ""} onClick={() => setMainView("catalog")}>Apps</button>
           <button type="button" className={mainView === "chats" ? "active" : ""} onClick={() => setMainView("chats")}>Chats</button>
           <button type="button" className={mainView === "costs" ? "active" : ""} onClick={() => setMainView("costs")}>Cost</button>
+          <button type="button" className={mainView === "access" ? "active" : ""} onClick={() => setMainView("access")}>Access</button>
           <button type="button" className={mainView === "control" ? "active" : ""} onClick={() => setMainView("control")}>Control Center</button>
           <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
         </nav>
@@ -869,6 +886,13 @@ export default function Home() {
         <section className="cost-import"><div><h2>Zahlungen privat importieren</h2><p>CSV-Export aus Kreditkarte, PayPal, Apple/Google, App Store oder Anbieterrechnung wählen. Benötigte Spalten: <code>datum;anbieter;betrag;waehrung;app_key;beschreibung</code>.</p></div><div className="cost-import-actions"><input type="file" accept=".csv,text/csv" onChange={(event) => setCostFile(event.target.files?.[0] ?? null)} /><button type="button" onClick={importCosts}>CSV importieren</button><button type="button" className="secondary" onClick={downloadCostTemplate}>Vorlage laden</button></div><p>{costNotice}</p></section>
         <div className="cost-layout"><section className="cost-panel"><h2>Monatliche Entwicklung</h2><div className="cost-bars">{monthlyCosts.map((month) => <div key={month.month}><span style={{ height: `${Math.max(4, totalCosts ? (month.total / Math.max(...monthlyCosts.map((entry) => entry.total), 1)) * 100 : 4)}%` }} title={`${month.month}: ${month.total.toFixed(2)} EUR`}></span><small>{month.month}</small><b className={month.change > 0 ? "up" : month.change < 0 ? "down" : "flat"}>{month.change > 0 ? "↑" : month.change < 0 ? "↓" : "–"}</b></div>)}</div></section><section className="cost-panel"><h2>Kosten nach App</h2>{costByApp.length ? <div className="cost-app-list">{costByApp.map((item) => <button key={item.title} type="button" onClick={() => item.key && (setSelectedId(item.key), setMainView("catalog"))}><span>{item.title}<small>{item.entries} Zeilen</small></span><strong>{item.totalEur > 0 && new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(item.totalEur)}{item.totalEur > 0 && item.totalUsd > 0 && " · "}{item.totalUsd > 0 && new Intl.NumberFormat("de-DE", { style: "currency", currency: "USD" }).format(item.totalUsd)}</strong></button>)}</div> : <p className="empty-costs">Nach dem CSV-Import erscheinen hier die Gesamtkosten pro App.</p>}</section></div>
         <div className="documentation-table-wrap"><table className="documentation-table cost-table"><caption>Importierte Zahlungszeilen</caption><thead><tr><th>Datum</th><th>Anbieter</th><th>App</th><th>Beschreibung</th><th>Betrag</th><th>Quelle</th></tr></thead><tbody>{costEntries.length ? costEntries.map((entry) => <tr key={entry.id}><td>{entry.transaction_date}</td><td>{entry.provider}</td><td>{catalogTools.find((tool) => tool.id === entry.app_key)?.title ?? "Nicht zugeordnet"}</td><td>{entry.description ?? "—"}</td><td>{new Intl.NumberFormat("de-DE", { style: "currency", currency: entry.currency || "EUR" }).format(Number(entry.amount))}</td><td>{entry.source}</td></tr>) : <tr><td colSpan={6}>Noch keine realen Zahlungszeilen vorhanden.</td></tr>}</tbody></table></div>
+      </section>}
+      {mainView === "access" && <section className="access-view" aria-label="Zugänge und Abrechnung">
+        <div className="dashboard-heading"><div><p className="eyebrow">Privater Zugangsstatus</p><h1>Access & Abrechnung</h1><p>Hier stehen nur sichere Referenzen, Verbindungsstatus und belegte Zahlungsdaten. Kennwörter, API-Keys, Sitzungsdaten und Wiederherstellungscodes werden weder angezeigt noch gespeichert.</p></div><div className="documentation-summary"><span><strong>{accessOverview?.integrations.filter((item) => item.status === "connected").length ?? 0}</strong> verbunden</span><span><strong>{accessOverview?.references.length ?? 0}</strong> Vault-Referenzen</span></div></div>
+        <div className="access-summary-grid"><article><span>Belegte Zahlungen</span><strong>{accessOverview?.costs.length ?? costEntries.length}</strong><small>aus privatem Zahlungsimport</small></article><article><span>Schreibende Verbindungen</span><strong>{accessOverview?.integrations.filter((item) => item.writes_status).length ?? 0}</strong><small>mit bestätigtem Schreibstatus</small></article><article><span>Prüfgrundlage</span><strong>Serverseitig</strong><small>Private Site-Anmeldung erforderlich</small></article></div>
+        <section className="access-panel"><div className="access-panel-head"><div><p className="eyebrow">Anbieter-Zugänge</p><h2>Aktuell bekannte Verbindungen</h2></div><p>„Verbunden“ bedeutet, dass die Integration im Katalog hinterlegt ist; die tatsächliche Anmeldung wird nicht im Browser offengelegt.</p></div><div className="documentation-table-wrap"><table className="documentation-table access-table"><caption>Verbindungen und sichere Referenzen</caption><thead><tr><th>Anbieter</th><th>Verbindung</th><th>Status</th><th>Letzte Prüfung</th><th>Sicherer Verweis</th></tr></thead><tbody>{(accessOverview?.integrations ?? []).map((item) => { const refs = (accessOverview?.references ?? []).filter((ref) => ref.provider === item.provider); return <tr key={item.id}><td><strong>{item.provider}</strong></td><td>{item.display_name}<span>{item.detail ?? "Keine Zusatzinformation"}</span></td><td><span className={`access-state ${item.status === "connected" ? "connected" : "planned"}`}>{item.status === "connected" ? "Verbunden" : item.status === "planned" ? "Geplant" : "Prüfen"}</span></td><td>{item.last_checked_at ? new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyle: "short" }).format(new Date(item.last_checked_at)) : "Noch nicht protokolliert"}</td><td>{refs.length ? refs.map((ref) => <span className="vault-reference" key={ref.id}>{ref.vault_label} · {ref.item_label}</span>) : "Noch kein Vault-Verweis hinterlegt"}</td></tr>; })}</tbody></table></div></section>
+        <section className="access-panel"><div className="access-panel-head"><div><p className="eyebrow">Abrechnung</p><h2>Letzte belegte Zahlungen je Anbieter</h2></div><button type="button" onClick={() => setMainView("costs")}>Gesamte Kostenakte öffnen</button></div><div className="documentation-table-wrap"><table className="documentation-table access-table"><caption>Letzte Zahlungszeilen – ohne Zahlungs- oder Kartendaten</caption><thead><tr><th>Anbieter</th><th>Datum</th><th>Beschreibung</th><th>Betrag</th><th>Quelle</th></tr></thead><tbody>{Object.values((accessOverview?.costs ?? costEntries).reduce<Record<string, CostEntry>>((latest, item) => { const key = `${item.provider}|${item.currency}`; if (!latest[key] || latest[key].transaction_date < item.transaction_date) latest[key] = item; return latest; }, {})).map((item) => <tr key={`${item.provider}-${item.currency}`}><td><strong>{item.provider}</strong></td><td>{new Intl.DateTimeFormat("de-DE", { dateStyle: "medium" }).format(new Date(`${item.transaction_date}T00:00:00`))}</td><td>{item.description ?? "Zahlungszeile"}</td><td><strong>{new Intl.NumberFormat("de-DE", { style: "currency", currency: item.currency }).format(Number(item.amount))}</strong></td><td>{item.source}</td></tr>)}</tbody></table></div></section>
+        <section className="access-panel usage-note"><p className="eyebrow">Nutzung & Limits</p><h2>Bildschirmbeispiel richtig einordnen</h2><p>Der übergebene Nutzungsmonitor eignet sich als Quelle für Verbrauchs-Snapshots (z. B. Codex- oder Claude-Limits). Diese Werte sind Schätzwerte und keine Rechnungen. Sie werden erst nach einem eindeutigen Zeitpunkt und einer bestätigten Quelle als Verlauf gespeichert.</p></section>
       </section>}
       {mainView === "control" && <section className="control-center" aria-label="Control Center">
         <div className="dashboard-heading"><div><p className="eyebrow">Aus der bisherigen AI-Artefakte Übersicht integriert</p><h1>Control Center</h1><p>Inventar, Auswertung, Geräte, Bewertung, Ideen und Fernsteuerungs-Bereitschaft sind jetzt Teil des Master-Katalogs.</p></div><div className="documentation-summary"><span><strong>{allTools.length}</strong> Apps im Inventar</span><span><strong>{networkDevices.filter((device) => device.state === "online").length}/{networkDevices.length}</strong> Geräte erreichbar</span></div></div>
