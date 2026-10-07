@@ -1,8 +1,10 @@
-import { isAdmin, requireCatalogUser, supabaseRest, supabaseStorage } from "../../_lib/supabase-server";
+import { isAdmin, requireCatalogUser, supabaseRest, supabaseStorage, supabaseRows } from "../../_lib/supabase-server";
 
 export const dynamic = "force-dynamic";
 
-const tables = ["catalog_apps", "catalog_chats", "catalog_documents", "app_screenshots", "app_test_runs", "catalog_cost_entries", "device_statuses", "deployment_events", "catalog_integrations", "catalog_vault_references"];
+const coreTables=["catalog_apps", "catalog_chats", "catalog_documents", "app_screenshots", "app_test_runs", "catalog_cost_entries", "device_statuses", "deployment_events", "catalog_integrations", "catalog_vault_references"];
+const tables = ["catalog_site_users",...coreTables,"catalog_accounts","catalog_development","catalog_source_links","catalog_source_states","catalog_budgets","catalog_content_sources","catalog_comparisons"];
+type RestoreResult={restored:boolean;tableCounts?:Record<string,number>;externalDependencies?:number};
 
 async function checksum(content: string) {
   const bytes = new TextEncoder().encode(content);
@@ -25,15 +27,18 @@ export async function POST(request: Request) {
       const content = await contentResponse.text();
       const { checksum: calculatedChecksum } = await checksum(content);
       const payload = JSON.parse(content) as { tables?: Record<string, unknown[]> };
-      const valid = calculatedChecksum === latest.checksum_sha256 && tables.every((table) => Array.isArray(payload.tables?.[table]));
-      await supabaseRest(`catalog_backups?id=eq.${encodeURIComponent(latest.id)}`, { method: "PATCH", body: JSON.stringify({ status: valid ? "verified" : "failed", verified_at: new Date().toISOString(), detail: valid ? "Struktur und Prüfsumme erfolgreich wiederhergestellt geprüft." : "Prüfung fehlgeschlagen." }) });
-      return Response.json({ verified: valid });
+      const structural = calculatedChecksum === latest.checksum_sha256 && coreTables.every((table) => Array.isArray(payload.tables?.[table]));
+      let restore:RestoreResult|null=null;
+      if(structural)restore=await (await supabaseRest('rpc/catalog_validate_restore',{method:'POST',body:JSON.stringify({payload})})).json() as RestoreResult;
+      const valid=structural&&restore?.restored===true;
+      await supabaseRest(`catalog_backups?id=eq.${encodeURIComponent(latest.id)}`, { method: "PATCH", body: JSON.stringify({ status: valid ? "verified" : "failed", verified_at: new Date().toISOString(), detail: valid ? "Prüfsumme und Wiederherstellung in isolierten temporären Tabellen erfolgreich; interne Beziehungen geprüft. Binärdateien separat sichern." : "Wiederherstellung unvollständig: Prüfsumme, Struktur oder externe Abhängigkeiten prüfen." }) });
+      return Response.json({ verified: valid,restore });
     }
 
-    const rows = await Promise.all(tables.map(async (table) => [table, await (await supabaseRest(`${table}?select=*`, { headers: { Accept: "application/json" } })).json()] as const));
+    const rows = await Promise.all(tables.map(async (table) => [table, await supabaseRows<unknown>(`${table}?select=*&order=${table==='catalog_source_states'?'provider':table==='catalog_source_links'?'provider,remote_id':table==='catalog_development'?'app_key':table==='catalog_site_users'?'site_user_id':'id'}`)] as const));
     const tableData = Object.fromEntries(rows) as Record<string, unknown[]>;
     const createdAt = new Date().toISOString();
-    const content = JSON.stringify({ schema: "catalog-backup/v1", createdAt, tables: tableData }, null, 2);
+    const content = JSON.stringify({ schema: "catalog-backup/v2", createdAt, tables: tableData }, null, 2);
     const { bytes, checksum: checksumSha256 } = await checksum(content);
     const objectPath = `backups/catalog-${createdAt.replace(/[:.]/g, "-")}.json`;
     await supabaseStorage(`object/catalog-exports/${objectPath}`, { method: "POST", headers: { "Content-Type": "application/json", "x-upsert": "false" }, body: bytes });

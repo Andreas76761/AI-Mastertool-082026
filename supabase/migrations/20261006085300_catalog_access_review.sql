@@ -1,0 +1,1 @@
+alter table public.catalog_accounts add column if not exists login_method text not null default 'Noch nicht verifiziert', add column if not exists access_status text not null default 'open', add column if not exists checked_at timestamptz, add column if not exists check_basis text not null default '';

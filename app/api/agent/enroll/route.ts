@@ -23,7 +23,7 @@ async function sha256(value: string) {
   return Array.from(new Uint8Array(digest)).map((value) => value.toString(16).padStart(2, "0")).join("");
 }
 
-function validKey(value: string | undefined) {
+function validKey(value: string | undefined): value is string {
   return Boolean(value && /^[a-z0-9][a-z0-9_-]{1,79}$/i.test(value));
 }
 

@@ -43,3 +43,12 @@ yarn-error.log*
 .codex-*.log
 .master-tool-*.log
 /build/
+
+# Required runtime bridge sources must survive a fresh Site checkout.
+!/build/
+/build/*
+!/build/sites-vite-plugin.ts
+!/build/sites-vite-plugin.LICENSE
+
+# TypeScript incremental check cache
+*.tsbuildinfo
