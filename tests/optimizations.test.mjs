@@ -34,13 +34,14 @@ test('source logos distinguish creation platform from hosting and are local',()=
  assert.equal(providers.providerFor({id:'copilot',source:'Cloud',url:'https://copilotstudio.microsoft.com/environments/abc'}),'Microsoft Copilot');
  for(const asset of Object.values(providers.providerAssets))assert.ok(existsSync(new URL('../public/logos/'+asset.file,import.meta.url)),asset.file);
 });
-test('every app detail has four left registers and explicit architecture fields',()=>{
+test('every app detail has five left registers including IT data and explicit architecture fields',()=>{
  const {default:Registers,appRegisters}=load(new URL('../app/app-registers.tsx',import.meta.url));
- assert.equal(appRegisters.length,4);
+ assert.equal(appRegisters.length,5);
  const details={frontend:'React',middleware:'HTTP API',backend:'Worker',database:'Postgres',connections:'GitHub',models:'Keine',builder:'ChatGPT',access:'Eigener Zugang',evidence:'Quellcode'};
  const html=renderToStaticMarkup(React.createElement(Registers,{app:{id:'app',title:'Demo',source:'Cloud',description:'Ziel',detail:'Funktion',category:'KI',status:'Prüfen'},details,screens:[],usage:'Test',openAccounts(){},openOptimizations(){}}));
- assert.equal((html.match(/role="tab"/g)||[]).length,4);assert.match(html,/aria-orientation="vertical"/);
- for(const name of ['Ziel &amp; Verwendung','Architektur &amp; Zugänge','Optimierungen','Sonstiges','Frontend','Middleware','Backend','Zugangsdaten'])assert.ok(html.includes(name),name);
+ assert.equal((html.match(/role="tab"/g)||[]).length,5);assert.match(html,/aria-orientation="vertical"/);
+ for(const name of ['Ziel &amp; Verwendung','Architektur &amp; Zugänge','IT Daten','Optimierungen','Sonstiges','Frontend','Middleware','Backend','Zugangsdaten'])assert.ok(html.includes(name),name);
+ assert.match(readFileSync(new URL('../app/app-registers.tsx',import.meta.url),'utf8'),/Lokaler Port/);assert.match(readFileSync(new URL('../app/app-registers.tsx',import.meta.url),'utf8'),/Konnektoren/);
  assert.match(html,/noch kein konkretes Konto zugeordnet/);assert.doesNotMatch(html,/type="password"/);
 });
 test('expired evidence renders as requiring review and is excluded from the confirmed step count',()=>{
