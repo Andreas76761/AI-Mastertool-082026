@@ -831,13 +831,13 @@ export default function Home({snapshot}:{snapshot:RemoteCatalogApp[]}) {
           {view:"chats",label:"Chats",icon:"C",fresh:false},
           {view:"control",label:"Control Center",icon:"Z",fresh:false},
         ] as {view:MainView;label:string;icon:string;fresh:boolean}[]).map(item => <button type="button" key={item.view} title={item.label} aria-label={item.label} aria-current={mainView === item.view ? "page" : undefined} className={mainView === item.view ? "active" : ""} onClick={() => { setMainView(item.view); if(window.innerWidth<760)setSidebarCollapsed(true); }}><span className="nav-icon" aria-hidden="true">{item.icon}</span><span className="nav-label">{item.label}</span>{item.fresh && <small className="nav-new">Neu</small>}</button>)}</nav>
-        <div className="sidebar-footer"><strong>{catalogTools.length}</strong><span>Apps · Stand 06.10.2026</span></div>
+        <div className="sidebar-footer"><strong>{catalogTools.length}</strong><span>Apps · Stand 12.11.2026</span></div>
       </aside>
     <main className="app-shell">
       <header className="topbar">
         <div className="brand"><span className="brand-mark">M</span><span>Mein App-Katalog</span></div>
         <button type="button" className="theme-toggle" onClick={() => setDarkMode((current) => !current)} aria-label="Darstellung wechseln">{darkMode ? "Hell" : "Dunkel"}</button>
-        <p>App-Abgleich: 06.10.2026 · {catalogTools.filter((tool) => tool.isNew).length} neue Apps im Katalog</p>
+        <p>App-Abgleich: 12.11.2026 · {catalogTools.filter((tool) => tool.isNew).length} neue Apps im Katalog</p>
       </header>
 
       {(["accounts", "scores", "performance", "development", "duplicates"] as MainView[]).includes(mainView) && <Suspense fallback={<p role="status">Ansicht wird geladen …</p>}><PortfolioView mode={mainView as PortfolioMode} apps={catalogTools} detailsFor={(app) => detailsFor(app as Tool)} openApp={(app) => openTool(app as Tool)} refreshCosts={() => { void fetch("/api/catalog/costs", { cache: "no-store" }).then(async response => { const data = await response.json() as { entries?: CostEntry[] }; if (response.ok && data.entries) setCostEntries(data.entries); }).catch(() => setCostNotice("Kostenübersicht konnte nicht aktualisiert werden. Bitte erneut laden.")); }} /></Suspense>}
